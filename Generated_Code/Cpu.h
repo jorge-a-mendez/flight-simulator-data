@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-02-28, 15:06, # CodeGen: 0
+**     Date/Time   : 2014-02-28, 15:34, # CodeGen: 1
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -48,9 +48,9 @@
   } tPowerDownModes;
 #endif
 
-#define CPU_BUS_CLK_HZ              0x00400000UL /* Initial value of the bus clock frequency in Hz */
+#define CPU_BUS_CLK_HZ              0x01800000UL /* Initial value of the bus clock frequency in Hz */
 
-#define CPU_INSTR_CLK_HZ            0x00400000UL /* Initial value of the instruction clock frequency in Hz */
+#define CPU_INSTR_CLK_HZ            0x01800000UL /* Initial value of the instruction clock frequency in Hz */
 
 #define CPU_INT_CLK_HZ              0x8000UL /* Value of the internal oscillator clock frequency in Hz */
 
