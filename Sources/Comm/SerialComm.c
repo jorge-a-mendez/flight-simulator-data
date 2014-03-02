@@ -72,4 +72,5 @@ char desencola(buffer* t){
 	char x = t->buff[t->first];
 	++(t->first) %= BUF_SIZE;
 	t->size--;
+	return x;
 }
