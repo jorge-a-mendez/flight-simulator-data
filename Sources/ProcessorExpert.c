@@ -23,24 +23,52 @@
 #include "RX_LED.h"
 #include "TX_LED.h"
 #include "HEARTBIT.h"
+#include "POT.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
 
+#include "Comm/SerialComm.h"
+#include "types.h"
+
+typedef union{
+	int8u b[2];
+	int16u w;
+}pot_amp;
+
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
 void main(void)
 {
-  /* Write your local variable definition here */
-
+  bool enviar;
+  pot_amp measure;
+  _trama a;
+  int8u correction = 0;
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
-
+  AS1_SendChar('i');
   /* Write your code here */
-  /* For example: for(;;) { } */
+  enviar = false;
+  for(;;){
+	  
+	  POT_Measure(TRUE);
+	  POT_GetValue(&(measure.w));
+	  a.t[0] = 1;
+	  a.t[1] = measure.b[0];
+	  if(measure.b[1] == 0xFF) {
+		  a.t[2] = measure.b[1] - 1;
+		  correction = 2;
+	  }
+	  else a.t[2] = measure.b[1];
+	  a.tam = 3;
+	  send_data(&a,correction);
+	  enviar = false;
+	  correction = 0;
+  }
+  
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
