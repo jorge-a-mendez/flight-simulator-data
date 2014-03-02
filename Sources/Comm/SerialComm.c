@@ -8,14 +8,14 @@
  */
 
 
-#include "./SerialComm.h"
+#include "Comm/SerialComm.h"
 
 static buffer bufTx;
 static buffer bufRx;
 //#################################################################################
 // Funciones privadas.
 
-void heartbit();		//< Parpadeo de led para indicar envio y recepcion de datos.
+
 void encola(buffer* t, char x);
 char desencola(buffer* t);
 
@@ -50,9 +50,6 @@ void read_data(string data, int8u size){
 	return;		//< Falta implementacion...
 }
 
-
-//##################################################################################
-
 void heartbit(){
 	if(bufTx.size != 0)	
 		TX_LED_NegVal();
@@ -62,15 +59,20 @@ void heartbit(){
 	else RX_LED_SetVal();
 }
 
+//##################################################################################
+
+
 void encola(buffer* t, char x){
 	t->buff[t->last] = x;
-	++(t->last) %= BUF_SIZE;
+	++(t->last);
+	t->last %= BUF_SIZE;
 	t->size++;
 }
 
 char desencola(buffer* t){
 	char x = t->buff[t->first];
-	++(t->first) %= BUF_SIZE;
+	++(t->first);
+	t->first %= BUF_SIZE;
 	t->size--;
 	return x;
 }

@@ -10,7 +10,7 @@
 #ifndef SERIALCOMM_H_
 #define SERIALCOMM_H_
 
-#include "../types.h"
+#include "types.h"
 
 #define INICIAR	0x00		//< Caracter de inicio de comunicacion.
 #define FIN		0xFF		//< Caracter de fin de comunicacion.
@@ -27,9 +27,9 @@
 
 #define NO_CORRECTION	1u
 
-#define 	BUF_SIZE 64u;		//< Tama;o del buffer para la comunicacion
-#define 	RX_LED	 0x00;		//< Mascara para LED de recepcion PTC0
-#define 	TX_LED	 0x01;		//< Mascara para LED de transmision PTC1
+#define 	BUF_SIZE 64u		//< Tama;o del buffer para la comunicacion
+#define 	RX_LED	 0x00		//< Mascara para LED de recepcion PTC0
+#define 	TX_LED	 0x01		//< Mascara para LED de transmision PTC1
 
 //RingBuffer para manejo de la comunicacion serial.
 
