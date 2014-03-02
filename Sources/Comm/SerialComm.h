@@ -17,12 +17,11 @@
 
 //< Type Code. 1 byte que representa el tipo de dato a enviar.
 
-#define PANELX	1u			//< Paneles de los sensores capacitivos.
-#define PANELY	2u
-#define PANELZ  3u
-#define ACCEL_X	4u
-#define ACCEL_Y 5u
-#define PIEZO	6u
+#define PANELX		1u			//< Paneles de los sensores capacitivos.
+#define PANELY		2u
+#define PANELZ  	3u
+#define ACCEL_ANGLE	4u			//< Angulo medido mediante el acelerometro.
+#define PIEZO		5u			//< 
 
 //< Correction code. Posibles correcciones correspondiente a los datos enviados.
 
