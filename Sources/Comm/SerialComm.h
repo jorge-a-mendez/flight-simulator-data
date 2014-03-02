@@ -38,6 +38,7 @@ typedef struct struct_buffer{
 	char buff[BUF_SIZE];
 	int8u first;
 	int8u last;	
+	int8u size;
 }buffer;
 
 /* ###########################################################################
@@ -47,11 +48,11 @@ typedef struct struct_buffer{
  * ###########################################################################*/
 
 void init_buff();			//< Necesario llamar una vez para inicializacion del buffer
-
+void heartbit();			//< Parpadeo de led para indicar envio y recepcion de datos. Llamado en evento HEARTBIT
 void rx_handler();			//< Manejadores para la comunicacion serial.
 void tx_handler();			
 
-void send_data(string data); //< Envia informacion a traves del puerto serial.
+void send_data(string data, int8u correction); //< Envia informacion a traves del puerto serial.
 void read_data(string data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
 
 #endif /* SERIALCOMM_H_ */

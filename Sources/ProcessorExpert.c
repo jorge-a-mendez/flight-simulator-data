@@ -20,6 +20,9 @@
 #include "Cpu.h"
 #include "Events.h"
 #include "AS1.h"
+#include "RX_LED.h"
+#include "TX_LED.h"
+#include "HEARTBIT.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-02-28, 15:34, # CodeGen: 1
+**     Date/Time   : 2014-03-01, 19:53, # CodeGen: 2
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -17,6 +17,7 @@
 **     Contents    :
 **         EnableInt  - void Cpu_EnableInt(void);
 **         DisableInt - void Cpu_DisableInt(void);
+**         Delay100US - void Cpu_Delay100US(word us100);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -29,6 +30,9 @@
 #pragma MESSAGE DISABLE C4002 /* WARNING C4002: Result not used is ignored */
 
 #include "AS1.h"
+#include "RX_LED.h"
+#include "TX_LED.h"
+#include "HEARTBIT.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -39,6 +43,9 @@
 
 /* Global variables */
 volatile byte CCR_reg;                 /* Current CCR register */
+
+/*Definition of global shadow variables*/
+byte Shadow_PTC;
 
 
 /*
@@ -90,6 +97,65 @@ void Cpu_EnableInt(void)
 
 **      This method is implemented as macro in the header module. **
 */
+
+/*
+** ===================================================================
+**     Method      :  Cpu_Delay100US (component MC9S08QE128_80)
+**
+**     Description :
+**         This method realizes software delay. The length of delay
+**         is at least 100 microsecond multiply input parameter
+**         [us100]. As the delay implementation is not based on real
+**         clock, the delay time may be increased by interrupt
+**         service routines processed during the delay. The method
+**         is independent on selected speed mode.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         us100           - Number of 100 us delay repetitions.
+**     Returns     : Nothing
+** ===================================================================
+*/
+#pragma NO_ENTRY
+#pragma NO_EXIT
+#pragma MESSAGE DISABLE C5703
+void Cpu_Delay100US(word us100)
+{
+  /* Total irremovable overhead: 16 cycles */
+  /* ldhx: 5 cycles overhead (load parameter into register) */
+  /* jsr:  5 cycles overhead (jump to subroutine) */
+  /* rts:  6 cycles overhead (return from subroutine) */
+
+  /* aproximate irremovable overhead for each 100us cycle (counted) : 8 cycles */
+  /* aix:  2 cycles overhead  */
+  /* cphx: 3 cycles overhead  */
+  /* bne:  3 cycles overhead  */
+  /*lint -save  -e950 -e522 Disable MISRA rule (1.1,14.2) checking. */
+  asm {
+loop:
+    /* 100 us delay block begin */
+    /*
+     * Delay
+     *   - requested                  : 100 us @ 25.165824MHz,
+     *   - possible                   : 2517 c, 100016.59 ns, delta 16.59 ns
+     *   - without removable overhead : 2509 c, 99698.7 ns
+     */
+    pshh                               /* (2 c: 79.47 ns) backup H */
+    pshx                               /* (2 c: 79.47 ns) backup X */
+    ldhx #$0138                        /* (3 c: 119.21 ns) number of iterations */
+label0:
+    aix #-1                            /* (2 c: 79.47 ns) decrement H:X */
+    cphx #0                            /* (3 c: 119.21 ns) compare it to zero */
+    bne label0                         /* (3 c: 119.21 ns) repeat 312x */
+    pulx                               /* (3 c: 119.21 ns) restore X */
+    pulh                               /* (3 c: 119.21 ns) restore H */
+    /* 100 us delay block end */
+    aix #-1                            /* us100 parameter is passed via H:X registers */
+    cphx #0
+    bne loop                           /* next loop */
+    rts                                /* return from subroutine */
+  }
+  /*lint -restore Enable MISRA rule (1.1,14.2) checking. */
+}
 
 /*
 ** ===================================================================
@@ -165,6 +231,12 @@ void PE_low_level_init(void)
   clrSetReg8Bits(PTBDD, 0x01U, 0x02U);  
   /* PTBD: PTBD1=1 */
   setReg8Bits(PTBD, 0x02U);             
+  /* PTCD: PTCD1=1,PTCD0=1 */
+  setReg8Bits(PTCD, 0x03U);             
+  /* PTCPE: PTCPE1=0,PTCPE0=0 */
+  clrReg8Bits(PTCPE, 0x03U);            
+  /* PTCDD: PTCDD1=1,PTCDD0=1 */
+  setReg8Bits(PTCDD, 0x03U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -204,6 +276,12 @@ void PE_low_level_init(void)
   /* ### Shared modules init code ... */
   /* ### Asynchro serial "AS1" init code ... */
   AS1_Init();
+  /* ### BitIO "RX_LED" init code ... */
+  Shadow_PTC |= (byte)0x01U;           /* Initialize pin shadow variable bit */
+  /* ### BitIO "TX_LED" init code ... */
+  Shadow_PTC |= (byte)0x02U;           /* Initialize pin shadow variable bit */
+  /* ### TimerInt "HEARTBIT" init code ... */
+  HEARTBIT_Init();
   __EI();                              /* Enable interrupts */
 }
 
