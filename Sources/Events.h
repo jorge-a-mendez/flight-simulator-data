@@ -24,6 +24,9 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "AS1.h"
+#include "RX_LED.h"
+#include "TX_LED.h"
+#include "HEARTBIT.h"
 
 
 void AS1_OnError(void);
@@ -68,6 +71,22 @@ void AS1_OnTxChar(void);
 **     Component   :  AS1 [AsynchroSerial]
 **     Description :
 **         This event is called after a character is transmitted.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void HEARTBIT_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  HEARTBIT_OnInterrupt (module Events)
+**
+**     Component   :  HEARTBIT [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================

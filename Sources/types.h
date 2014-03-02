@@ -10,6 +10,10 @@
 #ifndef TYPES_H_
 #define TYPES_H_
 
+#define true	1u;
+#define false	0u;
+
+typedef unsigned char bool;
 typedef char* string;
 typedef unsigned char int8u;
 typedef signed char   int8s;
