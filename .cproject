@@ -29,7 +29,7 @@
 						<toolChain id="hcs08.project.toolchain.812826730" name="HCS08 Toolchain" superClass="hcs08.project.toolchain">
 							<option id="hc08.toolchain.sharedoption.mmu.965622129" superClass="hc08.toolchain.sharedoption.mmu" value="true" valueType="boolean"/>
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="hc08.toolchain.platform.71125787" name="HC08 Targetplatform" superClass="hc08.toolchain.platform"/>
-							<builder buildPath="${ProjDirPath}/FLASH" id="hc08.toolchain.builder.1873592841" name="GNU Make Builder.FLASH" parallelBuildWorkspaceOn="true" superClass="hc08.toolchain.builder"/>
+							<builder buildPath="${ProjDirPath}/FLASH" id="hc08.toolchain.builder.1873592841" name="GNU Make Builder.FLASH" parallelBuildWorkspaceOn="true" parallelizationNumber="-1" superClass="hc08.toolchain.builder"/>
 							<tool id="s08.toolchain.decoder.1571816265" name="S08 Disassembler" superClass="s08.toolchain.decoder"/>
 							<tool id="hc08.toolchain.linker.1516780340" name="S08 Linker" superClass="hc08.toolchain.linker">
 								<option id="hc08.toolchain.linker.base.general.paramFile.724763403" superClass="hc08.toolchain.linker.base.general.paramFile" value="${ProjDirPath}/Project_Settings/Linker_Files/ProcessorExpert.prm" valueType="string"/>

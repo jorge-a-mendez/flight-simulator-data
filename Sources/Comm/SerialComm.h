@@ -27,7 +27,7 @@
 
 #define NO_CORRECTION	1u
 
-#define 	BUF_SIZE 64u		//< Tama;o del buffer para la comunicacion
+#define 	BUF_SIZE 64		//< Tama;o del buffer para la comunicacion
 #define 	RX_LED	 0x00		//< Mascara para LED de recepcion PTC0
 #define 	TX_LED	 0x01		//< Mascara para LED de transmision PTC1
 
@@ -40,6 +40,11 @@ typedef struct struct_buffer{
 	int8u size;
 }buffer;
 
+typedef struct struct_trama{
+	int8u t[BUF_SIZE];
+	int8u tam;
+}_trama;
+
 /* ###########################################################################
 
 			PROCEDIMIENTOS PARA MANEJO DEL PROTOCOLO DE COMUNICACION
@@ -51,7 +56,7 @@ void heartbit();			//< Parpadeo de led para indicar envio y recepcion de datos. 
 void rx_handler();			//< Manejadores para la comunicacion serial.
 void tx_handler();			
 
-void send_data(string data, int8u correction); //< Envia informacion a traves del puerto serial.
-void read_data(string data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
+void send_data(_trama* data, int8u correction); //< Envia informacion a traves del puerto serial.
+void read_data(_trama* data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
 
 #endif /* SERIALCOMM_H_ */

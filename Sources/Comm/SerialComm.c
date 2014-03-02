@@ -9,7 +9,10 @@
 
 
 #include "Comm/SerialComm.h"
-
+#include "RX_LED.h"
+#include "TX_LED.h"
+#include "HEARTBIT.h"
+#include "AS1.h"
 static buffer bufTx;
 static buffer bufRx;
 //#################################################################################
@@ -31,22 +34,26 @@ void init_buff() {
 }
 
 void rx_handler(){
-	encola(&bufRx, AS1_RecvChar());
+	char a;
+	AS1_RecvChar(&a);
+	encola(&bufRx, a);
 }
 
 void tx_handler() {
+	if(bufTx.size == 0) return;
 	AS1_SendChar(desencola(&bufTx));
 }
 
-void send_data(string data, int8u correction){
+void send_data(_trama* data, int8u correction){
 	int8u i;
 	encola(&bufTx, INICIAR);
-	for(i = 0; data[i] != 0; i++)
-		encola(&bufTx, data[i]);
+	for(i = 0; i < data->tam; i++)
+		encola(&bufTx, data->t[i]);
+	encola(&bufTx, correction);
 	encola(&bufTx, FIN);
 }
 
-void read_data(string data, int8u size){
+void read_data(_trama* data, int8u size){
 	return;		//< Falta implementacion...
 }
 
@@ -63,10 +70,12 @@ void heartbit(){
 
 
 void encola(buffer* t, char x){
+	while(t->size == BUF_SIZE);
 	t->buff[t->last] = x;
 	++(t->last);
 	t->last %= BUF_SIZE;
 	t->size++;
+	if(t->size > BUF_SIZE) t->size = BUF_SIZE;
 }
 
 char desencola(buffer* t){
