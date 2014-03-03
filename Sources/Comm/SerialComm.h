@@ -41,7 +41,7 @@ typedef struct struct_buffer{
 }buffer;
 
 typedef struct struct_trama{
-	int8u t[BUF_SIZE];
+	int8u* t;
 	int8u tam;
 }_trama;
 
@@ -58,5 +58,11 @@ void tx_handler();
 
 void send_data(_trama* data, int8u correction); //< Envia informacion a traves del puerto serial.
 void read_data(_trama* data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
+
+_trama* new_trama(int8u size);
+void delete_trama(_trama* t);
+void add_trama(_trama* t, int8u x);
+void add_block(_trama* t, int8u x[]);
+
 
 #endif /* SERIALCOMM_H_ */
