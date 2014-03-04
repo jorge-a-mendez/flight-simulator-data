@@ -20,8 +20,8 @@ static buffer bufRx;
 // Funciones privadas.
 
 
-void encola(buffer* t, char x);
-char desencola(buffer* t);
+void __encola(buffer* t, char x);
+char __desencola(buffer* t);
 
 //#################################################################################
 
@@ -37,21 +37,21 @@ void init_buff() {
 void rx_handler(){
 	char a;
 	AS1_RecvChar(&a);
-	encola(&bufRx, a);
+	__encola(&bufRx, a);
 }
 
 void tx_handler() {
 	if(bufTx.size == 0) return;
-	AS1_SendChar(desencola(&bufTx));
+	AS1_SendChar(__desencola(&bufTx));
 }
 
 void send_data(_trama* data, int8u correction){
 	int8u i;
-	encola(&bufTx, INICIAR);
+	__encola(&bufTx, INICIAR);
 	for(i = 0; i < data->tam; i++)
-		encola(&bufTx, data->t[i]);
-	encola(&bufTx, correction);
-	encola(&bufTx, FIN);
+		__encola(&bufTx, data->t[i]);
+	__encola(&bufTx, correction);
+	__encola(&bufTx, FIN);
 }
 
 void read_data(_trama* data, int8u size){
@@ -70,7 +70,7 @@ void heartbit(){
 //##################################################################################
 
 
-void encola(buffer* t, char x){
+void __encola(buffer* t, char x){
 	while(t->size == BUF_SIZE);
 	t->buff[t->last] = x;
 	++(t->last);
@@ -79,7 +79,7 @@ void encola(buffer* t, char x){
 	if(t->size > BUF_SIZE) t->size = BUF_SIZE;
 }
 
-char desencola(buffer* t){
+char __desencola(buffer* t){
 	char x = t->buff[t->first];
 	++(t->first);
 	t->first %= BUF_SIZE;

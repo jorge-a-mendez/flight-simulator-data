@@ -40,20 +40,10 @@ typedef union{
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
-void main(void)
-{
-  bool enviar;
-  pot_amp measure;
-  _trama a;
-  int8u correction = 0;
-  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
-  PE_low_level_init();
-  /*** End of Processor Expert internal initialization.                    ***/
-  AS1_SendChar('i');
-  /* Write your code here */
-  enviar = false;
-  for(;;){
-	  
+
+void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
+	for(;;){
+		  
 	  POT_Measure(TRUE);
 	  POT_GetValue(&(measure.w));
 	  a.t[0] = 1;
@@ -66,15 +56,33 @@ void main(void)
 	  a.tam = 3;
 	  send_data(&a,correction);
 	  enviar = false;
-	  correction = 0;
-  }
+	  correction = 0;	  
+	}
+}
   
+
+void main(void)
+{
+  bool enviar;
+  pot_amp measure;
+  _trama a;
+  int8u correction = 0;
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  PE_low_level_init();
+  /*** End of Processor Expert internal initialization.                    ***/
+  AS1_SendChar('i');		//< Activa la interrupcion de envio. 
+  /* Write your code here */
+  enviar = false;
+  
+  prueba_pot(&a, &measure, &correction, &enviar);
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
   for(;;){}
   /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
+
+
 
 /* END ProcessorExpert */
 /*
