@@ -28,8 +28,8 @@ char desencola(buffer* t);
 void init_buff() {
 	bufTx.first = 0;
 	bufTx.last = 0;
+	bufTx.size = 0;
 	bufRx.first = 0;
-	bufRx.size = 0;
 	bufRx.last = 0;
 	bufRx.size = 0;
 }
