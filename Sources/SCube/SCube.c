@@ -41,3 +41,7 @@ int16u get_frequency(void* pin){
 void waitOnNegValue(void* pin, bool initVal){
 	while((bool)(*pin) == initVal)	
 }
+
+int16u get_capacitance(int16u f){
+	return f*Kf;
+}

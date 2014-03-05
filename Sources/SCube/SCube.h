@@ -50,6 +50,7 @@ byte* get_posZ();
 
 int16u get_frequency(void* pin);
 void waitOnNegValue(void* pin, bool initVal);
+int16u get_capacitance(int16u f);
 
 
 #endif /* SCUBE_H_ */
