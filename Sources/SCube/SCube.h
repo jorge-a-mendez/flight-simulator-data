@@ -35,7 +35,7 @@ typedef struct struct_SCube{
 ///#################################################################################
 // Funciones publicas.
 
-void calibrateSCube(SCube* cube);
+void calibrateSCube(SCube *cube);
 byte* get_posX();
 byte* get_posY();
 byte* get_posZ();
@@ -48,8 +48,8 @@ byte* get_posZ();
 //periodo). Luego se inicia un timer y se espera a que cambie el valor dos veces y
 //el tiempo que haya tomado en cambiar esas dos veces seria el periodo.
 
-int16u get_frequency(int16u pin);
-void waitOnNegValue(int16u pin, bool initVal);
+int16u get_frequency(void* pin);
+void waitOnNegValue(void* pin, bool initVal);
 
 
 #endif /* SCUBE_H_ */
