@@ -7,10 +7,16 @@
 
 
 ///#################################################################################
+// Funciones privadas.
+
+byte get_piezoADC();
+byte max(byte a[100]);
+
+///#################################################################################
 // Funciones publicas.
 
 byte get_shot(){
-	byte shotVal = get_piezoADC;
+	byte shotVal = get_piezoADC();
 	if(shotVal < SOFT*MAXVALUE/3){
 		return NOSHOT;
 	}
@@ -30,7 +36,7 @@ byte get_shot(){
 
 byte get_piezoADC(){
 	byte i;
-	byte adc_measures[BUF_SIZE];
+	byte adc_measures[BUF_SIZE];			//Creo que se deberia implementar en processor expert. Asi tendremos menos errores de perifericos
 	ADCSC1 |= PIEZO_CH;
 	for(i = 0; i < BUF_SIZE; i++){
 		while(!ADCSC1_COCO);
@@ -42,7 +48,7 @@ byte get_piezoADC(){
 byte max(byte a[BUF_SIZE]){
 	byte max = a[0], i;
 	for(i = 1; i < BUF_SIZE; i++){
-		if(a[BUF_SIZE > max]) max = a[BUF_SIZE];
+		if(a[BUF_SIZE] > max) max = a[BUF_SIZE];
 	}
 	return max;
 }
