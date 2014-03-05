@@ -31,11 +31,12 @@ byte* get_posZ(){
 
 int16u get_frequency(void* pin){
 	waitOnNegVal(pin,(bool)(*pin));
-	setTimer();
+	setTimer();						//los tiempos dependeran del rango de frecuencias a usar.
+									//tambien de eso dependera si se toman varios periodos o basta uno solo.
 	waitOnNegVal(pin,(bool)(*pin));
 	waitOnNegVal(pin,(bool)(*pin));
 	stopTimer();					//habria que pasar el timer que sea creado en setTimer
-	getTime();
+	return getTime();
 }
 
 void waitOnNegValue(void* pin, bool initVal){
