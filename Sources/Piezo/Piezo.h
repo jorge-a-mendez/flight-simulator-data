@@ -23,10 +23,4 @@
 
 byte get_shot();
 
-///#################################################################################
-// Funciones privadas.
-
-byte get_piezoADC();
-byte max(byte a[100]);
-
 #endif /* PIEZO_H_ */
