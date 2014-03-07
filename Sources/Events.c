@@ -85,9 +85,9 @@ void HEARTBIT_OnInterrupt(void)
 
 /*
 ** ===================================================================
-**     Event       :  POT_OnEnd (module Events)
+**     Event       :  ADC_ANALOG_OnEnd (module Events)
 **
-**     Component   :  POT [ADC]
+**     Component   :  ADC_ANALOG [ADC]
 **     Description :
 **         This event is called after the measurement (which consists
 **         of <1 or more conversions>) is/are finished.
@@ -97,7 +97,7 @@ void HEARTBIT_OnInterrupt(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
-void POT_OnEnd(void)
+void ADC_ANALOG_OnEnd(void)
 {
 	enviar = true;
 }

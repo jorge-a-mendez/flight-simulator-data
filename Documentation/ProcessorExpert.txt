@@ -65,14 +65,16 @@ Module "TX_LED"    (component BitIO)
 
 Module "HEARTBIT"  (component TimerInt)
 
-Module "POT"       (component ADC)
-   - POT_Measure -This method performs one measurement on all channels that are set in the component inspector. (Note: If the 
-                <number of conversions> is more than one the conversion of A/D channels is performed specified number of times.)
-   - POT_GetValue -Returns the last measured values for all channels. Format and width of the value is a native format of the 
-                A/D converter.
-   - POT_GetValue16 -This method returns the last measured values of all channels justified to the left. Compared with 
-                <GetValue> method this method returns more accurate result if the <number of conversions> is greater than 1 and 
-                <AD resolution> is less than 16 bits. In addition, the user code dependency on <AD resolution> is eliminated.
+Module "ADC_ANALOG" (component ADC)
+   - ADC_ANALOG_Measure -This method performs one measurement on all channels that are set in the component inspector. (Note: 
+                If the <number of conversions> is more than one the conversion of A/D channels is performed specified number of 
+                times.)
+   - ADC_ANALOG_MeasureChan -This method performs measurement on one channel. (Note: If the <number of conversions> is more 
+                than one the conversion of the A/D channel is performed specified number of times.)
+   - ADC_ANALOG_GetValue -Returns the last measured values for all channels. Format and width of the value is a native format 
+                of the A/D converter.
+   - ADC_ANALOG_GetChanValue -Returns the last measured value of the required channel. Format and width of the value is a 
+                native format of the A/D converter.
 
 Module "Cpu"       (component MC9S08QE128_80)
    - Cpu_EnableInt -Enables maskable interrupts

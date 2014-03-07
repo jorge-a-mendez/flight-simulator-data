@@ -1,6 +1,8 @@
 /* ###################################################################################
  * Accel.c
- *
+ *		Este modulo implementa las funciones y procedimientos necesarias
+ *		para la adquisicion, procesamiento y transmision de datos provenientes
+ *		del acelerometro de 3 ejes de Freescale.
  *      Author: Rafael Rodriguez
  *      		Jorge Mendez
  * ###################################################################################
@@ -17,9 +19,9 @@
 #define CH_Z			3u
 
 typedef struct {					//< Private struct for data buffering
-	int8u x[ACCEL_BUFSIZE];
-	int8u y[ACCEL_BUFSIZE];
-	int8u z[ACCEL_BUFSIZE];
+	int16u x[ACCEL_BUFSIZE];
+	int16u y[ACCEL_BUFSIZE];
+	int16u z[ACCEL_BUFSIZE];
 	int8u last;
 }__accel_data;
 
