@@ -23,7 +23,7 @@
 #include "RX_LED.h"
 #include "TX_LED.h"
 #include "HEARTBIT.h"
-#include "POT.h"
+#include "ADC_ANALOG.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -44,8 +44,8 @@ typedef union{
 void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 	for(;;){
 		  
-	  POT_Measure(TRUE);
-	  POT_GetValue(&(measure.w));
+	  ADC_ANALOG_Measure(TRUE);
+	  ADC_ANALOG_GetValue(&(measure.w));
 	  a.t[0] = 1;
 	  a.t[1] = measure.b[0];
 	  if(measure.b[1] == 0xFF) {

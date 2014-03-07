@@ -27,7 +27,7 @@
 #include "RX_LED.h"
 #include "TX_LED.h"
 #include "HEARTBIT.h"
-#include "POT.h"
+#include "ADC_ANALOG.h"
 
 
 void AS1_OnError(void);
@@ -76,12 +76,12 @@ void HEARTBIT_OnInterrupt(void);
 ** ===================================================================
 */
 
-void POT_OnEnd(void);
+void ADC_ANALOG_OnEnd(void);
 /*
 ** ===================================================================
-**     Event       :  POT_OnEnd (module Events)
+**     Event       :  ADC_ANALOG_OnEnd (module Events)
 **
-**     Component   :  POT [ADC]
+**     Component   :  ADC_ANALOG [ADC]
 **     Description :
 **         This event is called after the measurement (which consists
 **         of <1 or more conversions>) is/are finished.
