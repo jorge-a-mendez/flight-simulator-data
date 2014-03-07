@@ -17,19 +17,25 @@
 
 //< Type Code. 1 byte que representa el tipo de dato a enviar.
 
-#define PANELX		1u			//< Paneles de los sensores capacitivos.
-#define PANELY		2u
-#define PANELZ  	3u
-#define ACCEL_ANGLE	4u			//< Angulo medido mediante el acelerometro.
-#define PIEZO		5u			//< 
+#define PANELX			1u			//< Paneles de los sensores capacitivos.
+#define PANELY			2u
+#define PANELZ  		3u
+#define ACCEL_ANGLE_XZ	4u			//< Angulo medido mediante el acelerometro.
+#define ACCEL_ANGLE_YZ	5u
+#define PIEZO			6u			//< Nivel del piezoelectrico 
 
 //< Correction code. Posibles correcciones correspondiente a los datos enviados.
 
-#define NO_CORRECTION	1u
+#define		NO_CORRECTION		0u
+#define 	ANGLE_CORRECTION_3	1<<3
+#define 	ANGLE_CORRECTION_2	1<<2
+#define 	ANGLE_CORRECTION_1	1<<2
+#define 	ANGLE_CORRECTION_0	1<<1
 
-#define 	BUF_SIZE 64		//< Tama;o del buffer para la comunicacion
-#define 	RX_LED	 0x00		//< Mascara para LED de recepcion PTC0
-#define 	TX_LED	 0x01		//< Mascara para LED de transmision PTC1
+#define		TRAMA_SIZE		10u
+#define 	BUF_SIZE 		64			//< Tama;o del buffer para la comunicacion
+#define 	RX_LED	 		0x00		//< Mascara para LED de recepcion PTC0
+#define 	TX_LED	 		0x01		//< Mascara para LED de transmision PTC1
 
 //RingBuffer para manejo de la comunicacion serial.
 
@@ -41,7 +47,7 @@ typedef struct struct_buffer{
 }buffer;
 
 typedef struct struct_trama{
-	int8u* t;
+	int8u t[TRAMA_SIZE];
 	int8u tam;
 }_trama;
 
@@ -58,11 +64,6 @@ void tx_handler();
 
 void send_data(_trama* data, int8u correction); //< Envia informacion a traves del puerto serial.
 void read_data(_trama* data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
-
-_trama* new_trama(int8u size);
-void delete_trama(_trama* t);
-void add_trama(_trama* t, int8u x);
-void add_block(_trama* t, int8u x[]);
 
 
 #endif /* SERIALCOMM_H_ */
