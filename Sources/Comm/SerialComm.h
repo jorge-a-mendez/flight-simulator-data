@@ -12,8 +12,8 @@
 
 #include "types.h"
 
-#define INICIAR	0x00		//< Caracter de inicio de comunicacion.
-#define FIN		0xFF		//< Caracter de fin de comunicacion.
+#define INICIAR	0x00				//< Caracter de inicio de comunicacion.
+#define FIN		0xFF				//< Caracter de fin de comunicacion.
 
 //< Type Code. 1 byte que representa el tipo de dato a enviar.
 

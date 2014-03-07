@@ -23,6 +23,9 @@ typedef struct {					//< Private struct for data buffering
 	int16u y[ACCEL_BUFSIZE];
 	int16u z[ACCEL_BUFSIZE];
 	int8u last;
+	int16u averageX;
+	int16u averageY;
+	int16u averageZ;
 }__accel_data;
 
 typedef union {		//< Private union for byte access to angle data.
@@ -38,17 +41,14 @@ static __accel_data buffer;
 void __calculateAngle();
 void __average();
 void __filter_data();
+void __calibrate();
 
 //Funciones Publicas
 
 void init_accel(){
 	int8u i;
 	buffer.last = 0;
-	for (i = 0; i < ACCEL_BUFSIZE; i++){
-		buffer.x[i] = 0;		//< Inicializando buffer en 0.
-		buffer.y[i] = 0;
-		buffer.z[i] = 0;
-	}
+	__calibrate();
 }
 
 void read_accel(){
@@ -73,7 +73,7 @@ void send_angle(int8u ang){
 		}
 		else t.t[i + 1] = angle.byte[i];
 	}
-	t.size = i + 1; 
+	t.tam = i + 1; 
 	send_data(&t, correction);
 }
 
@@ -83,4 +83,36 @@ float __calculateAngle(int8u angle){
 	
 }
 
+void __calibrate(){
+	int8u i;
+	int32u avx = 0, avy = 0, avz = 0;
+	
+	for(i =0; i < ACCEL_BUFSIZE; i++){
+		ADC_ANALOG_Measure(TRUE);
+		ADC_ANALOG_GetChanValue(CH_X, &buffer.x[i]);
+		ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[i]);
+		ADC_ANALOG_GetChanValue(CH_Z, &buffer.z[i]);
+		avx += buffer.x[i];
+		avy += buffer.y[i];
+		avz += buffer.z[i];
+	}
+	buffer.averageX = avx / ACCEL_BUFSIZE;
+	buffer.averageY = avy / ACCEL_BUFSIZE;
+	buffer.averageZ = avz / ACCEL_BUFSIZE;
+}
+
+void __average(){
+	int32u avx = 0, avy = 0, avz = 0;
+	int8u i;
+	
+	for(i = 0; i < ACCEL_BUFSIZE; i++){
+		avx += buffer.x[i];
+		avy += buffer.y[i];
+		avz += buffer.z[i];
+	}
+	
+	buffer.averageX = avx / ACCEL_BUFSIZE;
+	buffer.averageY = avy / ACCEL_BUFSIZE;
+	buffer.averageZ = avz / ACCEL_BUFSIZE;
+}
 

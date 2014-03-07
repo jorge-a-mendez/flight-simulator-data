@@ -1,15 +1,18 @@
-/*
- * Accel.h
- *
- *  Created on: Mar 3, 2014
+/* ###################################################################################
+ * Accel.c
+ *		Este modulo implementa las funciones y procedimientos necesarias
+ *		para la adquisicion, procesamiento y transmision de datos provenientes
+ *		del acelerometro de 3 ejes de Freescale.
  *      Author: Rafael Rodriguez
+ *      		Jorge Mendez
+ * ###################################################################################
  */
 
 #ifndef ACCEL_H_
 #define ACCEL_H_
 
-void read_accel();
-void send_angle();
-void init_accel();
+void read_accel();					//< Toma un valor de cada eje del acelerometro.
+void send_angle(int8u angle);		//< Calcula el angulo deseado y lo envia al PC.
+void init_accel();					//< Inicializa el buffer del acelerometro y calibra.
 
 #endif /* ACCEL_H_ */
