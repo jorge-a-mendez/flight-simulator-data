@@ -11,12 +11,14 @@
 #include "Accel/Accel.h"
 #include "SerialComm.h"
 
-#define ACCEL_BUFSIZE	64u
-#define ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
-#define ANGLE_YZ		1u
-#define CH_X			1u
-#define CH_Y			2u
-#define CH_Z			3u
+#define 	ACCEL_BUFSIZE	64u
+#define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
+#define 	ANGLE_YZ		1u
+#define 	CH_X			1u
+#define 	CH_Y			2u
+#define 	CH_Z			3u
+
+#define 	ZG				2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
 
 typedef struct {					//< Private struct for data buffering
 	int16u x[ACCEL_BUFSIZE];
@@ -28,7 +30,7 @@ typedef struct {					//< Private struct for data buffering
 	int16u averageZ;
 }__accel_data;
 
-typedef union {		//< Private union for byte access to angle data.
+typedef union {		//< Private union for byte access of angle data.
 	float x;
 	int8u byte[4];
 } __angle;
@@ -48,7 +50,7 @@ void __calibrate();
 void init_accel(){
 	int8u i;
 	buffer.last = 0;
-	__calibrate();
+	__calibrate();			//< Para hallar el valor de 0g.
 }
 
 void read_accel(){
@@ -60,7 +62,7 @@ void read_accel(){
 	buffer.last %= ACCEL_BUFSIZE;
 }
 
-void send_angle(int8u ang){
+void send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrada del angulo deseado.
 	int8u i, correction = 0;
 	_trama t;
 	__angle angle;
@@ -79,15 +81,34 @@ void send_angle(int8u ang){
 
 //#####################################################################################
 
+/**
+ * __calculateAngle calcula la tangente cuadrada del angulo deseado a partir de un
+ * subconjunto de muestras del buffer. 
+ * 
+ */
+
+
 float __calculateAngle(int8u angle){
-	
+	int8u i;
+	int32u x = 0, y = 0, z = 0;
+	for(i = 0; i < ACCEL_BUFSIZE/2; i++){
+		x += buffer.x[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+		y += buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+		z += buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+	}
+	switch(angle){
+	case ANGLE_XZ:
+		return ((float)(y * y))/(float)(x * x + z * z);
+	case ANGLE_YZ:
+		return ((float)(x * x))/(float)(y * y + z * z);
+	}
 }
 
 void __calibrate(){
 	int8u i;
 	int32u avx = 0, avy = 0, avz = 0;
 	
-	for(i =0; i < ACCEL_BUFSIZE; i++){
+	for(i = 0; i < ACCEL_BUFSIZE; i++){
 		ADC_ANALOG_Measure(TRUE);
 		ADC_ANALOG_GetChanValue(CH_X, &buffer.x[i]);
 		ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[i]);
