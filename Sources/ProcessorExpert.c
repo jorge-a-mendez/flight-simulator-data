@@ -40,12 +40,17 @@ typedef union{
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
-
+/*
+ * Esta funcion es un programa de prueba para verificar funcionamiento del 
+ * protocolo de comunicacion con la PC. Puede utilizarse para enviar cualquier
+ * dato proveniente directamente de un canal del ADC
+ * 
+ */
 void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 	for(;;){
 		  
-	  ADC_ANALOG_Measure(TRUE);
-	  ADC_ANALOG_GetValue(&(measure.w));
+	  ADC_ANALOG_MeasureChan(0,TRUE);
+	  ADC_ANALOG_GetValueChan(0,&(measure.w));
 	  a.t[0] = 1;
 	  a.t[1] = measure.b[0];
 	  if(measure.b[1] == 0xFF) {
