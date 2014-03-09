@@ -705,20 +705,36 @@ autoselected pull
       </event>
     </Events>
   </Bean>
-  <Bean name="POT" type="ADC">
+  <Bean name="ADC_ANALOG" type="ADC">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="POT" />
+      <Component_name v="ADC_ANALOG" />
       <A_D_converter v="ADC" />
       <Sharing v="Disabled" />
       <boolgroup name="Interrupt service/event" v="Enabled">
         <A_D_interrupt v="Vadc" />
         <A_D_interrupt_priority v="medium priority" />
       </boolgroup>
-      <list name="A/D channels" v="1">
+      <list name="A/D channels" v="5">
         <group name="Channel0">
           <A_D_channel__pin_ v="PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS" />
-          <A_D_channel__pin__signal v="" />
+          <A_D_channel__pin__signal v="POT" />
+        </group>
+        <group name="Channel1">
+          <A_D_channel__pin_ v="PTG2_ADP18" />
+          <A_D_channel__pin__signal v="ACCELX" />
+        </group>
+        <group name="Channel2">
+          <A_D_channel__pin_ v="PTG3_ADP19" />
+          <A_D_channel__pin__signal v="ACCELY" />
+        </group>
+        <group name="Channel3">
+          <A_D_channel__pin_ v="PTG4_ADP20" />
+          <A_D_channel__pin__signal v="ACCELZ" />
+        </group>
+        <group name="Channel4">
+          <A_D_channel__pin_ v="PTG5_ADP21" />
+          <A_D_channel__pin__signal v="PIEZO" />
         </group>
       </list>
       <A_D_resolution sel_value="12 bits">
@@ -750,13 +766,13 @@ Autoselect
       <Start v="don&amp;apos;t generate code" />
       <Stop v="don&amp;apos;t generate code" />
       <Measure v="generate code" />
-      <MeasureChan v="don&amp;apos;t generate code" />
+      <MeasureChan v="generate code" />
       <EnableIntChanTrigger v="don&amp;apos;t generate code" />
       <GetValue v="generate code" />
-      <GetChanValue v="don&amp;apos;t generate code" />
+      <GetChanValue v="generate code" />
       <GetValue8 v="don&amp;apos;t generate code" />
       <GetChanValue8 v="don&amp;apos;t generate code" />
-      <GetValue16 v="generate code" />
+      <GetValue16 v="don&amp;apos;t generate code" />
       <GetChanValue16 v="don&amp;apos;t generate code" />
       <EnableAsynchroClock v="don&amp;apos;t generate code" />
       <DisableAsynchroClock v="don&amp;apos;t generate code" />
@@ -768,7 +784,7 @@ Autoselect
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
       <event name="OnEnd" v="generate code">
-        <Event_procedure_name v="POT_OnEnd" />
+        <Event_procedure_name v="ADC_ANALOG_OnEnd" />
         <Priority v="same as interrupt" />
       </event>
     </Events>

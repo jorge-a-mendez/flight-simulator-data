@@ -51,6 +51,8 @@ typedef struct struct_trama{
 	int8u tam;
 }_trama;
 
+
+
 /* ###########################################################################
 
 			PROCEDIMIENTOS PARA MANEJO DEL PROTOCOLO DE COMUNICACION
@@ -63,7 +65,14 @@ void rx_handler();			//< Manejadores para la comunicacion serial.
 void tx_handler();			
 
 void send_data(_trama* data, int8u correction); //< Envia informacion a traves del puerto serial.
-void read_data(_trama* data, int8u size);	//< Recibe informacion del puerto serial. BLOQUEANTE.
+
+/*
+ * 	 La PC solo envia 4 bytes. INICIO -CODE 16bits- FIN.
+ * 	 Esto se usa con objetivos de sincronizacion y solicitud de informacion si asi se desea.
+ */
+
+
+void read_data(_trama* data);	//< Recibe informacion del puerto serial. BLOQUEANTE.
 
 
 #endif /* SERIALCOMM_H_ */

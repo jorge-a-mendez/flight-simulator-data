@@ -15,10 +15,10 @@
 #include "AS1.h"
 
 static buffer bufTx;
-static buffer bufRx;
+int8u countRx, countTx;						//< Private variable. Debugging.
+
 //#################################################################################
 // Funciones privadas.
-
 
 void __encola(buffer* t, char x);
 char __desencola(buffer* t);
@@ -29,15 +29,9 @@ void init_buff() {
 	bufTx.first = 0;
 	bufTx.last = 0;
 	bufTx.size = 0;
-	bufRx.first = 0;
-	bufRx.last = 0;
-	bufRx.size = 0;
-}
-
-void rx_handler(){
-	char a;
-	AS1_RecvChar(&a);
-	__encola(&bufRx, a);
+	rx_data_correct = false;
+	countRx = 0;
+	countTx = 0;
 }
 
 void tx_handler() {
@@ -54,17 +48,33 @@ void send_data(_trama* data, int8u correction){
 	__encola(&bufTx, FIN);
 }
 
-void read_data(_trama* data, int8u size){
-	return;		//< Falta implementacion...
+/*
+ * 	 La PC solo envia 4 bytes. INICIO -CODE 16bits- FIN.
+ * 	 Esto se usa con objetivos de sincronizacion y solicitud de informacion si asi se desea.
+ * 	 Retorna true si la data devuelta es una trama valida.
+ */
+
+bool read_data(_trama* data){			//< Es posible modificar este algoritmo para que en lugar de sobre escribir, se encole nueva data.
+	int8u err;
+	err = AS1_RecvBlock(data->t, TRAMA_BUFSIZE, &data->tam);			//< Recibe el bloque.
+	if(err == ERR_OK){
+		//Chequea integridad del bloque recibido.
+		if(data->tam != 4 && data->t[0] != INICIAR && data->t[3] != FIN) return false;
+		countRx += 3;
+		return true;
+	}
+	return false;
 }
 
 void heartbit(){
-	if(bufTx.size != 0)	
+	if(countTx-- != 0)	
 		TX_LED_NegVal();
-	else TX_LED_SetVal();
-	if(bufRx.size != 0)
+	else 
+		TX_LED_SetVal();
+	if(countRx-- != 0)
 		RX_LED_NegVal();
-	else RX_LED_SetVal();
+	else 
+		RX_LED_SetVal();
 }
 
 //##################################################################################
@@ -76,6 +86,7 @@ void __encola(buffer* t, char x){
 	++(t->last);
 	t->last %= BUF_SIZE;
 	t->size++;
+	countTx += 3;
 	if(t->size > BUF_SIZE) t->size = BUF_SIZE;
 }
 
@@ -86,3 +97,4 @@ char __desencola(buffer* t){
 	t->size--;
 	return x;
 }
+

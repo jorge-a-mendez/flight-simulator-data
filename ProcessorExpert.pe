@@ -3,8 +3,8 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Rafael Rodriguez</SavedBy>
-    <ModificationStamp>13</ModificationStamp>
-    <Date>2014-03-07</Date>
+    <ModificationStamp>14</ModificationStamp>
+    <Date>2014-03-09</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -3946,7 +3946,7 @@
         <ItemSymbol>InpBufferSize</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>1</Value>
+        <Value>4</Value>
         <Base>DEC</Base>
       </ItemState>
       <ItemState>

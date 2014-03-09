@@ -155,7 +155,7 @@ void  AS1_OnRxChar(void)
 */
 void  AS1_OnFullRxBuf(void)
 {
-  /* Write your code here ... */
+	
 }
 
 /* END Events */
