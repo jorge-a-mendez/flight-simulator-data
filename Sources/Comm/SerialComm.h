@@ -72,7 +72,7 @@ void send_data(_trama* data, int8u correction); //< Envia informacion a traves d
  */
 
 
-void read_data(_trama* data);	//< Recibe informacion del puerto serial. BLOQUEANTE.
+bool read_data(_trama* data);	//< Recibe informacion del puerto serial. BLOQUEANTE.
 
 
 #endif /* SERIALCOMM_H_ */

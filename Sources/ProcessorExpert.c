@@ -49,19 +49,19 @@ typedef union{
 void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 	for(;;){
 		  
-	  ADC_ANALOG_MeasureChan(0,TRUE);
-	  ADC_ANALOG_GetValueChan(0,&(measure.w));
-	  a.t[0] = 1;
-	  a.t[1] = measure.b[0];
-	  if(measure.b[1] == 0xFF) {
-		  a.t[2] = measure.b[1] - 1;
-		  correction = 2;
+	  ADC_ANALOG_MeasureChan(TRUE,0);
+	  ADC_ANALOG_GetChanValue(0,&(measure->w));
+	  a->t[0] = 1;
+	  a->t[1] = measure->b[0];
+	  if(measure->b[1] == 0xFF) {
+		  a->t[2] = measure->b[1] - 1;
+		  *correction = 2;
 	  }
-	  else a.t[2] = measure.b[1];
-	  a.tam = 3;
-	  send_data(&a,correction);
-	  enviar = false;
-	  correction = 0;	  
+	  else a->t[2] = measure->b[1];
+	  a->tam = 3;
+	  send_data(a, *correction);
+	  *enviar = false;
+	  *correction = 0;	  
 	}
 }
   

@@ -3,8 +3,8 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Rafael Rodriguez</SavedBy>
-    <ModificationStamp>14</ModificationStamp>
-    <Date>2014-03-09</Date>
+    <ModificationStamp>15</ModificationStamp>
+    <Date>2014-03-16</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -4227,7 +4227,7 @@
         <ItemSymbol>_BdRate</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>9600 baud</Value>
+        <Value>115200 baud</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -4253,7 +4253,7 @@
         <ReqSrcClkPrescSpeedMode5>-1</ReqSrcClkPrescSpeedMode5>
         <ReqSrcClkPrescSpeedMode6>-1</ReqSrcClkPrescSpeedMode6>
         <ReqSrcClkPrescSpeedMode7>-1</ReqSrcClkPrescSpeedMode7>
-        <InitValue>9600 baud</InitValue>
+        <InitValue>115200 baud</InitValue>
         <Precision>5.0</Precision>
         <PrecInProc>true</PrecInProc>
         <LowLimit />
