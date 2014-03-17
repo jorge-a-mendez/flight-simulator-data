@@ -9,10 +9,7 @@
 
 
 #include "Comm/SerialComm.h"
-#include "RX_LED.h"
-#include "TX_LED.h"
-#include "HEARTBIT.h"
-#include "AS1.h"
+#include "Events.h"
 
 static buffer bufTx;
 int8u countRx, countTx;						//< Private variable. Debugging.
@@ -29,7 +26,6 @@ void init_buff() {
 	bufTx.first = 0;
 	bufTx.last = 0;
 	bufTx.size = 0;
-	rx_data_correct = false;
 	countRx = 0;
 	countTx = 0;
 }
@@ -56,7 +52,7 @@ void send_data(_trama* data, int8u correction){
 
 bool read_data(_trama* data){			//< Es posible modificar este algoritmo para que en lugar de sobre escribir, se encole nueva data.
 	int8u err;
-	err = AS1_RecvBlock(data->t, TRAMA_BUFSIZE, &data->tam);			//< Recibe el bloque.
+	err = AS1_RecvBlock(data->t, TRAMA_SIZE, &data->tam);			//< Recibe el bloque.
 	if(err == ERR_OK){
 		//Chequea integridad del bloque recibido.
 		if(data->tam != 4 && data->t[0] != INICIAR && data->t[3] != FIN) return false;
@@ -67,12 +63,16 @@ bool read_data(_trama* data){			//< Es posible modificar este algoritmo para que
 }
 
 void heartbit(){
-	if(countTx-- != 0)	
+	if(countTx > 0){	
 		TX_LED_NegVal();
+		countTx--;
+	}
 	else 
 		TX_LED_SetVal();
-	if(countRx-- != 0)
+	if(countRx > 0){
 		RX_LED_NegVal();
+		countRx--;
+	}
 	else 
 		RX_LED_SetVal();
 }
