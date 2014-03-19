@@ -475,7 +475,7 @@ asm(BGND);
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="Vsci1err" />
         <Interrupt_Error_priority v="low priority" />
-        <Input_buffer_size v="4" />
+        <Input_buffer_size v="1" />
         <Output_buffer_size v="1" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
