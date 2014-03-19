@@ -18,7 +18,7 @@
 #define MAXVALUE		255
 #define CH_PIEZO		4u
 #define CH_DETECT		5u
-
+#define PIEZO_BUFSIZE	16u	
 
 
 //tipos
@@ -26,6 +26,8 @@
 typedef struct{
 	int8u detector;
 	int8u piezo;
+	int8u shotVals[PIEZO_BUFSIZE];
+	int8u last;
 }__piezo_data;
 
 __piezo_data buf;
@@ -34,6 +36,9 @@ __piezo_data buf;
 ///#################################################################################
 // Funciones publicas.
 
+void init_piezo(){
+	buf.last = 0;	
+}
 
 void get_shot(){
 	ADC_ANALOG_Measure(TRUE);
@@ -53,16 +58,26 @@ void send_shot(int8u shotVal){
 // Funciones privadas
 
 int8u __get_shotVal(){
-	if(buf.piezo < SOFT*MAXVALUE/3 || buf.piezo < buf.detector){
-		return NOSHOT;
+	int8u i = 1, shotVal;
+	bool shot = 1;
+	
+	while(i < PIEZO_BUFSIZE && shot){
+		if(buf.shotVals[(buf.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = 0;
+	}
+		
+	if(buf.piezo < SOFT*MAXVALUE/3 || buf.piezo < buf.detector || !shot){
+		buf.shotVals[last] = NOSHOT;
 	}
 	else if((buf.piezo >= SOFT*MAXVALUE/3) && (buf.piezo < MEDIUM*MAXVALUE/3)){
-		return SOFT;
+		buf.shotVals[last] = SOFT;
 	}
 	else if((buf.piezo >= MEDIUM*MAXVALUE/3) && (buf.piezo < HARD*MAXVALUE/3)){
-		return MEDIUM;
+		buf.shotVals[last] = MEDIUM;
 	}
 	else{
-		return HARD;
+		buf.shotVals[last] = HARD;
 	}
+	shotVal = buf.shotVals[last];
+	++last %= PIEZO_BUFSIZE;
+	return shotVal;
 }
