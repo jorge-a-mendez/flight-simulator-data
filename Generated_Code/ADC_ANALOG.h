@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-07, 13:30, # CodeGen: 13
+**     Date/Time   : 2014-03-19, 16:38, # CodeGen: 16
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -17,7 +17,7 @@
 **          Interrupt service/event                        : Enabled
 **            A/D interrupt                                : Vadc
 **            A/D interrupt priority                       : medium priority
-**          A/D channels                                   : 5
+**          A/D channels                                   : 6
 **            Channel0                                     : 
 **              A/D channel (pin)                          : PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS
 **              A/D channel (pin) signal                   : POT
@@ -33,6 +33,9 @@
 **            Channel4                                     : 
 **              A/D channel (pin)                          : PTG5_ADP21
 **              A/D channel (pin) signal                   : PIEZO
+**            Channel5                                     : 
+**              A/D channel (pin)                          : PTG6_ADP22
+**              A/D channel (pin) signal                   : 
 **          A/D resolution                                 : Autoselect
 **          Conversion time                                : 3.655752 µs
 **          Low-power mode                                 : Disabled

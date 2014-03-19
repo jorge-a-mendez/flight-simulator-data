@@ -8,19 +8,17 @@
 #ifndef PIEZO_H_
 #define PIEZO_H_
 
-//Constantes.
 
-#define NOSHOT		0
-#define SOFT		1u
-#define MEDIUM		2u
-#define HARD		3u
-#define MAXVALUE	255
-#define PIEZO_CH	0x01
-#define BUF_SIZE	100
+#include "types.h"
+
+
+
+
 
 ///#################################################################################
 // Funciones publicas.
 
-byte get_shot();
+void get_shot();
+void send_shot(int8u shotVal);
 
 #endif /* PIEZO_H_ */

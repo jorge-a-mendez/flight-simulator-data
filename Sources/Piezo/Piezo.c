@@ -5,51 +5,64 @@
  *      Author: Rafael Rodriguez
  */
 
+#include "Piezo/Piezo.h"
+#include "Comm/SerialComm.h"
 
-///#################################################################################
-// Funciones privadas.
 
-byte __get_piezoADC();
-byte __max(byte a[100]);
+//Constantes.
+
+#define NOSHOT			0
+#define SOFT			1u
+#define MEDIUM			2u
+#define HARD			3u
+#define MAXVALUE		255
+#define CH_PIEZO		4u
+#define CH_DETECT		5u
+
+
+
+//tipos
+
+typedef struct{
+	int8u detector;
+	int8u piezo;
+}__piezo_data;
+
+__piezo_data buf;
+
 
 ///#################################################################################
 // Funciones publicas.
 
-byte get_shot(){
-	byte shotVal = __get_piezoADC();
-	if(shotVal < SOFT*MAXVALUE/3){
+
+void get_shot(){
+	ADC_ANALOG_Measure(TRUE);
+	ADC_ANALOG_GetChanValue(CH_PIEZO,&buf.piezo);
+	ADC_ANALOG_GetChanValue(CH_DETECT,&buf.detector);
+}
+
+void send_shot(int8u shotVal){
+	int8u correction = 0;
+	_trama t;
+	t.t[0] = __get_shotVal();
+	t.tam = 1;
+	send_data(&t, correction);
+}
+
+///#################################################################################
+// Funciones privadas
+
+int8u __get_shotVal(){
+	if(buf.piezo < SOFT*MAXVALUE/3 || buf.piezo < buf.detector){
 		return NOSHOT;
 	}
-	else if((shotVal >= SOFT*MAXVALUE/3) && (shotVal < MEDIUM*MAXVALUE/3)){
+	else if((buf.piezo >= SOFT*MAXVALUE/3) && (buf.piezo < MEDIUM*MAXVALUE/3)){
 		return SOFT;
 	}
-	else if((shotVal >= MEDIUM*MAXVALUE/3) && (shotVal < HARD*MAXVALUE/3)){
+	else if((buf.piezo >= MEDIUM*MAXVALUE/3) && (buf.piezo < HARD*MAXVALUE/3)){
 		return MEDIUM;
 	}
 	else{
 		return HARD;
 	}
 }
-
-///#################################################################################
-// Funciones privadas.
-
-byte __get_piezoADC(){
-	byte i;
-	byte adc_measures[BUF_SIZE];			//Creo que se deberia implementar en processor expert. Asi tendremos menos errores de perifericos
-	ADCSC1 |= PIEZO_CH;
-	for(i = 0; i < BUF_SIZE; i++){
-		while(!ADCSC1_COCO);
-		adc_measures[i] = ADCRL;
-		ADCSC1 = ADCSC1;
-	}
-	return __max(adc_measures);
-}
-byte __max(byte a[BUF_SIZE]){
-	byte max = a[0], i;
-	for(i = 1; i < BUF_SIZE; i++){
-		if(a[BUF_SIZE] > max) max = a[BUF_SIZE];
-	}
-	return max;
-}
-
