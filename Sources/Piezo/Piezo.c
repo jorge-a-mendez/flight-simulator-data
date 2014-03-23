@@ -78,6 +78,7 @@ int8u __get_shotVal(){
 		buf.shotVals[last] = HARD;
 	}
 	shotVal = buf.shotVals[last];
-	++last %= PIEZO_BUFSIZE;
+	last++;
+	last %= PIEZO_BUFSIZE;
 	return shotVal;
 }
