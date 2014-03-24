@@ -8,12 +8,14 @@
 #ifndef SCUBE_H_
 #define SCUBE_H_
 
+#include "types.h"
+
 //Constantes
 
-#define Kf		1			//< Constante para calcular capacitancia (C = f*Kf)
-#define X		PTbla		//< I/O pins a los que se conectan X,Y,Z			
-#define Y		PTbla
-#define Z		PTbla
+#define Kf		1			//< Constante para calcular capacitancia (C = Kf/f)
+#define CH_X				//< I/O pins a los que se conectan X,Y,Z			
+#define CH_Y	
+#define CH_Z	
 
 //Valores representativos del SCube
 
@@ -35,22 +37,10 @@ typedef struct struct_SCube{
 ///#################################################################################
 // Funciones publicas.
 
-void calibrateSCube(SCube *cube);
-byte* get_posX();
-byte* get_posY();
-byte* get_posZ();
+void init_SCube();
+void read_SCube();
+void send_SCube();
 
-//#################################################################################
-// Funciones privadas.
-
-//La idea que se me ocurre para medir f es que se tiene una onda cuadrada en un I/O
-//y se espera a que cambie el valor que tenia inicialmente (para tomar el inicio del
-//periodo). Luego se inicia un timer y se espera a que cambie el valor dos veces y
-//el tiempo que haya tomado en cambiar esas dos veces seria el periodo.
-
-int16u get_frequency(void* pin);
-void waitOnNegValue(void* pin, bool initVal);
-int16u get_capacitance(int16u f);
 
 
 #endif /* SCUBE_H_ */

@@ -7,6 +7,7 @@
 
 #include "Piezo/Piezo.h"
 #include "Comm/SerialComm.h"
+#include "Events.h"
 
 
 //Constantes.
@@ -32,6 +33,8 @@ typedef struct{
 
 __piezo_data buf;
 
+int8u __get_shotVal();
+
 
 ///#################################################################################
 // Funciones publicas.
@@ -46,7 +49,7 @@ void get_shot(){
 	ADC_ANALOG_GetChanValue(CH_DETECT,&buf.detector);
 }
 
-void send_shot(int8u shotVal){
+void send_shot(){
 	int8u correction = 0;
 	_trama t;
 	t.t[0] = __get_shotVal();
@@ -58,26 +61,27 @@ void send_shot(int8u shotVal){
 // Funciones privadas
 
 int8u __get_shotVal(){
-	int8u i = 1, shotVal;
-	bool shot = 1;
+	int8u shotVal, i = 1;
+	bool shot = true;
 	
 	while(i < PIEZO_BUFSIZE && shot){
-		if(buf.shotVals[(buf.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = 0;
+		if(buf.shotVals[(buf.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = false;
 	}
 		
 	if(buf.piezo < SOFT*MAXVALUE/3 || buf.piezo < buf.detector || !shot){
-		buf.shotVals[last] = NOSHOT;
+		buf.shotVals[buf.last] = NOSHOT;
 	}
 	else if((buf.piezo >= SOFT*MAXVALUE/3) && (buf.piezo < MEDIUM*MAXVALUE/3)){
-		buf.shotVals[last] = SOFT;
+		buf.shotVals[buf.last] = SOFT;
 	}
 	else if((buf.piezo >= MEDIUM*MAXVALUE/3) && (buf.piezo < HARD*MAXVALUE/3)){
-		buf.shotVals[last] = MEDIUM;
+		buf.shotVals[buf.last] = MEDIUM;
 	}
 	else{
-		buf.shotVals[last] = HARD;
+		buf.shotVals[buf.last] = HARD;
 	}
-	shotVal = buf.shotVals[last];
-	++last %= PIEZO_BUFSIZE;
+	shotVal = buf.shotVals[buf.last];
+	buf.last++;
+	buf.last %= PIEZO_BUFSIZE;
 	return shotVal;
 }
