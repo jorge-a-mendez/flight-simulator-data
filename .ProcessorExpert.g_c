@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <GenerationInfo_G_C>
   <Options>
     <ProjectName>ProcessorExpert</ProjectName>
@@ -73,7 +72,7 @@
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>15</ProjectModificationStamp>
+    <ProjectModificationStamp>18</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
@@ -688,7 +687,7 @@
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1148421316</HeaderAge>
-    <CodeAge>1148421316</CodeAge>
+    <CodeAge>1148737026</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>19</GenNumMethods>
     <DisableAutoCompare>false</DisableAutoCompare>
@@ -990,4 +989,3 @@
     <SrcFile148>Drivers\AsynchroSerial.src=1095613925</SrcFile148>
   </UsedSrcFiles>
 </GenerationInfo_G_C>
-
