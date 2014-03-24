@@ -13,13 +13,11 @@
 
 
 
-
-
 ///#################################################################################
 // Funciones publicas.
 
 void init_piezo();
 void get_shot();
-void send_shot(int8u shotVal);
+void send_shot();
 
 #endif /* PIEZO_H_ */

@@ -3,8 +3,8 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Jorge Armando</SavedBy>
-    <ModificationStamp>15</ModificationStamp>
-    <Date>2014-03-19</Date>
+    <ModificationStamp>18</ModificationStamp>
+    <Date>2014-03-24</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>29</ProjectCompNumb>
+    <ProjectCompNumb>40</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>false</AssignInitComponentNameToPrph>
@@ -7410,6 +7410,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTG7_ADP23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal1</ItemSymbol>
@@ -7533,6 +7534,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTG7_ADP23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal2</ItemSymbol>
@@ -7656,6 +7658,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTG7_ADP23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal3</ItemSymbol>
@@ -7779,6 +7782,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTG7_ADP23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal4</ItemSymbol>
@@ -7902,6 +7906,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTG7_ADP23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal5</ItemSymbol>
