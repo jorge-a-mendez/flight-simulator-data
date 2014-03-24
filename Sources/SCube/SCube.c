@@ -6,22 +6,23 @@
  */
 
 
+#include "SCube/SCube.h"
+#include "Comm/SerialComm.h"
+#include "Events.h"
+
 ///#################################################################################
 // Funciones publicas.
 
-void calibrateSCube(SCube *cube){
+
+void init_SCube(){
 	
 }
 
-byte* get_posX(){
+void read_SCube(){
 	
 }
 
-byte* get_posY(){
-	
-}
-
-byte* get_posZ(){
+void send_SCube(){
 	
 }
 
@@ -29,21 +30,16 @@ byte* get_posZ(){
 //#################################################################################
 // Funciones privadas.
 
-int16u get_frequency(void* pin){
-	waitOnNegVal(pin,(bool)(*pin));
-	setTimer();						//los tiempos dependeran del rango de frecuencias a usar.
-									//tambien de eso dependera si se toman varios periodos o basta uno solo.
-	waitOnNegVal(pin,(bool)(*pin));
-	waitOnNegVal(pin,(bool)(*pin));
-	stopTimer();					//habria que pasar el timer que sea creado en setTimer
-	return getTime();
+
+void __calibrateSCube(){
+	
 }
 
-void waitOnNegValue(void* pin, bool initVal){
-	while((bool)(*pin) == initVal);	
+float get_frequency(){
+	
 }
 
-int16u get_capacitance(int16u f){
-	return f*Kf;
+float __get_capacitance(float f){
+	return Kf/f;
 }
 
