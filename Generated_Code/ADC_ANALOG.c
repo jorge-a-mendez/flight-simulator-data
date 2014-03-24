@@ -3,9 +3,10 @@
 **     Filename    : ADC_ANALOG.c
 **     Project     : ProcessorExpert
 **     Processor   : MC9S08QE128CLK
+**     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-19, 16:38, # CodeGen: 16
+**     Date/Time   : 2014-03-24, 10:18, # CodeGen: 16
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.

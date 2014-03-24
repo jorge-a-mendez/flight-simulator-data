@@ -71,7 +71,7 @@ void send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrad
 	for (i = 0; i < 4; i++){
 		if(angle.byte[i] == 0xFF){
 			t.t[i + 1] = 0xFE;
-			correction |= 1<<(3 - i);
+			correction |= 1<<(4 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
 		}
 		else t.t[i + 1] = angle.byte[i];
 	}

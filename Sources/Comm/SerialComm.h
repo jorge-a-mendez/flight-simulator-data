@@ -53,11 +53,11 @@ typedef struct struct_trama{
 
 
 
-/* ###########################################################################
+/* ####################################################################################################################
 
 			PROCEDIMIENTOS PARA MANEJO DEL PROTOCOLO DE COMUNICACION
 
- * ###########################################################################*/
+ * ####################################################################################################################*/
 
 void init_buff();			//< Necesario llamar una vez para inicializacion del buffer
 void heartbit();			//< Parpadeo de led para indicar envio y recepcion de datos. Llamado en evento HEARTBIT
