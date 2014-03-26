@@ -793,22 +793,27 @@ Autoselect
       </event>
     </Events>
   </Bean>
-  <Bean name="PWM1" type="PWM">
+  <Bean name="FRQ_MSR" type="Capture">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="PWM1" />
-      <PWM_or_PPG_device v="TPM11" />
-      <Duty_compare v="" />
-      <Output_pin v="PTB5_TPM1CH1_SS1" />
-      <Output_pin_signal v="" />
+      <Component_name v="FRQ_MSR" />
+      <Capture_device v="TPM11" />
       <Counter v="TPM1" />
-      <boolgroup name="Interrupt service/event" v="Disabled" />
-      <Period v="488.28125 &amp;#181;s" />
-      <Starting_pulse_width v="" />
-      <Aligned v="Edge" />
-      <Initial_polarity v="low" />
-      <Same_period_in_modes v="no" />
-      <Component_uses_entire_timer v="no" />
+      <Capture_input_pin v="PTB5_TPM1CH1_SS1" />
+      <Capture_input_signal v="" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Edge v="rising edge" />
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Capture_interrupt v="Vtpm1ch1" />
+        <Capture_priority v="medium priority" />
+        <boolgroup name="Overflow support" v="Disabled" />
+      </boolgroup>
+      <Maximum_time_of_event v="2.604166 ms" />
       <group name="Initialization">
         <Enabled_in_init__code v="yes" />
         <Events_enabled_in_init_ v="yes" />
@@ -824,82 +829,20 @@ Autoselect
       <Disable v="don&amp;apos;t generate code" />
       <EnableEvent v="don&amp;apos;t generate code" />
       <DisableEvent v="don&amp;apos;t generate code" />
-      <SetRatio8 v="don&amp;apos;t generate code" />
-      <SetRatio16 v="generate code" />
-      <SetDutyTicks16 v="don&amp;apos;t generate code" />
-      <SetDutyTicks32 v="don&amp;apos;t generate code" />
-      <SetDutyUS v="generate code" />
-      <SetDutyMS v="generate code" />
-      <SetDutySec v="don&amp;apos;t generate code" />
-      <SetDutyReal v="don&amp;apos;t generate code" />
-      <SetDutyMode v="don&amp;apos;t generate code" />
-      <SetValue v="don&amp;apos;t generate code" />
-      <ClrValue v="don&amp;apos;t generate code" />
+      <Reset v="generate code" />
+      <GetCaptureValue v="generate code" />
+      <GetStatus v="don&amp;apos;t generate code" />
+      <GetPinValue v="don&amp;apos;t generate code" />
     </Methods>
     <Events>
       <Event_module_name v="Events" />
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="OnEnd" v="don&amp;apos;t generate code" />
-    </Events>
-  </Bean>
-  <Bean name="PPG1" type="PPG">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="PPG1" />
-      <Compare___period v="TPM2PP" />
-      <Compare___duty v="TPM20PPG" />
-      <Output_pin v="PTA1_KBI1P1_TPM2CH0_ADP1_ACMP1MINUS" />
-      <Output_pin_signal v="" />
-      <Counter v="TPM2_PPG" />
-      <boolgroup name="Interrupt service/event" v="Disabled" />
-      <Period v="" />
-      <Starting_pulse_width v="0 ms" />
-      <Aligned v="Edge" />
-      <Initial_polarity v="low" />
-      <Same_period_in_modes v="no" />
-      <Component_uses_entire_timer v="no" />
-      <group name="Initialization">
-        <Enabled_in_init__code v="yes" />
-        <Events_enabled_in_init_ v="yes" />
-      </group>
-      <group name="CPU clock/speed selection">
-        <High_speed_mode v="This component enabled" />
-        <Low_speed_mode v="This component disabled" />
-        <Slow_speed_mode v="This component disabled" />
-      </group>
-    </Properties>
-    <Methods>
-      <Enable v="don&amp;apos;t generate code" />
-      <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
-      <SetPeriodMode v="don&amp;apos;t generate code" />
-      <SetPeriodTicks16 v="don&amp;apos;t generate code" />
-      <SetPeriodTicks32 v="don&amp;apos;t generate code" />
-      <SetPeriodUS v="don&amp;apos;t generate code" />
-      <SetPeriodMS v="don&amp;apos;t generate code" />
-      <SetPeriodSec v="don&amp;apos;t generate code" />
-      <SetPeriodReal v="don&amp;apos;t generate code" />
-      <SetFreqHz v="don&amp;apos;t generate code" />
-      <SetFreqkHz v="don&amp;apos;t generate code" />
-      <SetFreqMHz v="don&amp;apos;t generate code" />
-      <SetRatio8 v="don&amp;apos;t generate code" />
-      <SetRatio16 v="generate code" />
-      <SetDutyTicks16 v="don&amp;apos;t generate code" />
-      <SetDutyTicks32 v="don&amp;apos;t generate code" />
-      <SetDutyUS v="generate code" />
-      <SetDutyMS v="generate code" />
-      <SetDutySec v="don&amp;apos;t generate code" />
-      <SetDutyReal v="don&amp;apos;t generate code" />
-      <SetValue v="don&amp;apos;t generate code" />
-      <ClrValue v="don&amp;apos;t generate code" />
-    </Methods>
-    <Events>
-      <Event_module_name v="Events" />
-      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="OnEnd" v="don&amp;apos;t generate code" />
+      <event name="OnCapture" v="generate code">
+        <Event_procedure_name v="FRQ_MSR_OnCapture" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnOverflow" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>
