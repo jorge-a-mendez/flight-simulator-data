@@ -27,6 +27,8 @@
 #include "FRQ_MSR_X.h"
 #include "FRQ_MSR_Y.h"
 #include "FRQ_MSR_Z.h"
+#include "ADQUIRIR.h"
+#include "ENVIAR.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -70,6 +72,11 @@ void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 
 void main(void)
 {
+  /* Write your local variable definition here */
+
+  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
+  PE_low_level_init();
+  /*** End of Processor Expert internal initialization.                    ***/
 	init();
 	state_machine();
 
