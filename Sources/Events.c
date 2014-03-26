@@ -24,7 +24,9 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "AS1.h"
-extern bool enviar;
+#include "Application.h"
+
+
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 
@@ -99,7 +101,7 @@ void HEARTBIT_OnInterrupt(void)
 */
 void ADC_ANALOG_OnEnd(void)
 {
-	enviar = true;
+	data_lista++;
 }
 
 
@@ -213,6 +215,45 @@ void FRQ_MSR_Z_OnCapture(void)
 void FRQ_MSR_Y_OnCapture(void)
 {
   /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  ENVIAR_OnInterrupt (module Events)
+**
+**     Component   :  ENVIAR [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void ENVIAR_OnInterrupt(void)
+{
+	estado = ENVIAR;
+
+}
+
+/*
+** ===================================================================
+**     Event       :  ADQUIRIR_OnInterrupt (module Events)
+**
+**     Component   :  ADQUIRIR [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void ADQUIRIR_OnInterrupt(void)
+{
+	estado = ADQUIRIR;
 }
 
 /* END Events */

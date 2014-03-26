@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 17:10, # CodeGen: 19
+**     Date/Time   : 2014-03-26, 18:28, # CodeGen: 18
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -37,6 +37,8 @@
 #include "FRQ_MSR_X.h"
 #include "FRQ_MSR_Y.h"
 #include "FRQ_MSR_Z.h"
+#include "ADQUIRIR.h"
+#include "ENVIAR.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -243,10 +245,12 @@ void PE_low_level_init(void)
   clrReg8Bits(PTCPE, 0x03U);            
   /* PTCDD: PTCDD1=1,PTCDD0=1 */
   setReg8Bits(PTCDD, 0x03U);            
-  /* APCTL1: ADPC0=1 */
-  setReg8Bits(APCTL1, 0x01U);           
-  /* APCTL3: ADPC22=1,ADPC21=1,ADPC20=1,ADPC19=1,ADPC18=1 */
-  setReg8Bits(APCTL3, 0x7CU);           
+  /* APCTL1: ADPC7=1,ADPC0=1 */
+  setReg8Bits(APCTL1, 0x81U);           
+  /* APCTL3: ADPC22=1,ADPC21=1,ADPC17=1 */
+  setReg8Bits(APCTL3, 0x62U);           
+  /* APCTL2: ADPC15=1 */
+  setReg8Bits(APCTL2, 0x80U);           
   /* PTBPE: PTBPE5=0 */
   clrReg8Bits(PTBPE, 0x20U);            
   /* PTAPE: PTAPE6=0,PTAPE1=0 */
@@ -306,6 +310,10 @@ void PE_low_level_init(void)
   FRQ_MSR_Y_Init();
   /* ### Timer capture encapsulation "FRQ_MSR_Z" init code ... */
   FRQ_MSR_Z_Init();
+  /* ### TimerInt "ADQUIRIR" init code ... */
+  ADQUIRIR_Init();
+  /* ### TimerInt "ENVIAR" init code ... */
+  ENVIAR_Init();
   /* Common peripheral initialization - ENABLE */
   /* TPM1SC: CLKSB=0,CLKSA=1 */
   clrSetReg8Bits(TPM1SC, 0x10U, 0x08U); 

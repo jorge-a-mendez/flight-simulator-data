@@ -12,7 +12,7 @@
 
 //Constantes
 
-#define CH_X			0u			//< I/O pins a los que se conectan X,Y,Z			
+#define CH_X			0u						
 #define CH_Y			1u
 #define CH_Z			2u
 #define SCUBE_BUFSIZE	16u

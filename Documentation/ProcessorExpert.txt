@@ -94,6 +94,10 @@ Module "FRQ_MSR_Z" (component Capture)
                 Info>). The method does not return valid value after initialization or after <Reset> until new capture event 
                 (even if the returned Error code is ERR_OK).
 
+Module "ADQUIRIR"  (component TimerInt)
+
+Module "ENVIAR"    (component TimerInt)
+
 Module "Cpu"       (component MC9S08QE128_80)
    - Cpu_EnableInt -Enables maskable interrupts
    - Cpu_DisableInt -Disables maskable interrupts

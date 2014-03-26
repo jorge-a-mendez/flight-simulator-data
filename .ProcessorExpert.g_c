@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <GenerationInfo_G_C>
   <Options>
     <ProjectName>ProcessorExpert</ProjectName>
-    <ProjectDirectory>C:\Users\Jorge Armando\workspace\adquisicion_comunicacion\</ProjectDirectory>
+    <ProjectDirectory>C:\Users\Rafael Rodriguez\EC3882\ACQ-SCube\</ProjectDirectory>
     <DestEventsDirectory>Sources\</DestEventsDirectory>
     <DestDriversSubDirectory>..\Generated_Code\</DestDriversSubDirectory>
     <DestDocumentationDirectory>Documentation\</DestDocumentationDirectory>
@@ -17,29 +18,31 @@
         <Line>PE_Const</Line>
         <Line>IO_Map</Line>
       </GenSharedModules>
-      <ShrdHeaderAge0>1147249581</ShrdHeaderAge0>
+      <ShrdHeaderAge0>1146910935</ShrdHeaderAge0>
       <ShrdCodeAge0>-1</ShrdCodeAge0>
       <ShrdAsemblAge0>-1</ShrdAsemblAge0>
-      <ShrdHeaderAge1>1147249581</ShrdHeaderAge1>
+      <ShrdHeaderAge1>1146910935</ShrdHeaderAge1>
       <ShrdCodeAge1>-1</ShrdCodeAge1>
       <ShrdAsemblAge1>-1</ShrdAsemblAge1>
-      <ShrdHeaderAge2>1147249581</ShrdHeaderAge2>
+      <ShrdHeaderAge2>1146910935</ShrdHeaderAge2>
       <ShrdCodeAge2>-1</ShrdCodeAge2>
       <ShrdAsemblAge2>-1</ShrdAsemblAge2>
-      <ShrdHeaderAge3>1147249581</ShrdHeaderAge3>
-      <ShrdCodeAge3>1147249581</ShrdCodeAge3>
+      <ShrdHeaderAge3>1146910935</ShrdHeaderAge3>
+      <ShrdCodeAge3>1146910935</ShrdCodeAge3>
       <ShrdAsemblAge3>-1</ShrdAsemblAge3>
       <GenExtraFiles lines_count="2">
         <Line>Project_Settings\Linker_Files\ProcessorExpert.prm</Line>
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
-      <XtraAge1>1148881231</XtraAge1>
+      <XtraAge1>1148883377</XtraAge1>
       <GenExtraFileType1>4</GenExtraFileType1>
       <GenExtraFileType0>4</GenExtraFileType0>
       <GenEventModules lines_count="1">
         <Line>Events</Line>
       </GenEventModules>
-      <GenMethodsInEvents lines_count="10">
+      <GenMethodsInEvents lines_count="12">
+        <Line>ENVIAR_OnInterrupt</Line>
+        <Line>ADQUIRIR_OnInterrupt</Line>
         <Line>FRQ_MSR_Z_OnCapture</Line>
         <Line>FRQ_MSR_Y_OnCapture</Line>
         <Line>FRQ_MSR_X_OnCapture</Line>
@@ -51,10 +54,12 @@
         <Line>AS1_OnFullRxBuf</Line>
         <Line>AS1_OnFreeTxBuf</Line>
       </GenMethodsInEvents>
-      <GenAllModules lines_count="14">
+      <GenAllModules lines_count="16">
         <Line>ADC_ANALOG</Line>
+        <Line>ADQUIRIR</Line>
         <Line>AS1</Line>
         <Line>Cpu</Line>
+        <Line>ENVIAR</Line>
         <Line>Events</Line>
         <Line>FRQ_MSR_X</Line>
         <Line>FRQ_MSR_Y</Line>
@@ -68,7 +73,7 @@
         <Line>TX_LED</Line>
       </GenAllModules>
       <GenExternModules lines_count="0" />
-      <GenBeanModules lines_count="8">
+      <GenBeanModules lines_count="10">
         <Line>AS1</Line>
         <Line>RX_LED</Line>
         <Line>TX_LED</Line>
@@ -77,11 +82,13 @@
         <Line>FRQ_MSR_X</Line>
         <Line>FRQ_MSR_Y</Line>
         <Line>FRQ_MSR_Z</Line>
+        <Line>ADQUIRIR</Line>
+        <Line>ENVIAR</Line>
       </GenBeanModules>
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>20</ProjectModificationStamp>
+    <ProjectModificationStamp>22</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
@@ -89,8 +96,8 @@
     <GenComponentVersion>01.003</GenComponentVersion>
     <GenDriverVersion>01.40</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1147249581</HeaderAge>
-    <CodeAge>1148881231</CodeAge>
+    <HeaderAge>1147248306</HeaderAge>
+    <CodeAge>1148883869</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>20</GenNumMethods>
     <Delay100US>true</Delay100US>
@@ -142,8 +149,8 @@
     <GenComponentVersion>02.601</GenComponentVersion>
     <GenDriverVersion>01.33</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148737569</HeaderAge>
-    <CodeAge>1148737569</CodeAge>
+    <HeaderAge>1148883033</HeaderAge>
+    <CodeAge>1148883033</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>30</GenNumMethods>
     <DisableRxEdgeDetect>false</DisableRxEdgeDetect>
@@ -400,8 +407,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>03.27</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1147354795</HeaderAge>
-    <CodeAge>1147354795</CodeAge>
+    <HeaderAge>1147248306</HeaderAge>
+    <CodeAge>1147248306</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>9</GenNumMethods>
     <NegVal>true</NegVal>
@@ -510,8 +517,8 @@
     <GenComponentVersion>02.086</GenComponentVersion>
     <GenDriverVersion>03.27</GenDriverVersion>
     <GenEventModule />
-    <HeaderAge>1147354795</HeaderAge>
-    <CodeAge>1147354795</CodeAge>
+    <HeaderAge>1147248306</HeaderAge>
+    <CodeAge>1147248306</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>9</GenNumMethods>
     <NegVal>true</NegVal>
@@ -620,8 +627,8 @@
     <GenComponentVersion>02.160</GenComponentVersion>
     <GenDriverVersion>01.23</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1147354795</HeaderAge>
-    <CodeAge>1147354795</CodeAge>
+    <HeaderAge>1147248306</HeaderAge>
+    <CodeAge>1147248306</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetFreqMHz>false</SetFreqMHz>
@@ -695,8 +702,8 @@
     <GenComponentVersion>01.667</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148421316</HeaderAge>
-    <CodeAge>1148737294</CodeAge>
+    <HeaderAge>1148883869</HeaderAge>
+    <CodeAge>1148883869</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>19</GenNumMethods>
     <DisableAutoCompare>false</DisableAutoCompare>
@@ -852,8 +859,8 @@
     <GenComponentVersion>02.216</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148881231</HeaderAge>
-    <CodeAge>1148881231</CodeAge>
+    <HeaderAge>1148883377</HeaderAge>
+    <CodeAge>1148883377</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <GetPinValue>false</GetPinValue>
@@ -945,8 +952,8 @@
     <GenComponentVersion>02.216</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148881230</HeaderAge>
-    <CodeAge>1148881230</CodeAge>
+    <HeaderAge>1148883377</HeaderAge>
+    <CodeAge>1148883377</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <GetPinValue>false</GetPinValue>
@@ -1038,8 +1045,8 @@
     <GenComponentVersion>02.216</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148881230</HeaderAge>
-    <CodeAge>1148881230</CodeAge>
+    <HeaderAge>1148883377</HeaderAge>
+    <CodeAge>1148883376</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <GetPinValue>false</GetPinValue>
@@ -1125,6 +1132,156 @@
     </MethodPos>
     <GenExtraFilesCount>0</GenExtraFilesCount>
   </ComponentID_42>
+  <ComponentID_46>
+    <Generated>true</Generated>
+    <GenCompName>ADQUIRIR</GenCompName>
+    <GenComponentVersion>02.160</GenComponentVersion>
+    <GenDriverVersion>01.23</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1148883376</HeaderAge>
+    <CodeAge>1148883376</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>14</GenNumMethods>
+    <SetFreqMHz>false</SetFreqMHz>
+    <SetFreqkHz>false</SetFreqkHz>
+    <SetFreqHz>false</SetFreqHz>
+    <SetPeriodReal>false</SetPeriodReal>
+    <SetPeriodSec>false</SetPeriodSec>
+    <SetPeriodMS>false</SetPeriodMS>
+    <SetPeriodUS>false</SetPeriodUS>
+    <SetPeriodTicks32>false</SetPeriodTicks32>
+    <SetPeriodTicks16>false</SetPeriodTicks16>
+    <SetPeriodMode>false</SetPeriodMode>
+    <DisableEvent>false</DisableEvent>
+    <EnableEvent>false</EnableEvent>
+    <Disable>false</Disable>
+    <Enable>false</Enable>
+    <GenNumEvents>3</GenNumEvents>
+    <BeforeNewSpeed_Selected>0</BeforeNewSpeed_Selected>
+    <BeforeNewSpeed_Name>ADQUIRIR_BeforeNewSpeed</BeforeNewSpeed_Name>
+    <BeforeNewSpeed_Priority>interrupts disabled</BeforeNewSpeed_Priority>
+    <AfterNewSpeed_Selected>0</AfterNewSpeed_Selected>
+    <AfterNewSpeed_Name>ADQUIRIR_AfterNewSpeed</AfterNewSpeed_Name>
+    <AfterNewSpeed_Priority>interrupts disabled</AfterNewSpeed_Priority>
+    <OnInterrupt_Selected>2</OnInterrupt_Selected>
+    <OnInterrupt_Name>ADQUIRIR_OnInterrupt</OnInterrupt_Name>
+    <OnInterrupt_Priority>same as interrupt</OnInterrupt_Priority>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>5</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>Enable</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>67</LineBeg>
+      <LineEnd>67</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>Interrupt</MethodPos1>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>68</LineBeg>
+      <LineEnd>79</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>Init</MethodPos2>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>80</LineBeg>
+      <LineEnd>92</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>Init</MethodPos3>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>70</LineBeg>
+      <LineEnd>90</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>Interrupt</MethodPos4>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>91</LineBeg>
+      <LineEnd>109</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>0</GenExtraFilesCount>
+  </ComponentID_46>
+  <ComponentID_47>
+    <Generated>true</Generated>
+    <GenCompName>ENVIAR</GenCompName>
+    <GenComponentVersion>02.160</GenComponentVersion>
+    <GenDriverVersion>01.23</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1148883376</HeaderAge>
+    <CodeAge>1148883376</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>14</GenNumMethods>
+    <SetFreqMHz>false</SetFreqMHz>
+    <SetFreqkHz>false</SetFreqkHz>
+    <SetFreqHz>false</SetFreqHz>
+    <SetPeriodReal>false</SetPeriodReal>
+    <SetPeriodSec>false</SetPeriodSec>
+    <SetPeriodMS>false</SetPeriodMS>
+    <SetPeriodUS>false</SetPeriodUS>
+    <SetPeriodTicks32>false</SetPeriodTicks32>
+    <SetPeriodTicks16>false</SetPeriodTicks16>
+    <SetPeriodMode>false</SetPeriodMode>
+    <DisableEvent>false</DisableEvent>
+    <EnableEvent>false</EnableEvent>
+    <Disable>false</Disable>
+    <Enable>false</Enable>
+    <GenNumEvents>3</GenNumEvents>
+    <BeforeNewSpeed_Selected>0</BeforeNewSpeed_Selected>
+    <BeforeNewSpeed_Name>ENVIAR_BeforeNewSpeed</BeforeNewSpeed_Name>
+    <BeforeNewSpeed_Priority>interrupts disabled</BeforeNewSpeed_Priority>
+    <AfterNewSpeed_Selected>0</AfterNewSpeed_Selected>
+    <AfterNewSpeed_Name>ENVIAR_AfterNewSpeed</AfterNewSpeed_Name>
+    <AfterNewSpeed_Priority>interrupts disabled</AfterNewSpeed_Priority>
+    <OnInterrupt_Selected>2</OnInterrupt_Selected>
+    <OnInterrupt_Name>ENVIAR_OnInterrupt</OnInterrupt_Name>
+    <OnInterrupt_Priority>same as interrupt</OnInterrupt_Priority>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>5</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>Enable</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>68</LineBeg>
+      <LineEnd>68</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>Interrupt</MethodPos1>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>69</LineBeg>
+      <LineEnd>80</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>Init</MethodPos2>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>81</LineBeg>
+      <LineEnd>93</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>Init</MethodPos3>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>73</LineBeg>
+      <LineEnd>92</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>Interrupt</MethodPos4>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>93</LineBeg>
+      <LineEnd>112</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>0</GenExtraFilesCount>
+  </ComponentID_47>
   <UsedSrcFiles>
     <SrcFile0>Drivers\sw\_PE_ProjectInfo.drv=1091418916</SrcFile0>
     <SrcFile1>Drivers\_PE_ProjectInfo.src=1095613925</SrcFile1>
@@ -1289,3 +1446,4 @@
     <SrcFile160>Drivers\AsynchroSerial.src=1095613925</SrcFile160>
   </UsedSrcFiles>
 </GenerationInfo_G_C>
+
