@@ -31,7 +31,7 @@
       <File Name="Generated_Code\RX_LED.c" FileDate="2014-03-03, 07:53:21" FileAge="1393849401803" FileType="4411" CompNumb="10" />
       <File Name="Generated_Code\FRQ_MSR_Y.h" FileDate="2014-03-26, 17:10:28" FileAge="1395870028650" FileType="4411" CompNumb="41" />
       <File Name="Sources\ProcessorExpert.c" FileDate="2014-03-26, 17:10:29" FileAge="1395870029242" FileType="128" />
-      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-03-26, 17:10:29" FileAge="1395870029576" FileType="3072" />
+      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-03-26, 18:08:39" FileAge="1395873519006" FileType="3072" />
       <File Name="Generated_Code\PE_Types.h" FileDate="2014-03-01, 20:29:26" FileAge="1393721966806" FileType="4411" />
       <File Name="Generated_Code\FRQ_MSR_Y.c" FileDate="2014-03-26, 17:10:28" FileAge="1395870028629" FileType="4411" CompNumb="41" />
       <File Name="Generated_Code\AS1.h" FileDate="2014-03-24, 11:01:01" FileAge="1395675061745" FileType="4411" CompNumb="9" />
@@ -43,5 +43,5 @@
       <File Name="Generated_Code\PE_Error.h" FileDate="2014-03-01, 20:29:26" FileAge="1393721966803" FileType="4411" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>20</CodeGenReference>
+  <CodeGenReference>21</CodeGenReference>
 </CodeGenerationInfo>
