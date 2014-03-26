@@ -45,6 +45,7 @@ float __calculateAngle(int8u ang);
 void __average();
 void __filter_data();
 void __calibrate();
+void __send_angle(int8u ang);
 
 //Funciones Publicas
 
@@ -62,21 +63,9 @@ void read_accel(){
 	buf.last %= ACCEL_BUFSIZE;
 }
 
-void send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrada del angulo deseado.
-	int8u i, correction = 0;
-	_trama t;
-	__angle angle;
-	angle.x = __calculateAngle(ang);
-	t.t[0] = ACCEL_ANGLE_XZ + ang;
-	for (i = 0; i < 4; i++){
-		if(angle.byte[i] == 0xFF){
-			t.t[i + 1] = 0xFE;
-			correction |= 1<<(4 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
-		}
-		else t.t[i + 1] = angle.byte[i];
-	}
-	t.tam = i + 1; 
-	send_data(&t, correction);
+void send_angles(){
+	__send_angle(0);
+	__send_angle(1);
 }
 
 //#####################################################################################
@@ -137,3 +126,19 @@ void __average(){
 	buf.averageZ = avz / ACCEL_BUFSIZE;
 }
 
+void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrada del angulo deseado.
+	int8u i, correction = 0;
+	_trama t;
+	__angle angle;
+	angle.x = __calculateAngle(ang);
+	t.t[0] = ACCEL_ANGLE_XZ + ang;
+	for (i = 0; i < 4; i++){
+		if(angle.byte[i] == 0xFF){
+			t.t[i + 1] = 0xFE;
+			correction |= 1<<(4 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
+		}
+		else t.t[i + 1] = angle.byte[i];
+	}
+	t.tam = i + 1; 
+	send_data(&t, correction);
+}
