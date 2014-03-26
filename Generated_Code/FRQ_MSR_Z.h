@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 18:13, # CodeGen: 17
+**     Date/Time   : 2014-03-26, 17:10, # CodeGen: 19
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On

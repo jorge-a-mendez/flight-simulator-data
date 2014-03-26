@@ -12,7 +12,7 @@
 
 //Constantes
 
-#define CH_X			0u			//< I/O pins a los que se conectan X,Y,Z			
+#define CH_X			0u						
 #define CH_Y			1u
 #define CH_Z			2u
 #define SCUBE_BUFSIZE	16u
@@ -35,7 +35,7 @@ typedef union{
 __SCube_data buf;
 
 void __calibrateSCube();
-int16u __get_period();
+void __average();
 
 
 ///#################################################################################
@@ -55,8 +55,34 @@ void read_SCube(){
 	last %= SCUBE_BUFSIZE;
 }
 
-void send_SCube(){
-	
+void send_SCube(int8u panel){
+	int8u correccion = 0, i;
+	_trama t;
+	__period period;
+	trama t;
+	t.t[0] = panel;
+	switch(panel){
+		case PANELX:
+			period.period = buf.x[buf.last];
+			break;
+		case PANELY:
+			period.period = buf.y[buf.last];
+			break;
+		case PANELZ:
+			period.period = buf.z[buf.last];
+			break;
+	}
+	for(i = 0; i < 2; i++){
+		if(period.byte[i] == 0xFF){
+			t.t[i+1] = 0xFE;
+			correccion |= 1 << (1-i);
+		}
+		else{
+			t.t[i+1] = period.byte[i];
+		}
+	}
+	t.tam = i+1;
+	send_data(&t,correccion);
 }
 
 
@@ -68,6 +94,17 @@ void __calibrateSCube(){
 	
 }
 
-int16u __get_period(){
-	
+void __average(){
+	int8u i;
+	buf.averageX = 0;
+	buf.averageY = 0;
+	buf.averageZ = 0;
+	for(i = 0; i < SCUBE_BUFSIZE; i++){
+		buf.averageX += buf.x[(buf.last + i) % SCUBE_BUFSIZE];
+		buf.averageY += buf.y[(buf.last + i) % SCUBE_BUFSIZE];
+		buf.averageZ += buf.z[(buf.last + i) % SCUBE_BUFSIZE];
+	}
+	buf.averageX /= SCUBE_BUFSIZE;
+	buf.averageY /= SCUBE_BUFSIZE;
+	buf.averageZ /= SCUBE_BUFSIZE;
 }
