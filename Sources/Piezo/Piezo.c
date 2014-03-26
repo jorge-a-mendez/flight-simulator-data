@@ -22,7 +22,6 @@
 #define PIEZO_BUFSIZE	16u	
 
 
-//tipos
 
 typedef struct{
 	int8u detector;
