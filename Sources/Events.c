@@ -99,7 +99,7 @@ void HEARTBIT_OnInterrupt(void)
 */
 void ADC_ANALOG_OnEnd(void)
 {
-	enviar = true;
+	data_lista++;
 }
 
 
