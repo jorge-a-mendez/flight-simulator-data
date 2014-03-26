@@ -33,8 +33,7 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 
-#include "Comm/SerialComm.h"
-#include "types.h"
+#include "Application.h"
 
 typedef union{
 	int8u b[2];
@@ -71,18 +70,8 @@ void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 
 void main(void)
 {
-  bool enviar;
-  pot_amp measure;
-  _trama a;
-  int8u correction = 0;
-  /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
-  PE_low_level_init();
-  /*** End of Processor Expert internal initialization.                    ***/
-  AS1_SendChar('i');		//< Activa la interrupcion de envio. 
-  /* Write your code here */
-  enviar = false;
-  
-  prueba_pot(&a, &measure, &correction, &enviar);
+	init();
+	state_machine();
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
