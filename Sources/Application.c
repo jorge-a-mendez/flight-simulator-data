@@ -16,14 +16,14 @@
 #define  RECIBIR 	3u					//< Se lee datos provenientes del PC.
 #define  ADQUIRIR   4u					//< Solicita medicion de datos.
 
-#define  ALL_DATA   1;					//< Cantidad de medidas que se tienen que esperar.
+#define  ALL_DATA   1					//< Cantidad de medidas que se tienen que esperar.
 
 
 int8u estado;
 int8u data_lista;
 
 
-//Funcione privadas..
+//Funciones privadas..
 
 void __send_info();
 void __acquire();
