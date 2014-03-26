@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-24, 10:48, # CodeGen: 17
+**     Date/Time   : 2014-03-26, 18:28, # CodeGen: 18
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -22,13 +22,13 @@
 **              A/D channel (pin)                          : PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS
 **              A/D channel (pin) signal                   : POT
 **            Channel1                                     : 
-**              A/D channel (pin)                          : PTG2_ADP18
+**              A/D channel (pin)                          : PTF7_ADP17
 **              A/D channel (pin) signal                   : ACCELX
 **            Channel2                                     : 
-**              A/D channel (pin)                          : PTG3_ADP19
+**              A/D channel (pin)                          : PTF5_ADP15
 **              A/D channel (pin) signal                   : ACCELY
 **            Channel3                                     : 
-**              A/D channel (pin)                          : PTG4_ADP20
+**              A/D channel (pin)                          : PTB3_KBI1P7_MOSI1_ADP7
 **              A/D channel (pin) signal                   : ACCELZ
 **            Channel4                                     : 
 **              A/D channel (pin)                          : PTG5_ADP21
@@ -91,7 +91,7 @@ static void ClrSumV(void);
 
 static const  byte Table[6] = {0x01U,0x02U,0x04U,0x08U,0x10U,0x20U};  /* Table of mask constants */
 
-static const  byte Channels[6] = {0x40U,0x52U,0x53U,0x54U,0x55U,0x56U};  /* Contents for the device control register */
+static const  byte Channels[6] = {0x40U,0x51U,0x4FU,0x47U,0x55U,0x56U};  /* Contents for the device control register */
 
 static volatile byte OutFlg;           /* Measurement finish flag */
 static volatile byte SumChan;          /* Number of measured channels */

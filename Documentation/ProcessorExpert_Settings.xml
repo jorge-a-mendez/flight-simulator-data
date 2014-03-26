@@ -721,15 +721,15 @@ autoselected pull
           <A_D_channel__pin__signal v="POT" />
         </group>
         <group name="Channel1">
-          <A_D_channel__pin_ v="PTG2_ADP18" />
+          <A_D_channel__pin_ v="PTF7_ADP17" />
           <A_D_channel__pin__signal v="ACCELX" />
         </group>
         <group name="Channel2">
-          <A_D_channel__pin_ v="PTG3_ADP19" />
+          <A_D_channel__pin_ v="PTF5_ADP15" />
           <A_D_channel__pin__signal v="ACCELY" />
         </group>
         <group name="Channel3">
-          <A_D_channel__pin_ v="PTG4_ADP20" />
+          <A_D_channel__pin_ v="PTB3_KBI1P7_MOSI1_ADP7" />
           <A_D_channel__pin__signal v="ACCELZ" />
         </group>
         <group name="Channel4">

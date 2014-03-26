@@ -31,6 +31,8 @@
 #include "FRQ_MSR_X.h"
 #include "FRQ_MSR_Y.h"
 #include "FRQ_MSR_Z.h"
+#include "ADQUIRIR.h"
+#include "ENVIAR.h"
 
 
 void AS1_OnError(void);
@@ -184,6 +186,38 @@ void FRQ_MSR_Y_OnCapture(void);
 **         value (only when the component is enabled - <Enable> and the
 **         events are enabled - <EnableEvent>.This event is available
 **         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void ENVIAR_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  ENVIAR_OnInterrupt (module Events)
+**
+**     Component   :  ENVIAR [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void ADQUIRIR_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  ADQUIRIR_OnInterrupt (module Events)
+**
+**     Component   :  ADQUIRIR [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
