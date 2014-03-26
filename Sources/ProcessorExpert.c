@@ -24,6 +24,9 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
+#include "FRQ_MSR_X.h"
+#include "FRQ_MSR_Y.h"
+#include "FRQ_MSR_Z.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

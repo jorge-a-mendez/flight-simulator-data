@@ -10,6 +10,10 @@
 #include "Comm/SerialComm.h"
 #include "Events.h"
 
+
+void __calibrateSCube();
+float get_period();
+
 ///#################################################################################
 // Funciones publicas.
 
@@ -35,11 +39,6 @@ void __calibrateSCube(){
 	
 }
 
-float get_frequency(){
+float get_period(){
 	
 }
-
-float __get_capacitance(float f){
-	return Kf/f;
-}
-
