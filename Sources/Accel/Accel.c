@@ -12,7 +12,7 @@
 #include "Comm/SerialComm.h"
 #include "Events.h"
 
-#define 	ACCEL_BUFSIZE	64u
+#define 	ACCEL_BUFSIZE	256u
 #define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
 #define 	ANGLE_YZ		1u
 #define 	CH_X			1u
@@ -55,7 +55,6 @@ void init_accel(){
 }
 
 void read_accel(){
-	ADC_ANALOG_Measure(TRUE);
 	ADC_ANALOG_GetChanValue(CH_X, &buf.x[buf.last]);
 	ADC_ANALOG_GetChanValue(CH_Y, &buf.y[buf.last]);
 	ADC_ANALOG_GetChanValue(CH_Z, &buf.z[buf.last]);
@@ -76,6 +75,19 @@ void send_angles(){
  * 
  */
 
+
+/*
+ *	Para el filtrado... Se considera lo siguiente:
+ *	
+ *	Los cambios de inclinacion son lentos, tal vez un maximo de 2Hz.
+ *	Las mediciones resultantes de aceleraciones dinamicas son aun mas lentos: Parece logico pensar esto ya que son
+ *	el resultado de reflejos durante el juego. 
+ *	
+ *	Con esto es posible disminuir los errores dados por aceleraciones dinamicas, si se toma el promedio de las 
+ *	muestras en 1/4 segundo. Si en ese tiempo ocurrio un numero peque;o de saltos por aceleraciones dinamicas, 
+ *	entonces deberian ser disminuidas por los valores debido a aceleraciones estaticas. 
+ * 
+ * */
 
 float __calculateAngle(int8u angle){
 	int8u i;
