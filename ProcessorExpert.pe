@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>43</ProjectCompNumb>
+    <ProjectCompNumb>46</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>false</AssignInitComponentNameToPrph>
@@ -10186,7 +10186,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>OvfDevName</ItemSymbol>
-        <Value>TPM1free</Value>
+        <Value>TPM2free</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -10201,7 +10201,7 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>OvfInt</ItemSymbol>
-        <Value>Vtpm1ovf</Value>
+        <Value>Vtpm2ovf</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>OvfPrior</ItemSymbol>
