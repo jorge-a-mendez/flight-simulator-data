@@ -52,7 +52,8 @@ void get_shot(){
 void send_shot(){
 	int8u correction = 0;
 	_trama t;
-	t.t[0] = __get_shotVal();
+	t.t[0] = PIEZO;
+	t.t[1] = __get_shotVal();
 	t.tam = 1;
 	send_data(&t, correction);
 }

@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-19, 16:38, # CodeGen: 16
+**     Date/Time   : 2014-03-26, 17:10, # CodeGen: 19
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -34,6 +34,9 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
+#include "FRQ_MSR_X.h"
+#include "FRQ_MSR_Y.h"
+#include "FRQ_MSR_Z.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -180,6 +183,8 @@ void _EntryPoint(void)
   /* Common initialization of the write once registers */
   /* SOPT1: COPE=0,COPT=1,STOPE=0,??=0,??=0,RSTOPE=0,BKGDPE=1,RSTPE=1 */
   setReg8(SOPT1, 0x43U);                
+  /* SOPT2: COPCLKS=0,??=0,??=0,??=0,SPI1PS=0,ACIC2=0,IIC1PS=0,ACIC1=0 */
+  setReg8(SOPT2, 0x00U);                
   /* SPMSC1: LVDF=0,LVDACK=0,LVDIE=0,LVDRE=1,LVDSE=1,LVDE=1,??=0,BGBE=0 */
   setReg8(SPMSC1, 0x1CU);               
   /* SPMSC2: LPR=0,LPRS=0,LPWUI=0,??=0,PPDF=0,PPDACK=0,PPDE=1,PPDC=0 */
@@ -228,8 +233,8 @@ void PE_low_level_init(void)
   /* SCGC2: DBG=1,FLS=1,IRQ=1,KBI=1,ACMP=1,RTC=1,SPI2=1,SPI1=1 */
   setReg8(SCGC2, 0xFFU);                
   /* Common initialization of the CPU registers */
-  /* PTBDD: PTBDD1=1,PTBDD0=0 */
-  clrSetReg8Bits(PTBDD, 0x01U, 0x02U);  
+  /* PTBDD: PTBDD5=0,PTBDD1=1,PTBDD0=0 */
+  clrSetReg8Bits(PTBDD, 0x21U, 0x02U);  
   /* PTBD: PTBD1=1 */
   setReg8Bits(PTBD, 0x02U);             
   /* PTCD: PTCD1=1,PTCD0=1 */
@@ -242,6 +247,12 @@ void PE_low_level_init(void)
   setReg8Bits(APCTL1, 0x01U);           
   /* APCTL3: ADPC22=1,ADPC21=1,ADPC20=1,ADPC19=1,ADPC18=1 */
   setReg8Bits(APCTL3, 0x7CU);           
+  /* PTBPE: PTBPE5=0 */
+  clrReg8Bits(PTBPE, 0x20U);            
+  /* PTAPE: PTAPE6=0,PTAPE1=0 */
+  clrReg8Bits(PTAPE, 0x42U);            
+  /* PTADD: PTADD6=0,PTADD1=0 */
+  clrReg8Bits(PTADD, 0x42U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -289,6 +300,15 @@ void PE_low_level_init(void)
   HEARTBIT_Init();
   /* ###  "ADC_ANALOG" init code ... */
   ADC_ANALOG_Init();
+  /* ### Timer capture encapsulation "FRQ_MSR_X" init code ... */
+  FRQ_MSR_X_Init();
+  /* ### Timer capture encapsulation "FRQ_MSR_Y" init code ... */
+  FRQ_MSR_Y_Init();
+  /* ### Timer capture encapsulation "FRQ_MSR_Z" init code ... */
+  FRQ_MSR_Z_Init();
+  /* Common peripheral initialization - ENABLE */
+  /* TPM1SC: CLKSB=0,CLKSA=1 */
+  clrSetReg8Bits(TPM1SC, 0x10U, 0x08U); 
   __EI();                              /* Enable interrupts */
 }
 

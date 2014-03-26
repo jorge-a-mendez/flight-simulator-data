@@ -76,6 +76,24 @@ Module "ADC_ANALOG" (component ADC)
    - ADC_ANALOG_GetChanValue -Returns the last measured value of the required channel. Format and width of the value is a 
                 native format of the A/D converter.
 
+Module "FRQ_MSR_X" (component Capture)
+   - FRQ_MSR_X_Reset -This method resets the counter register (see implementation note in <General Info>).
+   - FRQ_MSR_X_GetCaptureValue -This method gets the last value captured by enabled timer (see implementation note in <General 
+                Info>). The method does not return valid value after initialization or after <Reset> until new capture event 
+                (even if the returned Error code is ERR_OK).
+
+Module "FRQ_MSR_Y" (component Capture)
+   - FRQ_MSR_Y_Reset -This method resets the counter register (see implementation note in <General Info>).
+   - FRQ_MSR_Y_GetCaptureValue -This method gets the last value captured by enabled timer (see implementation note in <General 
+                Info>). The method does not return valid value after initialization or after <Reset> until new capture event 
+                (even if the returned Error code is ERR_OK).
+
+Module "FRQ_MSR_Z" (component Capture)
+   - FRQ_MSR_Z_Reset -This method resets the counter register (see implementation note in <General Info>).
+   - FRQ_MSR_Z_GetCaptureValue -This method gets the last value captured by enabled timer (see implementation note in <General 
+                Info>). The method does not return valid value after initialization or after <Reset> until new capture event 
+                (even if the returned Error code is ERR_OK).
+
 Module "Cpu"       (component MC9S08QE128_80)
    - Cpu_EnableInt -Enables maskable interrupts
    - Cpu_DisableInt -Disables maskable interrupts

@@ -158,6 +158,63 @@ void  AS1_OnFullRxBuf(void)
 	
 }
 
+/*
+** ===================================================================
+**     Event       :  FRQ_MSR_X_OnCapture (module Events)
+**
+**     Component   :  FRQ_MSR_X [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRQ_MSR_X_OnCapture(void)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  FRQ_MSR_Z_OnCapture (module Events)
+**
+**     Component   :  FRQ_MSR_Z [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRQ_MSR_Z_OnCapture(void)
+{
+  /* Write your code here ... */
+}
+
+/*
+** ===================================================================
+**     Event       :  FRQ_MSR_Y_OnCapture (module Events)
+**
+**     Component   :  FRQ_MSR_Y [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void FRQ_MSR_Y_OnCapture(void)
+{
+  /* Write your code here ... */
+}
+
 /* END Events */
 
 /*
