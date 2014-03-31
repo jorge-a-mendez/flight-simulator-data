@@ -475,7 +475,7 @@ asm(BGND);
         <Interrupt_TxD_priority v="medium priority" />
         <Interrupt_Error v="Vsci1err" />
         <Interrupt_Error_priority v="low priority" />
-        <Input_buffer_size v="1" />
+        <Input_buffer_size v="4" />
         <Output_buffer_size v="1" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
@@ -497,7 +497,7 @@ asm(BGND);
           <TxD v="PTB1_KBI1P5_TxD1_ADP5" />
           <TxD_pin_signal v="" />
         </boolgroup>
-        <Baud_rate v="9600 baud" />
+        <Baud_rate v="115200 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />
@@ -520,8 +520,8 @@ asm(BGND);
     <Methods>
       <Enable v="don&amp;apos;t generate code" />
       <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
+      <EnableEvent v="generate code" />
+      <DisableEvent v="generate code" />
       <RecvChar v="generate code" />
       <SendChar v="generate code" />
       <RecvBlock v="generate code" />
@@ -721,15 +721,15 @@ autoselected pull
           <A_D_channel__pin__signal v="POT" />
         </group>
         <group name="Channel1">
-          <A_D_channel__pin_ v="PTG2_ADP18" />
+          <A_D_channel__pin_ v="PTF7_ADP17" />
           <A_D_channel__pin__signal v="ACCELX" />
         </group>
         <group name="Channel2">
-          <A_D_channel__pin_ v="PTG3_ADP19" />
+          <A_D_channel__pin_ v="PTF5_ADP15" />
           <A_D_channel__pin__signal v="ACCELY" />
         </group>
         <group name="Channel3">
-          <A_D_channel__pin_ v="PTG4_ADP20" />
+          <A_D_channel__pin_ v="PTB3_KBI1P7_MOSI1_ADP7" />
           <A_D_channel__pin__signal v="ACCELZ" />
         </group>
         <group name="Channel4">
@@ -980,8 +980,8 @@ rising or falling edge
     <Methods>
       <Enable v="don&amp;apos;t generate code" />
       <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
+      <EnableEvent v="generate code" />
+      <DisableEvent v="generate code" />
       <SetPeriodMode v="don&amp;apos;t generate code" />
       <SetPeriodTicks16 v="don&amp;apos;t generate code" />
       <SetPeriodTicks32 v="don&amp;apos;t generate code" />
@@ -1029,8 +1029,8 @@ rising or falling edge
     <Methods>
       <Enable v="don&amp;apos;t generate code" />
       <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
+      <EnableEvent v="generate code" />
+      <DisableEvent v="generate code" />
       <SetPeriodMode v="don&amp;apos;t generate code" />
       <SetPeriodTicks16 v="don&amp;apos;t generate code" />
       <SetPeriodTicks32 v="don&amp;apos;t generate code" />

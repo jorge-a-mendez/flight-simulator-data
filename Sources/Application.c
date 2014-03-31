@@ -8,16 +8,6 @@
 
 #include "Application.h"
 
-//Tipo de datos privados
-
-#define  ENVIAR 	0u					//< Envia datos al PC
-#define  ESPERAR	1u					//< Estado de espera por un cambio de estado.
-#define  LEER		2u					//< Se leen los datos. Se almacena en los buffers...
-#define  RECIBIR 	3u					//< Se lee datos provenientes del PC.
-#define  ADQUIRIR   4u					//< Solicita medicion de datos.
-
-#define  ALL_DATA   1					//< Cantidad de medidas que se tienen que esperar.
-
 
 int8u estado;
 int8u data_lista;
@@ -74,7 +64,7 @@ void __acquire(){										//< Esta funcion solicita los datos a adquiri: ADC, P
 	}
 }
 
-void __send_info(){				//< Encapsula todos los envios necesarios a la PC
+void __send_info(){									//< Encapsula todos los envios necesarios a la PC
 	send_angles();	
 }
 

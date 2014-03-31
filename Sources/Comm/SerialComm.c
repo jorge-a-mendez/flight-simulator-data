@@ -11,6 +11,15 @@
 #include "Comm/SerialComm.h"
 #include "Events.h"
 
+//RingBuffer para manejo de la comunicacion serial.
+
+typedef struct struct_buffer{
+	char buff[BUF_SIZE];
+	int8u first;
+	int8u last;	
+	int8u size;
+}buffer;
+
 static buffer bufTx;
 int8u countRx, countTx;						//< Private variable. Debugging.
 
@@ -81,7 +90,10 @@ void heartbit(){
 
 
 void __encola(buffer* t, char x){
-	while(t->size == BUF_SIZE);
+	while(t->size == BUF_SIZE) 
+	{
+		SCI1C2 |= 0x80;
+	}
 	t->buff[t->last] = x;
 	++(t->last);
 	t->last %= BUF_SIZE;

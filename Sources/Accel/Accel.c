@@ -15,17 +15,17 @@
 #define 	ACCEL_BUFSIZE	256u
 #define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
 #define 	ANGLE_YZ		1u
-#define 	CH_X			1u
-#define 	CH_Y			2u
-#define 	CH_Z			3u
+#define 	CH_X			0//1u
+#define 	CH_Y			0//2u
+#define 	CH_Z			0//3u
 
-#define 	ZG				2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
+#define 	ZG				0//2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
 
 typedef struct {					//< Private struct for data buffering
 	int16u x[ACCEL_BUFSIZE];
 	int16u y[ACCEL_BUFSIZE];
 	int16u z[ACCEL_BUFSIZE];
-	int8u last;
+	int16u last;
 	int16u averageX;
 	int16u averageY;
 	int16u averageZ;
@@ -36,13 +36,13 @@ typedef union {		//< Private union for byte access of angle data.
 	int8u byte[4];
 } __angle;
 
-static __accel_data buf; 
+__accel_data buffer; 
 
 
 //Funciones privadas
 
 float __calculateAngle(int8u ang);
-void __average();
+void __average_accel();
 void __filter_data();
 void __calibrate();
 void __send_angle(int8u ang);
@@ -50,16 +50,16 @@ void __send_angle(int8u ang);
 //Funciones Publicas
 
 void init_accel(){
-	buf.last = 0;
+	buffer.last = 0;
 	__calibrate();			//< Para hallar el valor de 0g.
 }
 
 void read_accel(){
-	ADC_ANALOG_GetChanValue(CH_X, &buf.x[buf.last]);
-	ADC_ANALOG_GetChanValue(CH_Y, &buf.y[buf.last]);
-	ADC_ANALOG_GetChanValue(CH_Z, &buf.z[buf.last]);
-	buf.last++;
-	buf.last %= ACCEL_BUFSIZE;
+	ADC_ANALOG_GetChanValue(CH_X, &buffer.x[buffer.last]);
+	ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[buffer.last]);
+	ADC_ANALOG_GetChanValue(CH_Z, &buffer.z[buffer.last]);
+	buffer.last++;
+	buffer.last %= ACCEL_BUFSIZE;
 }
 
 void send_angles(){
@@ -71,7 +71,7 @@ void send_angles(){
 
 /**
  * __calculateAngle calcula la tangente cuadrada del angulo deseado a partir de un
- * subconjunto de muestras del buf. 
+ * subconjunto de muestras del buffer. 
  * 
  */
 
@@ -93,9 +93,9 @@ float __calculateAngle(int8u angle){
 	int8u i;
 	int32u x = 0, y = 0, z = 0;
 	for(i = 0; i < ACCEL_BUFSIZE/2; i++){
-		x += buf.x[(i + buf.last) % ACCEL_BUFSIZE] - ZG;
-		y += buf.y[(i + buf.last) % ACCEL_BUFSIZE] - ZG;
-		z += buf.z[(i + buf.last) % ACCEL_BUFSIZE] - ZG;
+		x += buffer.x[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+		y += buffer.y[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+		z += buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
 	}
 	switch(angle){
 	case ANGLE_XZ:
@@ -106,36 +106,36 @@ float __calculateAngle(int8u angle){
 }
 
 void __calibrate(){
-	int8u i;
+	int16u i;
 	int32u avx = 0, avy = 0, avz = 0;
 	
 	for(i = 0; i < ACCEL_BUFSIZE; i++){
 		ADC_ANALOG_Measure(TRUE);
-		ADC_ANALOG_GetChanValue(CH_X, &buf.x[i]);
-		ADC_ANALOG_GetChanValue(CH_Y, &buf.y[i]);
-		ADC_ANALOG_GetChanValue(CH_Z, &buf.z[i]);
-		avx += buf.x[i];
-		avy += buf.y[i];
-		avz += buf.z[i];
+		ADC_ANALOG_GetChanValue(CH_X, &buffer.x[i]);
+		ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[i]);
+		ADC_ANALOG_GetChanValue(CH_Z, &buffer.z[i]);
+		avx += buffer.x[i];
+		avy += buffer.y[i];
+		avz += buffer.z[i];
 	}
-	buf.averageX = avx / ACCEL_BUFSIZE;
-	buf.averageY = avy / ACCEL_BUFSIZE;
-	buf.averageZ = avz / ACCEL_BUFSIZE;
+	buffer.averageX = avx / ACCEL_BUFSIZE;
+	buffer.averageY = avy / ACCEL_BUFSIZE;
+	buffer.averageZ = avz / ACCEL_BUFSIZE;
 }
 
-void __average(){
+void __average_accel(){
 	int32u avx = 0, avy = 0, avz = 0;
 	int8u i;
 	
 	for(i = 0; i < ACCEL_BUFSIZE; i++){
-		avx += buf.x[i];
-		avy += buf.y[i];
-		avz += buf.z[i];
+		avx += buffer.x[i];
+		avy += buffer.y[i];
+		avz += buffer.z[i];
 	}
 	
-	buf.averageX = avx / ACCEL_BUFSIZE;
-	buf.averageY = avy / ACCEL_BUFSIZE;
-	buf.averageZ = avz / ACCEL_BUFSIZE;
+	buffer.averageX = avx / ACCEL_BUFSIZE;
+	buffer.averageY = avy / ACCEL_BUFSIZE;
+	buffer.averageZ = avz / ACCEL_BUFSIZE;
 }
 
 void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrada del angulo deseado.

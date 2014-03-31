@@ -37,14 +37,7 @@
 #define 	RX_LED	 		0x00		//< Mascara para LED de recepcion PTC0
 #define 	TX_LED	 		0x01		//< Mascara para LED de transmision PTC1
 
-//RingBuffer para manejo de la comunicacion serial.
 
-typedef struct struct_buffer{
-	char buff[BUF_SIZE];
-	int8u first;
-	int8u last;	
-	int8u size;
-}buffer;
 
 typedef struct struct_trama{
 	int8u t[TRAMA_SIZE];

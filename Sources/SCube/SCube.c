@@ -48,18 +48,17 @@ void init_SCube(){
 }
 
 void read_SCube(){
-	FRQ_MSR_X_GetCaptureValue(&buf.x[last]);
-	FRQ_MSR_Y_GetCaptureValue(&buf.y[last]);
-	FRQ_MSR_Z_GetCaptureValue(&buf.z[last]);
-	last++;
-	last %= SCUBE_BUFSIZE;
+	FRQ_MSR_X_GetCaptureValue(&buf.x[buf.last]);
+	FRQ_MSR_Y_GetCaptureValue(&buf.y[buf.last]);
+	FRQ_MSR_Z_GetCaptureValue(&buf.z[buf.last]);
+	buf.last++;
+	buf.last %= SCUBE_BUFSIZE;
 }
 
 void send_SCube(int8u panel){
 	int8u correccion = 0, i;
 	_trama t;
 	__period period;
-	trama t;
 	t.t[0] = panel;
 	switch(panel){
 		case PANELX:
