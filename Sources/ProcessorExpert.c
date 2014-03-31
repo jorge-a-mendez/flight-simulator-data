@@ -74,6 +74,8 @@ void main(void)
 {
   /* Write your local variable definition here */
   _trama rx;
+  int8u aux;
+  
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
@@ -83,7 +85,12 @@ void main(void)
   	ADQUIRIR_DisableEvent();
   	ENVIAR_DisableEvent();
   	AS1_ClearRxBuf();
+  	AS1_SendChar('i');
   	while(!read_data2(&rx));
+  	aux = RTCMOD;
+  	RTCMOD = aux;
+  	TPM2CNT = 0;
+  	
   	ENVIAR_EnableEvent();
   	ADQUIRIR_EnableEvent();
 	state_machine();

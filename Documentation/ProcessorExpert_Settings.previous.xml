@@ -497,7 +497,7 @@ asm(BGND);
           <TxD v="PTB1_KBI1P5_TxD1_ADP5" />
           <TxD_pin_signal v="" />
         </boolgroup>
-        <Baud_rate v="115200 baud" />
+        <Baud_rate v="9600 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />
@@ -964,7 +964,7 @@ rising or falling edge
         <Interrupt v="Vrtc" />
         <Interrupt_priority v="medium priority" />
       </boolgroup>
-      <Interrupt_period v="2 ms" />
+      <Interrupt_period v="5 ms" />
       <Same_period_in_modes v="yes" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
@@ -1007,13 +1007,13 @@ rising or falling edge
     <Enabled v="Y" />
     <Properties>
       <Component_name v="ENVIAR" />
-      <Periodic_interrupt_source v="TPM10" />
-      <Counter v="TPM1" />
+      <Periodic_interrupt_source v="TPM21" />
+      <Counter v="TPM2" />
       <boolgroup name="Interrupt service/event" v="Enabled">
-        <Interrupt v="Vtpm1ch0" />
+        <Interrupt v="Vtpm2ch1" />
         <Interrupt_priority v="medium priority" />
       </boolgroup>
-      <Interrupt_period v="2.5 ms" />
+      <Interrupt_period v="6 ms" />
       <Same_period_in_modes v="yes" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
