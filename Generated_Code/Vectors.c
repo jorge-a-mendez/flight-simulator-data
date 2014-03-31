@@ -5,7 +5,7 @@
 **     Processor   : MC9S08QE128CLK
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 18:13, # CodeGen: 17
+**     Date/Time   : 2014-03-31, 18:01, # CodeGen: 35
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -57,12 +57,12 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          Cpu_Interrupt,                /* Int.no. 12 Vspi2 (at FFE6)                 Unassigned */
          Cpu_Interrupt,                /* Int.no. 11 Vtpm2ovf (at FFE8)              Unassigned */
          Cpu_Interrupt,                /* Int.no. 10 Vtpm2ch2 (at FFEA)              Unassigned */
-         Cpu_Interrupt,                /* Int.no.  9 Vtpm2ch1 (at FFEC)              Unassigned */
+         ENVIAR_Interrupt,             /* Int.no.  9 Vtpm2ch1 (at FFEC)              Used */
          FRQ_MSR_Z_Interrupt,          /* Int.no.  8 Vtpm2ch0 (at FFEE)              Used */
          Cpu_Interrupt,                /* Int.no.  7 Vtpm1ovf (at FFF0)              Unassigned */
          FRQ_MSR_Y_Interrupt,          /* Int.no.  6 Vtpm1ch2 (at FFF2)              Used */
          FRQ_MSR_X_Interrupt,          /* Int.no.  5 Vtpm1ch1 (at FFF4)              Used */
-         ENVIAR_Interrupt,             /* Int.no.  4 Vtpm1ch0 (at FFF6)              Used */
+         Cpu_Interrupt,                /* Int.no.  4 Vtpm1ch0 (at FFF6)              Unassigned */
          Cpu_Interrupt,                /* Int.no.  3 Vlvd (at FFF8)                  Unassigned */
          Cpu_Interrupt,                /* Int.no.  2 Virq (at FFFA)                  Unassigned */
          Cpu_Interrupt,                /* Int.no.  1 Vswi (at FFFC)                  Unassigned */
