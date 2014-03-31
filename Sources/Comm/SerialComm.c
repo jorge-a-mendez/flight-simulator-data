@@ -17,7 +17,7 @@ typedef struct struct_buffer{
 	char buff[BUF_SIZE];
 	int8u first;
 	int8u last;	
-	int8u size;
+	int16u size;
 }buffer;
 
 static buffer bufTx;
@@ -61,7 +61,7 @@ void send_data(_trama* data, int8u correction){
 
 bool read_data(_trama* data){			//< Es posible modificar este algoritmo para que en lugar de sobre escribir, se encole nueva data.
 	int8u err;
-	err = AS1_RecvBlock(data->t, TRAMA_SIZE, &data->tam);			//< Recibe el bloque.
+	err = AS1_RecvBlock(data->t, 4, &data->tam);			//< Recibe el bloque.
 	if(err == ERR_OK){
 		//Chequea integridad del bloque recibido.
 		if(data->tam != 4 && data->t[0] != INICIAR && data->t[3] != FIN) return false;
@@ -69,6 +69,19 @@ bool read_data(_trama* data){			//< Es posible modificar este algoritmo para que
 		return true;
 	}
 	return false;
+}
+
+bool read_data2(_trama* data){
+	int8u err, i; 
+	int8u *Ptr = data->t;
+	data->tam = 0;
+	while(AS1_GetCharsInRxBuf() != 4);
+	err = AS1_RecvBlock(data->t, 4, &data->tam);
+	if(data->tam != 4 && data->t[0] != INICIAR && data->t[3] != FIN) 
+		return false;
+	countRx += 3;
+	return true;
+	
 }
 
 void heartbit(){
