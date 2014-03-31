@@ -6,7 +6,7 @@
 **     Component   : AsynchroSerial
 **     Version     : Component 02.601, Driver 01.33, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-24, 11:00, # CodeGen: 18
+**     Date/Time   : 2014-03-30, 22:16, # CodeGen: 25
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -18,12 +18,12 @@
 **         Serial channel              : SCI1
 **
 **         Protocol
-**             Init baud rate          : 9600baud
+**             Init baud rate          : 115200baud
 **             Width                   : 8 bits
 **             Stop bits               : 1
 **             Parity                  : none
 **             Breaks                  : Disabled
-**             Input buffer size       : 1
+**             Input buffer size       : 4
 **             Output buffer size      : 1
 **
 **         Registers
@@ -53,6 +53,8 @@
 **
 **
 **     Contents    :
+**         EnableEvent     - byte AS1_EnableEvent(void);
+**         DisableEvent    - byte AS1_DisableEvent(void);
 **         RecvChar        - byte AS1_RecvChar(AS1_TComData *Chr);
 **         SendChar        - byte AS1_SendChar(AS1_TComData Chr);
 **         RecvBlock       - byte AS1_RecvBlock(AS1_TComData *Ptr, word Size, word *Rcv);
@@ -91,6 +93,7 @@ static volatile byte SerFlag;          /* Flags for serial communication */
                                        /* Bit 2 - Char in RX buffer */
                                        /* Bit 3 - Interrupt is in progress */
                                        /* Bit 4 - Full RX buffer */
+volatile bool AS1_EnEvent;             /* Enable/Disable events */
 byte AS1_InpLen;                       /* Length of the input buffer content */
 static byte InpIndxR;                  /* Index for reading from input buffer */
 static byte InpIndxW;                  /* Index for writing to input buffer */
@@ -100,6 +103,18 @@ static byte OutIndxR;                  /* Index for reading from output buffer *
 static byte OutIndxW;                  /* Index for writing to output buffer */
 static AS1_TComData OutBuffer[AS1_OUT_BUF_SIZE]; /* Output buffer for SCI commmunication */
 static bool OnFreeTxBuf_semaphore;     /* Disable the false calling of the OnFreeTxBuf event */
+
+/*
+byte AS1_EnableEvent(void)
+
+**      This method is implemented as a macro. See header module. **
+*/
+
+/*
+byte AS1_DisableEvent(void)
+
+**      This method is implemented as a macro. See header module. **
+*/
 
 /*
 ** ===================================================================
@@ -427,15 +442,17 @@ ISR(AS1_InterruptRx)
     SerFlag |= FULL_RX;                /* If yes then set flag buffer overflow */
     OnFlags |= ON_ERROR;               /* Set flag "OnError" */
   }
-  if (OnFlags & ON_ERROR) {            /* Is OnError flag set? */
-    AS1_OnError();                     /* If yes then invoke user event */
-  }
-  else {
-    if (OnFlags & ON_RX_CHAR) {        /* Is OnRxChar flag set? */
-      AS1_OnRxChar();                  /* If yes then invoke user event */
+  if (AS1_EnEvent) {                   /* Are the events enabled? */
+    if (OnFlags & ON_ERROR) {          /* Is OnError flag set? */
+      AS1_OnError();                   /* If yes then invoke user event */
     }
-    if (OnFlags & ON_FULL_RX) {        /* Is OnFullRxBuf flag set? */
-      AS1_OnFullRxBuf();               /* If yes then invoke user event */
+    else {
+      if (OnFlags & ON_RX_CHAR) {      /* Is OnRxChar flag set? */
+        AS1_OnRxChar();                /* If yes then invoke user event */
+      }
+      if (OnFlags & ON_FULL_RX) {      /* Is OnFullRxBuf flag set? */
+        AS1_OnFullRxBuf();             /* If yes then invoke user event */
+      }
     }
   }
 }
@@ -472,11 +489,13 @@ ISR(AS1_InterruptTx)
     }
     SCI1C2_TIE = 0x00U;                /* Disable transmit interrupt */
   }
-  if (OnFlags & ON_TX_CHAR) {          /* Is flag "OnTxChar" set? */
-    AS1_OnTxChar();                    /* If yes then invoke user event */
-  }
-  if (OnFlags & ON_FREE_TX) {          /* Is flag "OnFreeTxBuf" set? */
-    AS1_OnFreeTxBuf();                 /* If yes then invoke user event */
+  if (AS1_EnEvent) {                   /* Are the events enabled? */
+    if (OnFlags & ON_TX_CHAR) {        /* Is flag "OnTxChar" set? */
+      AS1_OnTxChar();                  /* If yes then invoke user event */
+    }
+    if (OnFlags & ON_FREE_TX) {        /* Is flag "OnFreeTxBuf" set? */
+      AS1_OnFreeTxBuf();               /* If yes then invoke user event */
+    }
   }
 }
 
@@ -496,7 +515,9 @@ ISR(AS1_InterruptError)
 
   (void)SCI1D;                         /* Dummy read of data register - clear error bits */
   SerFlag |= COMMON_ERR;               /* If yes then set an internal flag */
-  AS1_OnError();                       /* Invoke user event */
+  if (AS1_EnEvent) {                   /* Are the events enabled? */
+    AS1_OnError();                     /* Invoke user event */
+  }
 }
 
 /*
@@ -514,6 +535,7 @@ void AS1_Init(void)
 {
   SerFlag = 0x00U;                     /* Reset flags */
   OnFreeTxBuf_semaphore = FALSE;       /* Clear the OnFreeTxBuf_semaphore */
+  AS1_EnEvent = TRUE;                  /* Enable events */
   AS1_InpLen = 0x00U;                  /* No char in the receive buffer */
   InpIndxR = 0x00U;                    /* Reset read index to the receive buffer */
   InpIndxW = 0x00U;                    /* Reset write index to the receive buffer */
@@ -529,7 +551,7 @@ void AS1_Init(void)
   /* SCI1S2: LBKDIF=0,RXEDGIF=0,??=0,RXINV=0,RWUID=0,BRK13=0,LBKDE=0,RAF=0 */
   setReg8(SCI1S2, 0x00U);               
   SCI1BDH = 0x00U;                     /* Set high divisor register (enable device) */
-  SCI1BDL = 0xA4U;                     /* Set low divisor register (enable device) */
+  SCI1BDL = 0x0EU;                     /* Set low divisor register (enable device) */
       /* SCI1C3: ORIE=1,NEIE=1,FEIE=1,PEIE=1 */
   SCI1C3 |= 0x0FU;                     /* Enable error interrupts */
   SCI1C2 |= (SCI1C2_TE_MASK | SCI1C2_RE_MASK | SCI1C2_RIE_MASK); /*  Enable transmitter, Enable receiver, Enable receiver interrupt */

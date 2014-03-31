@@ -30,7 +30,7 @@ typedef struct{
 	int8u last;
 }__piezo_data;
 
-__piezo_data buf;
+__piezo_data bff;
 
 int8u __get_shotVal();
 
@@ -39,13 +39,13 @@ int8u __get_shotVal();
 // Funciones publicas.
 
 void init_piezo(){
-	buf.last = 0;	
+	bff.last = 0;	
 }
 
 void get_shot(){
 	ADC_ANALOG_Measure(TRUE);
-	ADC_ANALOG_GetChanValue(CH_PIEZO,&buf.piezo);
-	ADC_ANALOG_GetChanValue(CH_DETECT,&buf.detector);
+	ADC_ANALOG_GetChanValue(CH_PIEZO,&bff.piezo);
+	ADC_ANALOG_GetChanValue(CH_DETECT,&bff.detector);
 }
 
 void send_shot(){
@@ -65,23 +65,23 @@ int8u __get_shotVal(){
 	bool shot = true;
 	
 	while(i < PIEZO_BUFSIZE && shot){
-		if(buf.shotVals[(buf.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = false;
+		if(bff.shotVals[(bff.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = false;
 	}
 		
-	if(buf.piezo < SOFT*MAXVALUE/3 || buf.piezo < buf.detector || !shot){
-		buf.shotVals[buf.last] = NOSHOT;
+	if(bff.piezo < SOFT*MAXVALUE/3 || bff.piezo < bff.detector || !shot){
+		bff.shotVals[bff.last] = NOSHOT;
 	}
-	else if((buf.piezo >= SOFT*MAXVALUE/3) && (buf.piezo < MEDIUM*MAXVALUE/3)){
-		buf.shotVals[buf.last] = SOFT;
+	else if((bff.piezo >= SOFT*MAXVALUE/3) && (bff.piezo < MEDIUM*MAXVALUE/3)){
+		bff.shotVals[bff.last] = SOFT;
 	}
-	else if((buf.piezo >= MEDIUM*MAXVALUE/3) && (buf.piezo < HARD*MAXVALUE/3)){
-		buf.shotVals[buf.last] = MEDIUM;
+	else if((bff.piezo >= MEDIUM*MAXVALUE/3) && (bff.piezo < HARD*MAXVALUE/3)){
+		bff.shotVals[bff.last] = MEDIUM;
 	}
 	else{
-		buf.shotVals[buf.last] = HARD;
+		bff.shotVals[bff.last] = HARD;
 	}
-	shotVal = buf.shotVals[buf.last];
-	buf.last++;
-	buf.last %= PIEZO_BUFSIZE;
+	shotVal = bff.shotVals[bff.last];
+	bff.last++;
+	bff.last %= PIEZO_BUFSIZE;
 	return shotVal;
 }

@@ -73,11 +73,18 @@ void prueba_pot(_trama* a, pot_amp* measure, int8u* correction, bool* enviar){
 void main(void)
 {
   /* Write your local variable definition here */
-
+  _trama rx;
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
-	init();
+
+  
+  	init();
+  	ADQUIRIR_DisableEvent();
+  	ENVIAR_DisableEvent();
+  	while (!read_data(&rx));
+  	ENVIAR_EnableEvent();
+  	ADQUIRIR_EnableEvent();
 	state_machine();
 
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/

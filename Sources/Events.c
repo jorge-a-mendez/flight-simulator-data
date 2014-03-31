@@ -254,6 +254,7 @@ void ENVIAR_OnInterrupt(void)
 void ADQUIRIR_OnInterrupt(void)
 {
 	estado = ADQUIRIR;
+	
 }
 
 /* END Events */

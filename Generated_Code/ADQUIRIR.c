@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 18:13, # CodeGen: 17
+**     Date/Time   : 2014-03-30, 22:15, # CodeGen: 24
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -46,7 +46,8 @@
 **
 **         Flip-flop registers
 **     Contents    :
-**         No public methods
+**         EnableEvent  - byte ADQUIRIR_EnableEvent(void);
+**         DisableEvent - byte ADQUIRIR_DisableEvent(void);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -80,6 +81,51 @@
 
 
 /*** End of internal method prototypes ***/
+
+/*
+** ===================================================================
+**     Method      :  ADQUIRIR_EnableEvent (component TimerInt)
+**
+**     Description :
+**         This method enables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte ADQUIRIR_EnableEvent(void)
+{
+  if (RTCSC_RTIE == 0x00U) {
+    /* RTCSC: RTIF=1 */
+    setReg8Bits(RTCSC, 0x80U);         /* Reset real-time counter request flag */ 
+  }
+  /* RTCSC: RTIE=1 */
+  setReg8Bits(RTCSC, 0x10U);           /* Enable interrupt */ 
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  ADQUIRIR_DisableEvent (component TimerInt)
+**
+**     Description :
+**         This method disables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+/*
+byte ADQUIRIR_DisableEvent(void)
+
+**      This method is implemented as a macro. See header module. **
+*/
 
 /*
 ** ===================================================================

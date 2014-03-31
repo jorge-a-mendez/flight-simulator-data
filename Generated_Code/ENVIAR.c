@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 18:13, # CodeGen: 17
+**     Date/Time   : 2014-03-30, 22:19, # CodeGen: 26
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -20,14 +20,14 @@
 **         Counter shared              : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-2
-**             Clock                   : 12582912 Hz
+**             Prescaler               : divide-by-1
+**             Clock                   : 25165824 Hz
 **           Initial period/frequency
-**             Xtal ticks              : 98
-**             microseconds            : 3000
+**             Xtal ticks              : 82
+**             microseconds            : 2500
 **             milliseconds            : 3
-**             seconds (real)          : 0.003000020981
-**             Hz                      : 333
+**             seconds (real)          : 0.002500017484
+**             Hz                      : 400
 **
 **         Runtime setting             : none
 **
@@ -47,7 +47,8 @@
 **         Flip-flop registers
 **              Mode                   : TPM1C0SC  [$0045]
 **     Contents    :
-**         No public methods
+**         EnableEvent  - byte ENVIAR_EnableEvent(void);
+**         DisableEvent - byte ENVIAR_DisableEvent(void);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -86,6 +87,51 @@ static word CmpVal;                    /* Value added to compare register in ISR
 
 /*
 ** ===================================================================
+**     Method      :  ENVIAR_EnableEvent (component TimerInt)
+**
+**     Description :
+**         This method enables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte ENVIAR_EnableEvent(void)
+{
+  if (TPM1C0SC_CH0IE == 0x00U) {
+    /* TPM1C0SC: CH0F=0 */
+    clrReg8Bits(TPM1C0SC, 0x80U);      /* Reset compare interrupt request flag */ 
+  }
+  /* TPM1C0SC: CH0IE=1 */
+  setReg8Bits(TPM1C0SC, 0x40U);        /* Enable interrupt */ 
+  return ERR_OK;                       /* OK */
+}
+
+/*
+** ===================================================================
+**     Method      :  ENVIAR_DisableEvent (component TimerInt)
+**
+**     Description :
+**         This method disables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+/*
+byte ENVIAR_DisableEvent(void)
+
+**      This method is implemented as a macro. See header module. **
+*/
+
+/*
+** ===================================================================
 **     Method      :  ENVIAR_Init (component TimerInt)
 **
 **     Description :
@@ -99,7 +145,7 @@ void ENVIAR_Init(void)
 {
   /* TPM1C0SC: CH0F=0,CH0IE=0,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0,??=0,??=0 */
   setReg8(TPM1C0SC, 0x10U);            /* Set output compare mode and disable compare interrupt */ 
-  ENVIAR_SetCV(0x9375U);               /* Initialize appropriate value to the compare/modulo/reload register */
+  ENVIAR_SetCV(0xF5C3U);               /* Initialize appropriate value to the compare/modulo/reload register */
   /* TPM1C0SC: CH0IE=1 */
   setReg8Bits(TPM1C0SC, 0x40U);        /* Enable Compare interrupt */ 
 }

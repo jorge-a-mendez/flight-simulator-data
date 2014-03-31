@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 18:13, # CodeGen: 17
+**     Date/Time   : 2014-03-30, 22:19, # CodeGen: 26
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -20,14 +20,14 @@
 **         Counter shared              : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-2
-**             Clock                   : 12582912 Hz
+**             Prescaler               : divide-by-1
+**             Clock                   : 25165824 Hz
 **           Initial period/frequency
-**             Xtal ticks              : 98
-**             microseconds            : 3000
+**             Xtal ticks              : 82
+**             microseconds            : 2500
 **             milliseconds            : 3
-**             seconds (real)          : 0.003000020981
-**             Hz                      : 333
+**             seconds (real)          : 0.002500017484
+**             Hz                      : 400
 **
 **         Runtime setting             : none
 **
@@ -47,7 +47,8 @@
 **         Flip-flop registers
 **              Mode                   : TPM1C0SC  [$0045]
 **     Contents    :
-**         No public methods
+**         EnableEvent  - byte ENVIAR_EnableEvent(void);
+**         DisableEvent - byte ENVIAR_DisableEvent(void);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -66,6 +67,38 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "Cpu.h"
+
+byte ENVIAR_EnableEvent(void);
+/*
+** ===================================================================
+**     Method      :  ENVIAR_EnableEvent (component TimerInt)
+**
+**     Description :
+**         This method enables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+
+#define ENVIAR_DisableEvent() (TPM1C0SC_CH0IE = 0x00U, (byte)ERR_OK) /* Disable interrupt */
+/*
+** ===================================================================
+**     Method      :  ENVIAR_DisableEvent (component TimerInt)
+**
+**     Description :
+**         This method disables the events.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
 
 __interrupt void ENVIAR_Interrupt(void);
 /*
