@@ -54,7 +54,7 @@ typedef struct struct_trama{
 
 void init_buff();			//< Necesario llamar una vez para inicializacion del buffer
 void heartbit();			//< Parpadeo de led para indicar envio y recepcion de datos. Llamado en evento HEARTBIT
-void rx_handler();			//< Manejadores para la comunicacion serial.
+							//< Manejadores para la comunicacion serial.
 void tx_handler();			
 
 void send_data(_trama* data, int8u correction); //< Envia informacion a traves del puerto serial.

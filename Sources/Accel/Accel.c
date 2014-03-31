@@ -91,17 +91,17 @@ void send_angles(){
 
 float __calculateAngle(int8u angle){
 	int8u i;
-	int32u x = 0, y = 0, z = 0;
+	float x = 0, y = 0, z = 0;
 	for(i = 0; i < ACCEL_BUFSIZE/2; i++){
-		x += buffer.x[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
-		y += buffer.y[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
-		z += buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG;
+		x += (float)(buffer.x[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
+		y += (float)(buffer.y[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
+		z += (float)(buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
 	}
 	switch(angle){
 	case ANGLE_XZ:
-		return ((float)(y * y))/(float)(x * x + z * z);
+		return ((y * y))/(x * x + z * z);
 	case ANGLE_YZ:
-		return ((float)(x * x))/(float)(y * y + z * z);
+		return ((x * x))/(y * y + z * z);
 	}
 }
 
@@ -147,7 +147,7 @@ void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadr
 	for (i = 0; i < 4; i++){
 		if(angle.byte[i] == 0xFF){
 			t.t[i + 1] = 0xFE;
-			correction |= 1<<(4 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
+			correction |= 1<<(3 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
 		}
 		else t.t[i + 1] = angle.byte[i];
 	}

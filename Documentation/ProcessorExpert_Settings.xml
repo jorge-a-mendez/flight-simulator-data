@@ -497,7 +497,7 @@ asm(BGND);
           <TxD v="PTB1_KBI1P5_TxD1_ADP5" />
           <TxD_pin_signal v="" />
         </boolgroup>
-        <Baud_rate v="115200 baud" />
+        <Baud_rate v="9600 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />

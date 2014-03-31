@@ -82,7 +82,8 @@ void main(void)
   	init();
   	ADQUIRIR_DisableEvent();
   	ENVIAR_DisableEvent();
-  	while (!read_data(&rx));
+  	AS1_ClearRxBuf();
+  	while(!read_data2(&rx));
   	ENVIAR_EnableEvent();
   	ADQUIRIR_EnableEvent();
 	state_machine();
