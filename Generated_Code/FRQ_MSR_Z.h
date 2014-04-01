@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 17:10, # CodeGen: 19
+**     Date/Time   : 2014-03-31, 18:01, # CodeGen: 35
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On
@@ -18,18 +18,18 @@
 **
 **         Timer
 **             Timer                   : TPM2
-**             Counter shared          : No
+**             Counter shared          : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-1
+**             Prescaler               : divide-by-4
 **           Maximal time for capture register
-**             Xtal ticks              : 85
-**             microseconds            : 2604
-**             milliseconds            : 3
-**             seconds (real)          : 0.002604166667
-**             Hz                      : 384
+**             Xtal ticks              : 341
+**             microseconds            : 10417
+**             milliseconds            : 10
+**             seconds (real)          : 0.010416666667
+**             Hz                      : 96
 **           One tick of timer is
-**             nanoseconds             : 40
+**             nanoseconds             : 166.666666666667
 **
 **         Initialization:
 **              Timer                  : Enabled
@@ -81,11 +81,11 @@
 #include "Cpu.h"
 
 /* PUBLISHED CONSTANTS */
-#define FRQ_MSR_Z_PRESCALER_VALUE           0x01U /* Prescaler value of the timer in high speed mode */
-#define FRQ_MSR_Z_COUNTER_INPUT_CLOCK_HZ    0x01800000LU /* Initial counter input clock frequency [Hz] */
+#define FRQ_MSR_Z_PRESCALER_VALUE           0x04U /* Prescaler value of the timer in high speed mode */
+#define FRQ_MSR_Z_COUNTER_INPUT_CLOCK_HZ    0x00600000LU /* Initial counter input clock frequency [Hz] */
 #define FRQ_MSR_Z_TIMER_INPUT_CLOCK         0x01800000LU /* Deprecated, Initial timer input clock frequency [Hz] */
-#define FRQ_MSR_Z_PRESCALER_VALUE_HIGH      0x01U /* Prescaler value of the timer in high speed mode */
-#define FRQ_MSR_Z_COUNTER_INPUT_CLOCK_HZ_HIGH 0x01800000LU /* Counter input clock frequency in high speed mode [Hz] */
+#define FRQ_MSR_Z_PRESCALER_VALUE_HIGH      0x04U /* Prescaler value of the timer in high speed mode */
+#define FRQ_MSR_Z_COUNTER_INPUT_CLOCK_HZ_HIGH 0x00600000LU /* Counter input clock frequency in high speed mode [Hz] */
 #define FRQ_MSR_Z_TIMER_INPUT_CLOCK_HIGH    0x01800000LU /* Deprecated, Timer input clock frequency in high speed mode[Hz] */
 
 #ifndef __BWUserType_FRQ_MSR_Z_TCapturedValue
@@ -94,9 +94,11 @@
 #endif
 
 
+extern volatile word FRQ_MSR_Z_CntrState; /* Content of counter */
+
 
 #define FRQ_MSR_Z_Reset() \
-  (TPM2CNTH = 0U , (byte)ERR_OK)
+  (FRQ_MSR_Z_CntrState = TPM2CNT , (byte)ERR_OK)
 /*
 ** ===================================================================
 **     Method      :  FRQ_MSR_Z_Reset (component Capture)
@@ -115,7 +117,9 @@
 
 #define FRQ_MSR_Z_GetCaptureValue(Value) \
   /*lint -save  -e926 -e927 -e928 -e929 Disable MISRA rule (11.4) checking. */\
-  (*(FRQ_MSR_Z_TCapturedValue*)(Value) = TPM2C0V , (byte)ERR_OK) \
+  (((*(FRQ_MSR_Z_TCapturedValue*)(Value) = TPM2C0V), \
+  (*(FRQ_MSR_Z_TCapturedValue*)(Value) -= FRQ_MSR_Z_CntrState)), \
+  ERR_OK) \
   /*lint -restore Enable MISRA rule (11.4) checking. */
 /*
 ** ===================================================================
@@ -124,7 +128,7 @@
 **     Description :
 **         This method gets the last value captured by enabled timer.
 **         Note: one tick of timer is
-**               40 ns in high speed mode
+**               166.666666666667 ns in high speed mode
 **     Parameters  :
 **         NAME            - DESCRIPTION
 **       * Value           - A pointer to the content of the

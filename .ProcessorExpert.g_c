@@ -33,7 +33,7 @@
         <Line>Project_Settings\Linker_Files\ProcessorExpert.prm</Line>
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
-      <XtraAge1>1148883377</XtraAge1>
+      <XtraAge1>1149210661</XtraAge1>
       <GenExtraFileType1>4</GenExtraFileType1>
       <GenExtraFileType0>4</GenExtraFileType0>
       <GenEventModules lines_count="1">
@@ -87,7 +87,7 @@
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>33</ProjectModificationStamp>
+    <ProjectModificationStamp>34</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
@@ -96,7 +96,7 @@
     <GenDriverVersion>01.40</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1147248306</HeaderAge>
-    <CodeAge>1148883869</CodeAge>
+    <CodeAge>1149210661</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>20</GenNumMethods>
     <Delay100US>true</Delay100US>
@@ -148,8 +148,8 @@
     <GenComponentVersion>02.601</GenComponentVersion>
     <GenDriverVersion>01.33</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1149203692</HeaderAge>
-    <CodeAge>1149203692</CodeAge>
+    <HeaderAge>1149212114</HeaderAge>
+    <CodeAge>1149212114</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>30</GenNumMethods>
     <DisableRxEdgeDetect>false</DisableRxEdgeDetect>
@@ -1072,8 +1072,8 @@
     <GenComponentVersion>02.216</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1148885478</HeaderAge>
-    <CodeAge>1148885478</CodeAge>
+    <HeaderAge>1149210661</HeaderAge>
+    <CodeAge>1149210661</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <GetPinValue>false</GetPinValue>
@@ -1105,49 +1105,49 @@
       <MethodPos0>Reset</MethodPos0>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>97</LineBeg>
-      <LineEnd>114</LineEnd>
+      <LineBeg>99</LineBeg>
+      <LineEnd>116</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos1>GetCaptureValue</MethodPos1>
       <MethodType>method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>115</LineBeg>
-      <LineEnd>138</LineEnd>
+      <LineBeg>117</LineBeg>
+      <LineEnd>142</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos2>Init</MethodPos2>
       <MethodType>internal_method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>139</LineBeg>
-      <LineEnd>151</LineEnd>
+      <LineBeg>143</LineBeg>
+      <LineEnd>155</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos3>Interrupt</MethodPos3>
       <MethodType>internal_method</MethodType>
       <ModuleType>Header</ModuleType>
-      <LineBeg>152</LineBeg>
-      <LineEnd>163</LineEnd>
+      <LineBeg>156</LineBeg>
+      <LineEnd>167</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos4>Reset</MethodPos4>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>77</LineBeg>
-      <LineEnd>97</LineEnd>
+      <LineBeg>78</LineBeg>
+      <LineEnd>98</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos5>GetCaptureValue</MethodPos5>
       <MethodType>method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>98</LineBeg>
-      <LineEnd>122</LineEnd>
+      <LineBeg>99</LineBeg>
+      <LineEnd>123</LineEnd>
     </MethodPos>
     <MethodPos>
       <MethodPos6>Init</MethodPos6>
       <MethodType>internal_method</MethodType>
       <ModuleType>Code</ModuleType>
-      <LineBeg>123</LineBeg>
+      <LineBeg>124</LineBeg>
       <LineEnd>151</LineEnd>
     </MethodPos>
     <MethodPos>
@@ -1165,8 +1165,8 @@
     <GenComponentVersion>02.160</GenComponentVersion>
     <GenDriverVersion>01.23</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1149153784</HeaderAge>
-    <CodeAge>1149153784</CodeAge>
+    <HeaderAge>1149210661</HeaderAge>
+    <CodeAge>1149210661</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetFreqMHz>false</SetFreqMHz>
@@ -1268,8 +1268,8 @@
     <GenComponentVersion>02.160</GenComponentVersion>
     <GenDriverVersion>01.23</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1149153921</HeaderAge>
-    <CodeAge>1149153921</CodeAge>
+    <HeaderAge>1149210661</HeaderAge>
+    <CodeAge>1149210661</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>14</GenNumMethods>
     <SetFreqMHz>false</SetFreqMHz>
