@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-30, 22:19, # CodeGen: 26
+**     Date/Time   : 2014-03-31, 18:01, # CodeGen: 35
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -15,19 +15,19 @@
 **         The source of periodic interrupt can be timer compare or reload
 **         register or timer-overflow interrupt (of free running counter).
 **     Settings    :
-**         Timer name                  : TPM1 (16-bit)
-**         Compare name                : TPM10
+**         Timer name                  : TPM2 (16-bit)
+**         Compare name                : TPM21
 **         Counter shared              : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-1
-**             Clock                   : 25165824 Hz
+**             Prescaler               : divide-by-4
+**             Clock                   : 6291456 Hz
 **           Initial period/frequency
-**             Xtal ticks              : 82
-**             microseconds            : 2500
-**             milliseconds            : 3
-**             seconds (real)          : 0.002500017484
-**             Hz                      : 400
+**             Xtal ticks              : 197
+**             microseconds            : 6000
+**             milliseconds            : 6
+**             seconds (real)          : 0.006000041962
+**             Hz                      : 167
 **
 **         Runtime setting             : none
 **
@@ -36,16 +36,16 @@
 **              Events                 : Enabled
 **
 **         Timer registers
-**              Counter                : TPM1CNT   [$0041]
-**              Mode                   : TPM1SC    [$0040]
-**              Run                    : TPM1SC    [$0040]
-**              Prescaler              : TPM1SC    [$0040]
+**              Counter                : TPM2CNT   [$0051]
+**              Mode                   : TPM2SC    [$0050]
+**              Run                    : TPM2SC    [$0050]
+**              Prescaler              : TPM2SC    [$0050]
 **
 **         Compare registers
-**              Compare                : TPM1C0V   [$0046]
+**              Compare                : TPM2C1V   [$0059]
 **
 **         Flip-flop registers
-**              Mode                   : TPM1C0SC  [$0045]
+**              Mode                   : TPM2C1SC  [$0058]
 **     Contents    :
 **         EnableEvent  - byte ENVIAR_EnableEvent(void);
 **         DisableEvent - byte ENVIAR_DisableEvent(void);
@@ -84,7 +84,7 @@ byte ENVIAR_EnableEvent(void);
 ** ===================================================================
 */
 
-#define ENVIAR_DisableEvent() (TPM1C0SC_CH0IE = 0x00U, (byte)ERR_OK) /* Disable interrupt */
+#define ENVIAR_DisableEvent() (TPM2C1SC_CH1IE = 0x00U, (byte)ERR_OK) /* Disable interrupt */
 /*
 ** ===================================================================
 **     Method      :  ENVIAR_DisableEvent (component TimerInt)

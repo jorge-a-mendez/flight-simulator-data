@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-26, 17:10, # CodeGen: 19
+**     Date/Time   : 2014-03-31, 18:01, # CodeGen: 35
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On
@@ -18,18 +18,18 @@
 **
 **         Timer
 **             Timer                   : TPM2
-**             Counter shared          : No
+**             Counter shared          : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-1
+**             Prescaler               : divide-by-4
 **           Maximal time for capture register
-**             Xtal ticks              : 85
-**             microseconds            : 2604
-**             milliseconds            : 3
-**             seconds (real)          : 0.002604166667
-**             Hz                      : 384
+**             Xtal ticks              : 341
+**             microseconds            : 10417
+**             milliseconds            : 10
+**             seconds (real)          : 0.010416666667
+**             Hz                      : 96
 **           One tick of timer is
-**             nanoseconds             : 40
+**             nanoseconds             : 166.666666666667
 **
 **         Initialization:
 **              Timer                  : Enabled
@@ -73,6 +73,7 @@
 #include "FRQ_MSR_Z.h"
 
 
+volatile word FRQ_MSR_Z_CntrState;     /* Content of counter */
 
 
 /*
@@ -103,7 +104,7 @@ byte FRQ_MSR_Z_Reset(word *Value)
 **     Description :
 **         This method gets the last value captured by enabled timer.
 **         Note: one tick of timer is
-**               40 ns in high speed mode
+**               166.666666666667 ns in high speed mode
 **     Parameters  :
 **         NAME            - DESCRIPTION
 **       * Value           - A pointer to the content of the
@@ -142,12 +143,11 @@ void FRQ_MSR_Z_Init(void)
   setReg8(TPM2CNTH, 0x00U);            /* Reset counter */ 
   /* TPM2C0V: BIT15=0,BIT14=0,BIT13=0,BIT12=0,BIT11=0,BIT10=0,BIT9=0,BIT8=0,BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
   setReg16(TPM2C0V, 0x00U);            /* Clear capture register */ 
-  /* TPM2SC: PS2=0,PS1=0,PS0=0 */
-  clrReg8Bits(TPM2SC, 0x07U);          /* Set prescaler register */ 
+  FRQ_MSR_Z_CntrState = 0x00U;         /* Clear variable */
+  /* TPM2SC: PS2=0,PS1=1,PS0=0 */
+  clrSetReg8Bits(TPM2SC, 0x05U, 0x02U); /* Set prescaler register */ 
   /* TPM2C0SC: CH0F=0,CH0IE=1,MS0B=0,MS0A=0,ELS0B=0,ELS0A=1,??=0,??=0 */
   setReg8(TPM2C0SC, 0x44U);            /* Enable both interrupt and capture function */ 
-  /* TPM2SC: CLKSB=0,CLKSA=1 */
-  clrSetReg8Bits(TPM2SC, 0x10U, 0x08U); /* Run counter */ 
 }
 
 
