@@ -54,7 +54,7 @@ void send_shot(){
 	t.t[0] = PIEZO;
 	t.t[1] = __get_shotVal();
 	t.tam = 1;
-	if (t.tam[1] != NOSHOT)
+	if (t.t[1] != NOSHOT)
 		send_data(&t, correction);
 }
 
