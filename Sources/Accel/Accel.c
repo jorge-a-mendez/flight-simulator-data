@@ -15,11 +15,11 @@
 #define 	ACCEL_BUFSIZE	256u
 #define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
 #define 	ANGLE_YZ		1u
-#define 	CH_X			0//1u
-#define 	CH_Y			0//2u
-#define 	CH_Z			0//3u
+#define 	CH_X			1u
+#define 	CH_Y			2u
+#define 	CH_Z			3u
 
-#define 	ZG				0//2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
+#define 	ZG				2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
 
 typedef struct {					//< Private struct for data buffering
 	int16u x[ACCEL_BUFSIZE];
@@ -36,7 +36,15 @@ typedef union {		//< Private union for byte access of angle data.
 	int8u byte[4];
 } __angle;
 
+
+typedef union{
+	int16u x;
+	int8u byte[2];
+}__avg;
+
 __accel_data buffer; 
+
+
 
 
 //Funciones privadas
@@ -46,6 +54,7 @@ void __average_accel();
 void __filter_data();
 void __calibrate();
 void __send_angle(int8u ang);
+void __send_avgs();
 
 //Funciones Publicas
 
@@ -63,8 +72,9 @@ void read_accel(){
 }
 
 void send_angles(){
-	__send_angle(0);
-	__send_angle(1);
+	//__send_angle(0);
+	//__send_angle(1);
+	__send_avgs();
 }
 
 //#####################################################################################
@@ -93,10 +103,15 @@ float __calculateAngle(int8u angle){
 	int8u i;
 	float x = 0, y = 0, z = 0;
 	for(i = 0; i < ACCEL_BUFSIZE/2; i++){
-		x += (float)(buffer.x[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
-		y += (float)(buffer.y[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
-		z += (float)(buffer.z[(i + buffer.last) % ACCEL_BUFSIZE] - ZG);
+		x += (float)(buffer.x[(i + buffer.last) % ACCEL_BUFSIZE]);
+		y += (float)(buffer.y[(i + buffer.last) % ACCEL_BUFSIZE]);
+		z += (float)(buffer.z[(i + buffer.last) % ACCEL_BUFSIZE]);
 	}
+	
+	x -= ZG * ACCEL_BUFSIZE/2;
+	y -= ZG * ACCEL_BUFSIZE/2;
+	z -= ZG * ACCEL_BUFSIZE/2;
+	
 	switch(angle){
 	case ANGLE_XZ:
 		return ((y * y))/(x * x + z * z);
@@ -104,6 +119,9 @@ float __calculateAngle(int8u angle){
 		return ((x * x))/(y * y + z * z);
 	}
 }
+
+
+
 
 void __calibrate(){
 	int16u i;
@@ -125,7 +143,7 @@ void __calibrate(){
 
 void __average_accel(){
 	int32u avx = 0, avy = 0, avz = 0;
-	int8u i;
+	int16u i;
 	
 	for(i = 0; i < ACCEL_BUFSIZE; i++){
 		avx += buffer.x[i];
@@ -154,3 +172,48 @@ void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadr
 	t.tam = i + 1; 
 	send_data(&t, correction);
 }
+
+void __send_avgs(){
+	int8u i;
+	_trama t;
+	__avg avg;
+	__average_accel();
+	
+	avg.x = buffer.averageX;
+	t.tam = 3;
+	t.t[0] = 0;
+	for(i = 0; i < 2; i++){
+		if(avg.byte[i] == 0xFF){
+			t.t[i+1] = 0xFE;
+		}
+		else{
+			t.t[i+1] = avg.byte[i];
+		}
+	}	
+	send_data(&t, 0);
+	
+	avg.x = buffer.averageY;
+	t.t[0] = 1;
+	for(i = 0; i < 2; i++){
+		if(avg.byte[i] == 0xFF){
+			t.t[i+1] = 0xFE;
+		}
+		else{
+			t.t[i+1] = avg.byte[i];
+		}
+	}
+	send_data(&t, 0);
+	
+	avg.x = buffer.averageZ;
+	t.t[0] = 2;
+	for(i = 0; i < 2; i++){
+		if(avg.byte[i] == 0xFF){
+			t.t[i+1] = 0xFE;
+		}
+		else{
+			t.t[i+1] = avg.byte[i];
+		}
+	}
+	send_data(&t, 0);
+}
+

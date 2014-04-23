@@ -65,7 +65,7 @@ void __acquire(){										//< Esta funcion solicita los datos a adquiri: ADC, P
 }
 
 void __send_info(){									//< Encapsula todos los envios necesarios a la PC
-	send_angles();	
+	send_angles();
 }
 
 void __read_info(){

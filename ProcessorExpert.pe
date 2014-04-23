@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>ProcessorExpert</Name>
-    <SavedBy>Rafael Rodriguez</SavedBy>
-    <ModificationStamp>34</ModificationStamp>
-    <Date>2014-03-31</Date>
+    <SavedBy>user</SavedBy>
+    <ModificationStamp>35</ModificationStamp>
+    <Date>2014-04-21</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -7386,14 +7386,14 @@
       <ItemState>
         <ItemSymbol>PortAD1</ItemSymbol>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTF</Value>
+        <Value>PTA</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD1</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTF7_ADP17</Value>
+        <Value>PTA2_KBI1P2_SDA1_ADP2</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADSignal1</ItemSymbol>
@@ -7510,14 +7510,14 @@
       <ItemState>
         <ItemSymbol>PortAD2</ItemSymbol>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTF</Value>
+        <Value>PTA</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTF5_ADP15</Value>
+        <Value>PTA3_KBI1P3_SCL1_ADP3</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADSignal2</ItemSymbol>

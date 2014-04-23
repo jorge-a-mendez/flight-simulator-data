@@ -21,8 +21,8 @@ typedef unsigned char int8u;
 typedef signed char   int8s;
 typedef signed short  int16s;
 typedef unsigned short int16u;
-typedef signed int 	int32s;
-typedef unsigned int int32u;
+typedef signed long int 	int32s;
+typedef unsigned long int int32u;
 
 
 
