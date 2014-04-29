@@ -1,6 +1,6 @@
 <Analysispoints>
 	<Name>AnalysispointsManager</Name>
-	<ProjectPath>C:/Users/user.LC/Desktop/rafars307-adquisicion_comunicacion-71f4468637db/SaAnalysispointsManager.apconfig</ProjectPath>
+	<ProjectPath>C:/Users/Rafael/EC3882/adquisicion_comunicacion/SaAnalysispointsManager.apconfig</ProjectPath>
 	<MaxNumberOfCores>1</MaxNumberOfCores>
 	<Comments>Analysispoints Manager</Comments>
 	<IgnoreAll>false</IgnoreAll>
