@@ -23,7 +23,8 @@ void __read_info();
 
 
 void init(){					//< Aqui van incluidas las funciones de inicializacion de los modulos.
-	init_accel();
+	//init_accel();
+	init_piezo();
 }
 
 void state_machine(){
@@ -65,9 +66,11 @@ void __acquire(){										//< Esta funcion solicita los datos a adquiri: ADC, P
 }
 
 void __send_info(){									//< Encapsula todos los envios necesarios a la PC
-	send_angles();
+	//send_angles();
+	send_shot();
 }
 
 void __read_info(){
-	read_accel();
+	//read_accel();
+	get_shot();
 }
