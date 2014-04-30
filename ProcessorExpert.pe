@@ -3,7 +3,7 @@
   <Header>
     <Name>ProcessorExpert</Name>
     <SavedBy>Jorge Armando</SavedBy>
-    <ModificationStamp>35</ModificationStamp>
+    <ModificationStamp>37</ModificationStamp>
     <Date>2014-04-29</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>60</ProjectCompNumb>
+    <ProjectCompNumb>63</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>false</AssignInitComponentNameToPrph>
@@ -7759,14 +7759,14 @@
       <ItemState>
         <ItemSymbol>PortAD4</ItemSymbol>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG</Value>
+        <Value>PTF</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD4</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG5_ADP21</Value>
+        <Value>PTF0_ADP10</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADSignal4</ItemSymbol>
@@ -7882,14 +7882,14 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>PortAD5</ItemSymbol>
-        <Value>PTG</Value>
+        <Value>PTF</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD5</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>PTG6_ADP22</Value>
+        <Value>PTF1_ADP11</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
