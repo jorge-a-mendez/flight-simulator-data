@@ -12,14 +12,14 @@
 
 //Constantes.
 
-#define NOSHOT			0
+#define NOSHOT			0u
 #define SOFT			1u
 #define MEDIUM			2u
 #define HARD			3u
 #define MAXVALUE		255
 #define CH_PIEZO		4u
 #define CH_DETECT		5u
-#define PIEZO_BUFSIZE	16u	
+#define PIEZO_BUFSIZE	32u	
 
 
 
@@ -39,7 +39,12 @@ int8u __get_shotVal();
 // Funciones publicas.
 
 void init_piezo(){
-	bff.last = 0;	
+	int16u i;
+	bff.last = 0;
+	
+	for(i = 0; i < PIEZO_BUFSIZE; i++){
+		shotVals[i] = NOSHOT;
+	}
 }
 
 void get_shot(){
@@ -63,19 +68,19 @@ void send_shot(){
 
 int8u __get_shotVal(){
 	int8u shotVal, i = 1;
-	bool shot = true;
+	bool shot = true;				//true si no hay ningun shot en el buffer
 	
 	while(i < PIEZO_BUFSIZE && shot){
 		if(bff.shotVals[(bff.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = false;
 	}
 		
-	if(bff.piezo < SOFT*MAXVALUE/3 || bff.piezo < bff.detector || !shot){
+	if(bff.piezo < (SOFT - .5)*MAXVALUE/3 || bff.piezo < bff.detector || !shot){
 		bff.shotVals[bff.last] = NOSHOT;
 	}
-	else if((bff.piezo >= SOFT*MAXVALUE/3) && (bff.piezo < MEDIUM*MAXVALUE/3)){
+	else if((bff.piezo >= (SOFT - .5)*MAXVALUE/3) && (bff.piezo < (MEDIUM - .5)*MAXVALUE/3)){
 		bff.shotVals[bff.last] = SOFT;
 	}
-	else if((bff.piezo >= MEDIUM*MAXVALUE/3) && (bff.piezo < HARD*MAXVALUE/3)){
+	else if((bff.piezo >= (MEDIUM - .5)*MAXVALUE/3) && (bff.piezo < (HARD - .5)*MAXVALUE/3)){
 		bff.shotVals[bff.last] = MEDIUM;
 	}
 	else{

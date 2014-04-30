@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>ProcessorExpert</Name>
-    <SavedBy>user</SavedBy>
+    <SavedBy>Jorge Armando</SavedBy>
     <ModificationStamp>35</ModificationStamp>
-    <Date>2014-04-21</Date>
+    <Date>2014-04-29</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
   </Header>
@@ -6453,6 +6453,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
+        <Value>PTA7_TPM2CH2_ADP9</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal0</ItemSymbol>
@@ -7430,7 +7431,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG7_ADP23</Value>
+        <Value>PTA7_TPM2CH2_ADP9</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal1</ItemSymbol>
@@ -7554,7 +7555,7 @@
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG7_ADP23</Value>
+        <Value>PTA7_TPM2CH2_ADP9</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD2Signal2</ItemSymbol>

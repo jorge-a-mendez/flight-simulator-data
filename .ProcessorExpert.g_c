@@ -1,7 +1,7 @@
 <GenerationInfo_G_C>
   <Options>
     <ProjectName>ProcessorExpert</ProjectName>
-    <ProjectDirectory>C:\Users\user.LC\Desktop\rafars307-adquisicion_comunicacion-71f4468637db\</ProjectDirectory>
+    <ProjectDirectory>C:\Users\Jorge Armando\workspace\adquisicion_comunicacion\</ProjectDirectory>
     <DestEventsDirectory>Sources\</DestEventsDirectory>
     <DestDriversSubDirectory>..\Generated_Code\</DestDriversSubDirectory>
     <DestDocumentationDirectory>Documentation\</DestDocumentationDirectory>
@@ -87,7 +87,7 @@
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>35</ProjectModificationStamp>
+    <ProjectModificationStamp>36</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
