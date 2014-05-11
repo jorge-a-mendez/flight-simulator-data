@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-04-21, 15:37, # CodeGen: 37
+**     Date/Time   : 2014-04-30, 15:54, # CodeGen: 40
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -31,10 +31,10 @@
 **              A/D channel (pin)                          : PTB3_KBI1P7_MOSI1_ADP7
 **              A/D channel (pin) signal                   : ACCELZ
 **            Channel4                                     : 
-**              A/D channel (pin)                          : PTG5_ADP21
+**              A/D channel (pin)                          : PTF0_ADP10
 **              A/D channel (pin) signal                   : PIEZO
 **            Channel5                                     : 
-**              A/D channel (pin)                          : PTG6_ADP22
+**              A/D channel (pin)                          : PTF1_ADP11
 **              A/D channel (pin) signal                   : 
 **          A/D resolution                                 : Autoselect
 **          Conversion time                                : 3.655752 µs
