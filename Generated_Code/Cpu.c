@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-04-21, 15:37, # CodeGen: 37
+**     Date/Time   : 2014-04-30, 15:54, # CodeGen: 40
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -247,8 +247,8 @@ void PE_low_level_init(void)
   setReg8Bits(PTCDD, 0x03U);            
   /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1,ADPC0=1 */
   setReg8Bits(APCTL1, 0x8DU);           
-  /* APCTL3: ADPC22=1,ADPC21=1 */
-  setReg8Bits(APCTL3, 0x60U);           
+  /* APCTL2: ADPC11=1,ADPC10=1 */
+  setReg8Bits(APCTL2, 0x0CU);           
   /* PTBPE: PTBPE5=0 */
   clrReg8Bits(PTBPE, 0x20U);            
   /* PTAPE: PTAPE6=0,PTAPE1=0 */

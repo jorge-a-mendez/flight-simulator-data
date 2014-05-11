@@ -497,7 +497,7 @@ asm(BGND);
           <TxD v="PTB1_KBI1P5_TxD1_ADP5" />
           <TxD_pin_signal v="" />
         </boolgroup>
-        <Baud_rate v="9600 baud" />
+        <Baud_rate v="57600 baud" />
         <Break_signal v="Disabled" />
         <Wakeup_condition v="Idle line wakeup" />
         <Transmitter_output v="Not inverted" />
@@ -721,11 +721,11 @@ autoselected pull
           <A_D_channel__pin__signal v="POT" />
         </group>
         <group name="Channel1">
-          <A_D_channel__pin_ v="PTF7_ADP17" />
+          <A_D_channel__pin_ v="PTA2_KBI1P2_SDA1_ADP2" />
           <A_D_channel__pin__signal v="ACCELX" />
         </group>
         <group name="Channel2">
-          <A_D_channel__pin_ v="PTF5_ADP15" />
+          <A_D_channel__pin_ v="PTA3_KBI1P3_SCL1_ADP3" />
           <A_D_channel__pin__signal v="ACCELY" />
         </group>
         <group name="Channel3">
