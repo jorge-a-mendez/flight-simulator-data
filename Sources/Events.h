@@ -28,9 +28,6 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
-#include "FRQ_MSR_X.h"
-#include "FRQ_MSR_Y.h"
-#include "FRQ_MSR_Z.h"
 #include "ADQUIRIR.h"
 #include "ENVIAR.h"
 
@@ -138,54 +135,6 @@ void AS1_OnFullRxBuf(void);
 **         This event is called when the input buffer is full;
 **         i.e. after reception of the last character 
 **         that was successfully placed into input buffer.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-
-void FRQ_MSR_X_OnCapture(void);
-/*
-** ===================================================================
-**     Event       :  FRQ_MSR_X_OnCapture (module Events)
-**
-**     Component   :  FRQ_MSR_X [Capture]
-**     Description :
-**         This event is called on capturing of Timer/Counter actual
-**         value (only when the component is enabled - <Enable> and the
-**         events are enabled - <EnableEvent>.This event is available
-**         only if a <interrupt service/event> is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-
-void FRQ_MSR_Z_OnCapture(void);
-/*
-** ===================================================================
-**     Event       :  FRQ_MSR_Z_OnCapture (module Events)
-**
-**     Component   :  FRQ_MSR_Z [Capture]
-**     Description :
-**         This event is called on capturing of Timer/Counter actual
-**         value (only when the component is enabled - <Enable> and the
-**         events are enabled - <EnableEvent>.This event is available
-**         only if a <interrupt service/event> is enabled.
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-
-void FRQ_MSR_Y_OnCapture(void);
-/*
-** ===================================================================
-**     Event       :  FRQ_MSR_Y_OnCapture (module Events)
-**
-**     Component   :  FRQ_MSR_Y [Capture]
-**     Description :
-**         This event is called on capturing of Timer/Counter actual
-**         value (only when the component is enabled - <Enable> and the
-**         events are enabled - <EnableEvent>.This event is available
-**         only if a <interrupt service/event> is enabled.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================

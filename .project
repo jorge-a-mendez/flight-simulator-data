@@ -73,4 +73,41 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>.external_binary</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users/Jorge Armando</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users/Jorge Armando/workspace</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users/Jorge Armando/workspace/adquisicion_comunicacion</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users/Jorge Armando/workspace/adquisicion_comunicacion/FLASH</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>.external_binary/Users/Jorge Armando/workspace/adquisicion_comunicacion/FLASH/ACQ-SCube.abs</name>
+			<type>1</type>
+			<location>C:/Users/Jorge Armando/workspace/adquisicion_comunicacion/FLASH/ACQ-SCube.abs</location>
+		</link>
+	</linkedResources>
 </projectDescription>

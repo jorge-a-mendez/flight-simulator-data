@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-04-21, 15:37, # CodeGen: 37
+**     Date/Time   : 2014-05-12, 07:58, # CodeGen: 39
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -36,8 +36,8 @@
 **            Channel5                                     : 
 **              A/D channel (pin)                          : PTG6_ADP22
 **              A/D channel (pin) signal                   : 
-**          A/D resolution                                 : Autoselect
-**          Conversion time                                : 3.655752 µs
+**          A/D resolution                                 : 8 bits
+**          Conversion time                                : 3.178914 µs
 **          Low-power mode                                 : Disabled
 **          Sample time                                    : short
 **          Internal trigger                               : Disabled
