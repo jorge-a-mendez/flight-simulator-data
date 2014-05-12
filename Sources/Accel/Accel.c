@@ -19,12 +19,12 @@
 #define 	CH_Y			2u
 #define 	CH_Z			3u
 
-#define 	ZG				2252u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
+#define 	ZG				127u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
 
 typedef struct {					//< Private struct for data buffering
-	int16u x[ACCEL_BUFSIZE];
-	int16u y[ACCEL_BUFSIZE];
-	int16u z[ACCEL_BUFSIZE];
+	int8u x[ACCEL_BUFSIZE];
+	int8u y[ACCEL_BUFSIZE];
+	int8u z[ACCEL_BUFSIZE];
 	int16u last;
 	float averageX;
 	float averageY;
