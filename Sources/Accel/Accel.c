@@ -12,7 +12,7 @@
 #include "Comm/SerialComm.h"
 #include "Events.h"
 
-#define 	ACCEL_BUFSIZE	64u
+#define 	ACCEL_BUFSIZE	64
 #define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
 #define 	ANGLE_YZ		1u
 #define 	CH_X			1u
@@ -29,7 +29,6 @@ typedef struct {					//< Private struct for data buffering
 	float averageX;
 	float averageY;
 	float averageZ;
-	int16u lastValues[3];
 }__accel_data;
 
 typedef union {		//< Private union for byte access of angle data.
@@ -67,17 +66,25 @@ void init_accel(){
 void read_accel(){
 	
 	// Se guarda el ultimo valor para hacer mas eficiente el calculo del promedio
+	int16u x, y, z;
+	float fix;
+	buffer.last++;
+	buffer.last %= ACCEL_BUFSIZE;
 	
-	buffer.lastValues[CH_X - 1] = buffer.x[buffer.last];
-	buffer.lastValues[CH_Y - 1] = buffer.y[buffer.last];
-	buffer.lastValues[CH_Z - 1] = buffer.z[buffer.last];
+	x = buffer.x[buffer.last];
+	y = buffer.y[buffer.last];
+	z = buffer.z[buffer.last];
 	
 	ADC_ANALOG_GetChanValue(CH_X, &buffer.x[buffer.last]);
 	ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[buffer.last]);
 	ADC_ANALOG_GetChanValue(CH_Z, &buffer.z[buffer.last]);
 	
-	buffer.last++;
-	buffer.last %= ACCEL_BUFSIZE;
+	fix = (float)x - (float)buffer.x[buffer.last];
+	buffer.averageX = buffer.averageX - fix;
+	fix = (float)y - (float)buffer.y[buffer.last];
+	buffer.averageY = buffer.averageY - fix;
+	fix = (float)z - (float)buffer.z[buffer.last];
+	buffer.averageZ = buffer.averageZ - fix;
 }
 
 void send_angles(){
@@ -110,18 +117,19 @@ void send_angles(){
 
 float __calculateAngle(int8u angle){
 	int8u i;
-	float x = 0, y = 0, z = 0;
+	float x = 0, y = 0, z = 0, signo = 1;
 	
-	
-	x = buffer.averageX + (float)((-buffer.lastValues[CH_X - 1] + buffer.x[buffer.last] - 2 * ZG ))/ACCEL_BUFSIZE;
-	y = buffer.averageY + (float)((-buffer.lastValues[CH_Y - 1] + buffer.y[buffer.last] - 2 * ZG ))/ACCEL_BUFSIZE; 
-	z = buffer.averageZ + (float)((-buffer.lastValues[CH_Z - 1] + buffer.z[buffer.last] - 2 * ZG ))/ACCEL_BUFSIZE;
+	x = buffer.averageX - (float)ZG * ACCEL_BUFSIZE;
+	y = buffer.averageY - (float)ZG * ACCEL_BUFSIZE;
+	z = buffer.averageZ - (float)ZG * ACCEL_BUFSIZE;
 	
 	switch(angle){
 	case ANGLE_XZ:
-		return ((y * y * y / y))/(x * x + z * z);				 		//< Se manda sgn(y) * tan^2
+		if (y < 0) signo = -1;
+		return ((y * y * signo))/(x * x + z * z);				 		//< Se manda sgn(y) * tan^2
 	case ANGLE_YZ:
-		return ((x * x * x / x))/(y * y + z * z);
+		if (x < 0) signo = -1;
+		return ((x * x * signo))/(y * y + z * z);
 	}
 }
 
@@ -139,9 +147,9 @@ void __calibrate(){
 		avy += (float) buffer.y[i];
 		avz += (float) buffer.z[i];
 	}
-	buffer.averageX = avx / ACCEL_BUFSIZE;
-	buffer.averageY = avy / ACCEL_BUFSIZE;
-	buffer.averageZ = avz / ACCEL_BUFSIZE;
+	buffer.averageX = avx;
+	buffer.averageY = avy;
+	buffer.averageZ = avz;
 }
 
 void __average_accel(){
