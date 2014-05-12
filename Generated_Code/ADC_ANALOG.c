@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-04-30, 15:54, # CodeGen: 40
+**     Date/Time   : 2014-05-12, 07:58, # CodeGen: 39
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -31,13 +31,13 @@
 **              A/D channel (pin)                          : PTB3_KBI1P7_MOSI1_ADP7
 **              A/D channel (pin) signal                   : ACCELZ
 **            Channel4                                     : 
-**              A/D channel (pin)                          : PTF0_ADP10
+**              A/D channel (pin)                          : PTG5_ADP21
 **              A/D channel (pin) signal                   : PIEZO
 **            Channel5                                     : 
-**              A/D channel (pin)                          : PTF1_ADP11
+**              A/D channel (pin)                          : PTG6_ADP22
 **              A/D channel (pin) signal                   : 
-**          A/D resolution                                 : Autoselect
-**          Conversion time                                : 3.655752 µs
+**          A/D resolution                                 : 8 bits
+**          Conversion time                                : 3.178914 µs
 **          Low-power mode                                 : Disabled
 **          Sample time                                    : short
 **          Internal trigger                               : Disabled
@@ -91,13 +91,13 @@ static void ClrSumV(void);
 
 static const  byte Table[6] = {0x01U,0x02U,0x04U,0x08U,0x10U,0x20U};  /* Table of mask constants */
 
-static const  byte Channels[6] = {0x40U,0x42U,0x43U,0x47U,0x4AU,0x4BU};  /* Contents for the device control register */
+static const  byte Channels[6] = {0x40U,0x42U,0x43U,0x47U,0x55U,0x56U};  /* Contents for the device control register */
 
 static volatile byte OutFlg;           /* Measurement finish flag */
 static volatile byte SumChan;          /* Number of measured channels */
 static volatile byte ModeFlg;          /* Current state of device */
 
-volatile word ADC_ANALOG_OutV[6];      /* Sum of measured values */
+volatile byte ADC_ANALOG_OutV[6];      /* Sum of measured values */
 
 
 
@@ -116,10 +116,7 @@ volatile word ADC_ANALOG_OutV[6];      /* Sum of measured values */
 ISR(ADC_ANALOG_Interrupt)
 {
   if (ModeFlg != SINGLE) {
-    /*lint -save  -e926 -e927 -e928 -e929 Disable MISRA rule (11.4) checking. */
-    ((TWREG volatile*)(&ADC_ANALOG_OutV[SumChan]))->b.high = ADCRH; /* Save measured value */
-    ((TWREG volatile*)(&ADC_ANALOG_OutV[SumChan]))->b.low = ADCRL; /* Save measured value */
-    /*lint -restore Enable MISRA rule (11.4) checking. */
+    ADC_ANALOG_OutV[SumChan] = ADCRL;  /* Save measured value */
     SumChan++;                         /* Number of measurement */
     if (SumChan == 6U) {               /* Is number of measurement equal to the number of conversions? */
       SumChan = 0U;                    /* If yes then set the number of measurement to 0 */
@@ -131,10 +128,7 @@ ISR(ADC_ANALOG_Interrupt)
     ADCSC1 = Channels[SumChan];        /* Start measurement of next channel */
   }
   else {
-    /*lint -save  -e926 -e927 -e928 -e929 Disable MISRA rule (11.4) checking. */
-    ((TWREG volatile*)(&ADC_ANALOG_OutV[SumChan]))->b.high = ADCRH; /* Save measured value */
-    ((TWREG volatile*)(&ADC_ANALOG_OutV[SumChan]))->b.low = ADCRL; /* Save measured value */
-    /*lint -restore Enable MISRA rule (11.4) checking. */
+    ADC_ANALOG_OutV[SumChan] = ADCRL;  /* Save measured value */
     /*lint -save  -e740 -e931 Disable MISRA rule (1.2) checking. */
     OutFlg |= Table[SumChan];          /* Value of measured channel is available */
     /*lint -restore Enable MISRA rule (1.2) checking. */
@@ -321,12 +315,12 @@ byte ADC_ANALOG_GetValue(void *Values)
   if (OutFlg != 0x3FU) {               /* Is output flag set? */
     return ERR_NOTAVAIL;               /* If no then error */
   }
-  ((word*)Values)[0] = ADC_ANALOG_OutV[0]; /* Save measured values to the output buffer */
-  ((word*)Values)[1] = ADC_ANALOG_OutV[1]; /* Save measured values to the output buffer */
-  ((word*)Values)[2] = ADC_ANALOG_OutV[2]; /* Save measured values to the output buffer */
-  ((word*)Values)[3] = ADC_ANALOG_OutV[3]; /* Save measured values to the output buffer */
-  ((word*)Values)[4] = ADC_ANALOG_OutV[4]; /* Save measured values to the output buffer */
-  ((word*)Values)[5] = ADC_ANALOG_OutV[5]; /* Save measured values to the output buffer */
+  ((byte*)Values)[0] = ADC_ANALOG_OutV[0]; /* Save measured values to the output buffer */
+  ((byte*)Values)[1] = ADC_ANALOG_OutV[1]; /* Save measured values to the output buffer */
+  ((byte*)Values)[2] = ADC_ANALOG_OutV[2]; /* Save measured values to the output buffer */
+  ((byte*)Values)[3] = ADC_ANALOG_OutV[3]; /* Save measured values to the output buffer */
+  ((byte*)Values)[4] = ADC_ANALOG_OutV[4]; /* Save measured values to the output buffer */
+  ((byte*)Values)[5] = ADC_ANALOG_OutV[5]; /* Save measured values to the output buffer */
   return ERR_OK;                       /* OK */
 }
 
@@ -373,7 +367,7 @@ byte ADC_ANALOG_GetChanValue(byte Channel,void* Value)
   if ((OutFlg & Table[Channel]) == 0U) { /* Is output flag set? */
     return ERR_NOTAVAIL;               /* If no then error */
   }
-  *(word*)Value = ADC_ANALOG_OutV[Channel]; /* Save measured values to the output buffer */
+  *(byte*)Value = ADC_ANALOG_OutV[Channel]; /* Save measured values to the output buffer */
   return ERR_OK;                       /* OK */
 }
 
@@ -396,8 +390,8 @@ void ADC_ANALOG_Init(void)
   setReg8(ADCSC2, 0x00U);              /* Disable HW trigger and autocompare */ 
   OutFlg = 0U;                         /* No measured value */
   ModeFlg = STOP;                      /* Device isn't running */
-  /* ADCCFG: ADLPC=0,ADIV1=1,ADIV0=0,ADLSMP=0,MODE1=0,MODE0=1,ADICLK1=0,ADICLK0=0 */
-  setReg8(ADCCFG, 0x44U);              /* Set prescaler bits */ 
+  /* ADCCFG: ADLPC=0,ADIV1=1,ADIV0=0,ADLSMP=0,MODE1=0,MODE0=0,ADICLK1=0,ADICLK0=0 */
+  setReg8(ADCCFG, 0x40U);              /* Set prescaler bits */ 
 }
 
 
