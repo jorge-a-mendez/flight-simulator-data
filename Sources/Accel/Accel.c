@@ -38,7 +38,7 @@ typedef union {		//< Private union for byte access of angle data.
 
 
 typedef union{
-	int16u x;
+	float x;
 	int8u byte[2];
 }__avg;
 
