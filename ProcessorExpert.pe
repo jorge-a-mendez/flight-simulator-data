@@ -2,8 +2,8 @@
 <PEproject>
   <Header>
     <Name>ProcessorExpert</Name>
-    <SavedBy>Rafael</SavedBy>
-    <ModificationStamp>38</ModificationStamp>
+    <SavedBy>Jorge Armando</SavedBy>
+    <ModificationStamp>39</ModificationStamp>
     <Date>2014-05-12</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion />
@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>63</ProjectCompNumb>
+    <ProjectCompNumb>66</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>false</AssignInitComponentNameToPrph>
@@ -426,7 +426,7 @@
         <ItemSymbol>ADCConstPresc</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>20</Value>
+        <Value>23</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADCAsynchroClock</ItemSymbol>
@@ -6665,7 +6665,7 @@
         <ItemSymbol>ADresolution</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Index>1</Index>
+        <Index>0</Index>
       </ItemState>
       <ItemState>
         <ItemSymbol>RVAFetureGrp</ItemSymbol>
@@ -6721,7 +6721,7 @@
         <ItemSymbol>_CnvTmg</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>3.178914 µs</Value>
+        <Value>3.655752 µs</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -6747,7 +6747,7 @@
         <ReqSrcClkPrescSpeedMode5>-1</ReqSrcClkPrescSpeedMode5>
         <ReqSrcClkPrescSpeedMode6>-1</ReqSrcClkPrescSpeedMode6>
         <ReqSrcClkPrescSpeedMode7>-1</ReqSrcClkPrescSpeedMode7>
-        <InitValue>3.178914 us</InitValue>
+        <InitValue>3.655752 us</InitValue>
         <Precision>5.0</Precision>
         <PrecInProc>true</PrecInProc>
         <LowLimit />
@@ -7747,14 +7747,14 @@
       <ItemState>
         <ItemSymbol>PortAD4</ItemSymbol>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG</Value>
+        <Value>PTF</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD4</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <SharedPrphMode>false</SharedPrphMode>
-        <Value>PTG5_ADP21</Value>
+        <Value>PTF0_ADP10</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>ADSignal4</ItemSymbol>
@@ -7870,14 +7870,14 @@
       </ItemState>
       <ItemState>
         <ItemSymbol>PortAD5</ItemSymbol>
-        <Value>PTG</Value>
+        <Value>PTF</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
         <ItemSymbol>AD5</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>PTG6_ADP22</Value>
+        <Value>PTF1_ADP11</Value>
         <SharedPrphMode>false</SharedPrphMode>
       </ItemState>
       <ItemState>
@@ -9243,7 +9243,7 @@
         <ItemSymbol>_Tmg</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Value>320 ms</Value>
+        <Value>6 ms</Value>
         <RuntimeSetting>0</RuntimeSetting>
         <ReqDevPrescHigh>-1</ReqDevPrescHigh>
         <ReqDevPrescLow>-1</ReqDevPrescLow>
@@ -9269,7 +9269,7 @@
         <ReqSrcClkPrescSpeedMode5>-1</ReqSrcClkPrescSpeedMode5>
         <ReqSrcClkPrescSpeedMode6>-1</ReqSrcClkPrescSpeedMode6>
         <ReqSrcClkPrescSpeedMode7>-1</ReqSrcClkPrescSpeedMode7>
-        <InitValue>320 ms</InitValue>
+        <InitValue>6 ms</InitValue>
         <Precision>5.0</Precision>
         <PrecInProc>true</PrecInProc>
         <LowLimit />

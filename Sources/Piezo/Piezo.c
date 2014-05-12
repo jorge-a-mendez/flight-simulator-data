@@ -34,8 +34,8 @@ typedef struct{
 
 __piezo_data bff;
 
-int8u __get_shotVal();								//< Retorna el valor a la intensidad del golpe
-int8u __get_peak();									//< Si detecta un pico, retorna el valor de disparo.
+int8u __get_shotVal(void);								//< Retorna el valor a la intensidad del golpe
+int8u __get_peak(void);									//< Si detecta un pico, retorna el valor de disparo.
 
 
 ///#################################################################################
