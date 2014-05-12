@@ -44,8 +44,8 @@ int8u __get_peak();									//< Si detecta un pico, retorna el valor de disparo.
 void init_piezo(){
 	int16u i;
 	bff.last = 0;
-	prevVal = MAXVALUE;
-	status = BAJADA;
+	bff.prevVal = MAXVALUE;
+	bff.status = BAJADA;
 	for(i = 0; i < PIEZO_BUFSIZE; i++){
 		bff.shotVals[i] = NOSHOT;
 	}
@@ -84,6 +84,9 @@ int8u __get_peak(){
 			}
 			shotVal = NOSHOT;
 	}
+	bff.shotVals[bff.last] = shotVal;
+	bff.last++;
+	bff.last %= PIEZO_BUFSIZE;
 	return shotVal;
 }
 
@@ -95,20 +98,17 @@ int8u __get_shotVal(){
 		if(bff.shotVals[(bff.last + i++) % PIEZO_BUFSIZE] != NOSHOT) shot = false;
 	}
 		
-	if(bff.piezo < (SOFT - .5)*MAXVALUE/3 || bff.piezo < bff.detector || !shot){
-		bff.shotVals[bff.last] = NOSHOT;
+	if(bff.prevVal < (SOFT - .5)*MAXVALUE/3 ||  !shot){
+		shotVal = NOSHOT;
 	}
-	else if((bff.piezo >= (SOFT - .5)*MAXVALUE/3) && (bff.piezo < (MEDIUM - .5)*MAXVALUE/3)){
-		bff.shotVals[bff.last] = SOFT;
+	else if((bff.prevVal >= (SOFT - .5)*MAXVALUE/3) && (bff.prevVal < (MEDIUM - .5)*MAXVALUE/3)){
+		shotVal = SOFT;
 	}
-	else if((bff.piezo >= (MEDIUM - .5)*MAXVALUE/3) && (bff.piezo < (HARD - .5)*MAXVALUE/3)){
-		bff.shotVals[bff.last] = MEDIUM;
+	else if((bff.prevVal >= (MEDIUM - .5)*MAXVALUE/3) && (bff.prevVal < (HARD - .5)*MAXVALUE/3)){
+		shotVal = MEDIUM;
 	}
 	else{
-		bff.shotVals[bff.last] = HARD;
+		shotVal = HARD;
 	}
-	shotVal = bff.shotVals[bff.last];
-	bff.last++;
-	bff.last %= PIEZO_BUFSIZE;
 	return shotVal;
 }
