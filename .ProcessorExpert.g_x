@@ -27,25 +27,25 @@
       <File Name="Generated_Code\ADQUIRIR.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="46" />
       <File Name="Generated_Code\ENVIAR.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="47" />
       <File Name="Generated_Code\HEARTBIT.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="13" />
-      <File Name="Generated_Code\PE_Const.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
       <File Name="Generated_Code\TX_LED.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="11" />
+      <File Name="Generated_Code\PE_Const.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
       <File Name="Generated_Code\RX_LED.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="10" />
       <File Name="Generated_Code\HEARTBIT.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="13" />
       <File Name="Generated_Code\TX_LED.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="11" />
       <File Name="Generated_Code\RX_LED.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="10" />
       <File Name="Generated_Code\FRQ_MSR_Y.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="41" />
       <File Name="Sources\ProcessorExpert.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="128" />
-      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-05-06, 09:59:18" FileAge="1399386558109" FileType="3072" />
+      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-05-12, 12:26:49" FileAge="1399913809183" FileType="3072" />
       <File Name="Generated_Code\PE_Types.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
-      <File Name="Generated_Code\FRQ_MSR_Y.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="41" />
       <File Name="Generated_Code\AS1.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="9" />
+      <File Name="Generated_Code\FRQ_MSR_Y.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="41" />
       <File Name="Sources\Events.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="16896" />
       <File Name="Generated_Code\AS1.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="9" />
       <File Name="Sources\Events.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="16896" />
-      <File Name="Generated_Code\ADC_ANALOG.h" FileDate="2014-04-30, 15:54:50" FileAge="1398889490683" FileType="4411" CompNumb="14" />
       <File Name="Generated_Code\Vectors.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="4" />
+      <File Name="Generated_Code\ADC_ANALOG.h" FileDate="2014-04-30, 15:54:50" FileAge="1398889490683" FileType="4411" CompNumb="14" />
       <File Name="Generated_Code\PE_Error.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>43</CodeGenReference>
+  <CodeGenReference>44</CodeGenReference>
 </CodeGenerationInfo>
