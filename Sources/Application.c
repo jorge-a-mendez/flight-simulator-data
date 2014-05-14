@@ -23,8 +23,8 @@ void __read_info();
 
 
 void init(){					//< Aqui van incluidas las funciones de inicializacion de los modulos.
-	//init_accel();
-	init_piezo();
+	init_accel();
+	//init_piezo();
 }
 
 void state_machine(){
