@@ -19,16 +19,16 @@
 #define 	CH_Y			2u
 #define 	CH_Z			3u
 
-#define 	ZG				127u		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
+#define 	ZG				127		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
 
 typedef struct {					//< Private struct for data buffering
 	int8u x[ACCEL_BUFSIZE];
 	int8u y[ACCEL_BUFSIZE];
 	int8u z[ACCEL_BUFSIZE];
 	int16u last;
-	float averageX;
-	float averageY;
-	float averageZ;
+	int32s averageX;
+	int32s averageY;
+	int32s averageZ;
 }__accel_data;
 
 typedef union {		//< Private union for byte access of angle data.
@@ -66,8 +66,8 @@ void init_accel(){
 void read_accel(){
 	
 	// Se guarda el ultimo valor para hacer mas eficiente el calculo del promedio
-	int16u x, y, z;
-	float fix;
+	int16s x, y, z;
+	int16s fix;
 	buffer.last++;
 	buffer.last %= ACCEL_BUFSIZE;
 	
@@ -79,11 +79,11 @@ void read_accel(){
 	ADC_ANALOG_GetChanValue(CH_Y, &buffer.y[buffer.last]);
 	ADC_ANALOG_GetChanValue(CH_Z, &buffer.z[buffer.last]);
 	
-	fix = (float)x - (float)buffer.x[buffer.last];
+	fix = x - buffer.x[buffer.last];
 	buffer.averageX = buffer.averageX - fix;
-	fix = (float)y - (float)buffer.y[buffer.last];
+	fix = y - buffer.y[buffer.last];
 	buffer.averageY = buffer.averageY - fix;
-	fix = (float)z - (float)buffer.z[buffer.last];
+	fix = z - buffer.z[buffer.last];
 	buffer.averageZ = buffer.averageZ - fix;
 }
 
