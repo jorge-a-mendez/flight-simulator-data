@@ -200,6 +200,23 @@ void ADQUIRIR_OnInterrupt(void)
 	
 }
 
+/*
+** ===================================================================
+**     Event       :  CMP1_OnInterrupt (module Events)
+**
+**     Component   :  CMP1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void CMP1_OnInterrupt(void)
+{
+  /* place your CMP1 interrupt procedure body here*/
+}
+
 /* END Events */
 
 /*
