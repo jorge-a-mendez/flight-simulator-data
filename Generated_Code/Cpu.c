@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-12, 12:50, # CodeGen: 45
+**     Date/Time   : 2014-05-18, 18:03, # CodeGen: 56
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -36,6 +36,9 @@
 #include "ADC_ANALOG.h"
 #include "ADQUIRIR.h"
 #include "ENVIAR.h"
+#include "CMP1.h"
+#include "CMP2.h"
+#include "CMP3.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -244,6 +247,14 @@ void PE_low_level_init(void)
   setReg8Bits(APCTL1, 0x8DU);           
   /* APCTL2: ADPC11=1,ADPC10=1 */
   setReg8Bits(APCTL2, 0x0CU);           
+  /* PTDDD: PTDDD1=0,PTDDD0=0 */
+  clrReg8Bits(PTDDD, 0x03U);            
+  /* PTDPE: PTDPE1=0,PTDPE0=0 */
+  clrReg8Bits(PTDPE, 0x03U);            
+  /* PTHPE: PTHPE7=0 */
+  clrReg8Bits(PTHPE, 0x80U);            
+  /* PTHDD: PTHDD7=0 */
+  clrReg8Bits(PTHDD, 0x80U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -295,6 +306,15 @@ void PE_low_level_init(void)
   ADQUIRIR_Init();
   /* ### TimerInt "ENVIAR" init code ... */
   ENVIAR_Init();
+  /* ### External interrupt "CMP1" init code ... */
+  /* KBI2PE: KBIPE1=1 */
+  KBI2PE |= 0x02U;
+  /* KBI2SC: ??=0,??=0,??=0,??=0,KBF=0,KBACK=0,KBIE=0,KBIMOD=0 */
+  setReg8(KBI2SC, 0x00U);               
+  KBI2SC_KBACK = 0x01U;                /* Clear Interrupt flag */
+  KBI2SC_KBIE = 0x01U;
+  /* ### BitIO "CMP2" init code ... */
+  /* ### BitIO "CMP3" init code ... */
   __EI();                              /* Enable interrupts */
 }
 

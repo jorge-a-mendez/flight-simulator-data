@@ -30,6 +30,9 @@
 #include "ADC_ANALOG.h"
 #include "ADQUIRIR.h"
 #include "ENVIAR.h"
+#include "CMP1.h"
+#include "CMP2.h"
+#include "CMP3.h"
 
 
 void AS1_OnError(void);
@@ -167,6 +170,20 @@ void ADQUIRIR_OnInterrupt(void);
 **         when the component is enabled - <Enable> and the events are
 **         enabled - <EnableEvent>). This event is enabled only if a
 **         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void CMP1_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  CMP1_OnInterrupt (module Events)
+**
+**     Component   :  CMP1 [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
