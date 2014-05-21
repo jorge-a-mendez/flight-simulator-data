@@ -72,5 +72,4 @@ void __send_info(){									//< Encapsula todos los envios necesarios a la PC
 
 void __read_info(){
 	//read_accel();
-	get_shot();
 }
