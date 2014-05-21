@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-12, 14:12, # CodeGen: 51
+**     Date/Time   : 2014-05-21, 14:15, # CodeGen: 58
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -17,25 +17,16 @@
 **          Interrupt service/event                        : Enabled
 **            A/D interrupt                                : Vadc
 **            A/D interrupt priority                       : medium priority
-**          A/D channels                                   : 6
+**          A/D channels                                   : 3
 **            Channel0                                     : 
-**              A/D channel (pin)                          : PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS
-**              A/D channel (pin) signal                   : POT
-**            Channel1                                     : 
 **              A/D channel (pin)                          : PTA2_KBI1P2_SDA1_ADP2
 **              A/D channel (pin) signal                   : ACCELX
-**            Channel2                                     : 
+**            Channel1                                     : 
 **              A/D channel (pin)                          : PTA3_KBI1P3_SCL1_ADP3
 **              A/D channel (pin) signal                   : ACCELY
-**            Channel3                                     : 
+**            Channel2                                     : 
 **              A/D channel (pin)                          : PTB3_KBI1P7_MOSI1_ADP7
 **              A/D channel (pin) signal                   : ACCELZ
-**            Channel4                                     : 
-**              A/D channel (pin)                          : PTF0_ADP10
-**              A/D channel (pin) signal                   : PIEZO
-**            Channel5                                     : 
-**              A/D channel (pin)                          : PTF1_ADP11
-**              A/D channel (pin) signal                   : 
 **          A/D resolution                                 : 8 bits
 **          Conversion time                                : 3.178914 µs
 **          Low-power mode                                 : Disabled
@@ -81,11 +72,9 @@
 
 
 /* Constants for channel selection */
-#define ADC_ANALOG_CHANNEL_POT          0
-#define ADC_ANALOG_CHANNEL_ACCELX       1
-#define ADC_ANALOG_CHANNEL_ACCELY       2
-#define ADC_ANALOG_CHANNEL_ACCELZ       3
-#define ADC_ANALOG_CHANNEL_PIEZO        4
+#define ADC_ANALOG_CHANNEL_ACCELX       0
+#define ADC_ANALOG_CHANNEL_ACCELY       1
+#define ADC_ANALOG_CHANNEL_ACCELZ       2
 
 __interrupt void ADC_ANALOG_Interrupt(void);
 /*

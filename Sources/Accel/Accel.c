@@ -29,6 +29,7 @@ typedef struct {					//< Private struct for data buffering
 	int32s averageX;
 	int32s averageY;
 	int32s averageZ;
+	int16u datos;
 }__accel_data;
 
 typedef union {		//< Private union for byte access of angle data.
@@ -43,10 +44,7 @@ typedef union{
 }__avg;
 
 __accel_data buffer; 
-
-
-
-
+bool datalista;
 //Funciones privadas
 
 float __calculateAngle(int8u ang);
@@ -60,7 +58,17 @@ void __send_avgs();
 
 void init_accel(){
 	buffer.last = 0;
+	buffer.datos = 0;
 	__calibrate();			//< Para hallar el valor de 0g.
+	datalista = false;
+}
+
+bool accel_data_lista() {
+	if (datalista) {
+		datalista = false;
+		return true;
+	}
+	return datalista;
 }
 
 void read_accel(){
@@ -85,12 +93,17 @@ void read_accel(){
 	buffer.averageY = buffer.averageY - fix;
 	fix = z - buffer.z[buffer.last];
 	buffer.averageZ = buffer.averageZ - fix;
+	
+	buffer.datos++;
+	if (buffer.datos == ACCEL_BUFSIZE) {
+		datalista = true;
+		buffer.datos = 0;
+	}
 }
 
 void send_angles(){
 	__send_angle(0);
 	__send_angle(1);
-	//__send_avgs();				//For debugging
 }
 
 //#####################################################################################
@@ -182,49 +195,5 @@ void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadr
 	}
 	t.tam = i + 1; 
 	send_data(&t, correction);
-}
-
-void __send_avgs(){
-	int8u i;
-	_trama t;
-	__avg avg;
-	__average_accel();
-	
-	avg.x = buffer.averageX;
-	t.tam = 3;
-	t.t[0] = 0;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}	
-	send_data(&t, 0);
-	
-	avg.x = buffer.averageY;
-	t.t[0] = 1;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}
-	send_data(&t, 0);
-	
-	avg.x = buffer.averageZ;
-	t.t[0] = 2;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}
-	send_data(&t, 0);
 }
 
