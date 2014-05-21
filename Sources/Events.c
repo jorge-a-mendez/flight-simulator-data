@@ -25,7 +25,7 @@
 #include "HEARTBIT.h"
 #include "AS1.h"
 #include "Application.h"
-
+#include "Piezo/Piezo.h"
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
@@ -215,6 +215,7 @@ void ADQUIRIR_OnInterrupt(void)
 void CMP1_OnInterrupt(void)
 {
   /* place your CMP1 interrupt procedure body here*/
+	get_shot();
 }
 
 /* END Events */
