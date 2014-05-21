@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-18, 18:03, # CodeGen: 56
+**     Date/Time   : 2014-05-21, 14:15, # CodeGen: 58
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -39,6 +39,7 @@
 #include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
+#include "Control.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -52,6 +53,7 @@ volatile byte CCR_reg;                 /* Current CCR register */
 
 /*Definition of global shadow variables*/
 byte Shadow_PTC;
+byte Shadow_PTA;
 
 
 /*
@@ -243,10 +245,8 @@ void PE_low_level_init(void)
   clrReg8Bits(PTCPE, 0x03U);            
   /* PTCDD: PTCDD1=1,PTCDD0=1 */
   setReg8Bits(PTCDD, 0x03U);            
-  /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1,ADPC0=1 */
-  setReg8Bits(APCTL1, 0x8DU);           
-  /* APCTL2: ADPC11=1,ADPC10=1 */
-  setReg8Bits(APCTL2, 0x0CU);           
+  /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1 */
+  setReg8Bits(APCTL1, 0x8CU);           
   /* PTDDD: PTDDD1=0,PTDDD0=0 */
   clrReg8Bits(PTDDD, 0x03U);            
   /* PTDPE: PTDPE1=0,PTDPE0=0 */
@@ -255,6 +255,12 @@ void PE_low_level_init(void)
   clrReg8Bits(PTHPE, 0x80U);            
   /* PTHDD: PTHDD7=0 */
   clrReg8Bits(PTHDD, 0x80U);            
+  /* PTAD: PTAD0=0 */
+  clrReg8Bits(PTAD, 0x01U);             
+  /* PTAPE: PTAPE0=0 */
+  clrReg8Bits(PTAPE, 0x01U);            
+  /* PTADD: PTADD0=1 */
+  setReg8Bits(PTADD, 0x01U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -315,6 +321,8 @@ void PE_low_level_init(void)
   KBI2SC_KBIE = 0x01U;
   /* ### BitIO "CMP2" init code ... */
   /* ### BitIO "CMP3" init code ... */
+  /* ### BitIO "Control" init code ... */
+  Shadow_PTA &= 0xFEU;                 /* Initialize pin shadow variable bit */
   __EI();                              /* Enable interrupts */
 }
 

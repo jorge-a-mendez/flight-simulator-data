@@ -33,6 +33,7 @@
 #include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
+#include "Control.h"
 
 
 void AS1_OnError(void);

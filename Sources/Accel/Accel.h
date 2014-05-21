@@ -16,5 +16,6 @@
 void read_accel();					//< Toma un valor de cada eje del acelerometro.
 void send_angles();					//< Calcula la tangente cuadrada del angulo deseado y lo envia al PC.
 void init_accel();					//< Inicializa el buffer del acelerometro y calibra.
+bool accel_data_lista();
 
 #endif /* ACCEL_H_ */
