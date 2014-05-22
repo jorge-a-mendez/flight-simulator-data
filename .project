@@ -104,10 +104,5 @@
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
-		<link>
-			<name>.external_binary/Users/Jorge Armando/workspace/adquisicion_comunicacion/FLASH/ACQ-SCube.abs</name>
-			<type>1</type>
-			<location>C:/Users/Jorge Armando/workspace/adquisicion_comunicacion/FLASH/ACQ-SCube.abs</location>
-		</link>
 	</linkedResources>
 </projectDescription>

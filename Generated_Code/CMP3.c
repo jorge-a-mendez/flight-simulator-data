@@ -3,39 +3,62 @@
 **     Filename    : CMP3.c
 **     Project     : ProcessorExpert
 **     Processor   : MC9S08QE128CLK
-**     Component   : BitIO
-**     Version     : Component 02.086, Driver 03.27, CPU db: 3.00.067
+**     Component   : Capture
+**     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-18, 18:03, # CodeGen: 56
+**     Date/Time   : 2014-05-22, 18:46, # CodeGen: 62
 **     Abstract    :
-**         This component "BitIO" implements an one-bit input/output.
-**         It uses one bit/pin of a port.
-**         Note: This component is set to work in Input direction only.
-**         Methods of this component are mostly implemented as a macros
-**         (if supported by target language and compiler).
+**         This component "Capture" simply implements the capture function
+**         of timer. The counter counts the same way as in free run mode. On
+**         the selected edge of the input signal (on the input pin), the current
+**         content of the counter register is written into the capture
+**         register and the OnCapture event is called.
 **     Settings    :
-**         Used pin                    :
+**             Timer capture encapsulation : Capture
+**
+**         Timer
+**             Timer                   : TPM1
+**             Counter shared          : Yes
+**
+**         High speed mode
+**             Prescaler               : divide-by-4
+**           Maximal time for capture register
+**             Xtal ticks              : 341
+**             microseconds            : 10417
+**             milliseconds            : 10
+**             seconds (real)          : 0.010416666667
+**             Hz                      : 96
+**           One tick of timer is
+**             nanoseconds             : 166.666666666667
+**
+**         Initialization:
+**              Timer                  : Enabled
+**              Events                 : Enabled
+**
+**         Timer registers
+**              Capture                : TPM1C2V   [$004C]
+**              Counter                : TPM1CNT   [$0041]
+**              Mode                   : TPM1SC    [$0040]
+**              Run                    : TPM1SC    [$0040]
+**              Prescaler              : TPM1SC    [$0040]
+**
+**         Used input pin              : 
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       3             |  PTH7_SDA2
+**                       48            |  PTA6_TPM1CH2_ADP8
 **             ----------------------------------------------------
 **
-**         Port name                   : PTH
+**         Port name                   : PTA
+**         Bit number (in port)        : 6
+**         Bit mask of the port        : $0040
 **
-**         Bit number (in port)        : 7
-**         Bit mask of the port        : $0080
+**         Signal edge/level           : falling
+**         Priority                    : 
+**         Pull option                 : off
 **
-**         Initial direction           : Input (direction cannot be changed)
-**         Initial output value        : 0
-**         Initial pull option         : off
-**
-**         Port data register          : PTHD      [$001E]
-**         Port control register       : PTHDD     [$001F]
-**
-**         Optimization for            : speed
 **     Contents    :
-**         GetVal - bool CMP3_GetVal(void);
+**         GetPinValue - bool CMP3_GetPinValue(void);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -45,41 +68,75 @@
 
 /* MODULE CMP3. */
 
+#include "Events.h"
 #include "CMP3.h"
-  /* Including shared modules, which are used in the whole project */
-#include "PE_Types.h"
-#include "PE_Error.h"
-#include "PE_Const.h"
-#include "IO_Map.h"
-#include "Cpu.h"
+
+
 
 
 /*
 ** ===================================================================
-**     Method      :  CMP3_GetVal (component BitIO)
+**     Method      :  CMP3_GetPinValue (component Capture)
 **
 **     Description :
-**         This method returns an input value.
-**           a) direction = Input  : reads the input value from the
-**                                   pin and returns it
-**           b) direction = Output : returns the last written value
-**         Note: This component is set to work in Input direction only.
+**         The method reads the Capture pin value. The method is
+**         available only if it is possible to read the pin value
+**         (usually not available for internal signals).
 **     Parameters  : None
 **     Returns     :
-**         ---             - Input value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-
+**         ---             - Capture pin value.
+**                           <true> - high level
+**                           <false> - low level.
 ** ===================================================================
 */
 /*
-bool CMP3_GetVal(void)
+bool CMP3_GetPinValue(void)
 
 **  This method is implemented as a macro. See CMP3.h file.  **
 */
 
+/*
+** ===================================================================
+**     Method      :  CMP3_Init (component Capture)
+**
+**     Description :
+**         Initializes the associated peripheral(s) and the component 
+**         internal variables. The method is called automatically as a 
+**         part of the application initialization code.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+void CMP3_Init(void)
+{
+  /* TPM1C2V: BIT15=0,BIT14=0,BIT13=0,BIT12=0,BIT11=0,BIT10=0,BIT9=0,BIT8=0,BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  setReg16(TPM1C2V, 0x00U);            /* Clear capture register */ 
+  /* TPM1C2SC: CH2F=0,CH2IE=1,MS2B=0,MS2A=0,ELS2B=1,ELS2A=0,??=0,??=0 */
+  setReg8(TPM1C2SC, 0x48U);            /* Enable both interrupt and capture function */ 
+}
+
+
+/*
+** ===================================================================
+**     Method      :  Interrupt (component Capture)
+**
+**     Description :
+**         The method services the interrupt of the selected peripheral(s)
+**         and eventually invokes event(s) of the component.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+ISR(CMP3_Interrupt)
+{
+  (void)TPM1C2SC;                      /* Dummy read to reset interrupt request flag */
+  /* TPM1C2SC: CH2F=0 */
+  clrReg8Bits(TPM1C2SC, 0x80U);        /* Reset interrupt request flag */ 
+  CMP3_OnCapture();                    /* Invoke user event */
+}
+
+
 
 /* END CMP3. */
+
 /*
 ** ###################################################################
 **

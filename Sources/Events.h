@@ -34,6 +34,16 @@
 #include "CMP2.h"
 #include "CMP3.h"
 
+#include "types.h"
+#include "Piezo/Piezo.h"
+
+typedef struct{
+	bool cmp1;
+	bool cmp2;
+	bool cmp3;
+	int8u shot_val;
+}piezo_data;
+
 
 void AS1_OnError(void);
 /*
@@ -184,6 +194,54 @@ void CMP1_OnInterrupt(void);
 **     Description :
 **         This event is called when an active signal edge/level has
 **         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void CMP3_OnCapture(void);
+/*
+** ===================================================================
+**     Event       :  CMP3_OnCapture (module Events)
+**
+**     Component   :  CMP3 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void CMP2_OnCapture(void);
+/*
+** ===================================================================
+**     Event       :  CMP2_OnCapture (module Events)
+**
+**     Component   :  CMP2 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void CMP1_OnCapture(void);
+/*
+** ===================================================================
+**     Event       :  CMP1_OnCapture (module Events)
+**
+**     Component   :  CMP1 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
 **     Parameters  : None
 **     Returns     : Nothing
 ** ===================================================================
