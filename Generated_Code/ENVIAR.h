@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-21, 15:08, # CodeGen: 59
+**     Date/Time   : 2014-05-22, 18:46, # CodeGen: 62
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -17,7 +17,7 @@
 **     Settings    :
 **         Timer name                  : TPM2 (16-bit)
 **         Compare name                : TPM21
-**         Counter shared              : No
+**         Counter shared              : Yes
 **
 **         High speed mode
 **             Prescaler               : divide-by-4

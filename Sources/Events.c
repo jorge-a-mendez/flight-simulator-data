@@ -25,10 +25,12 @@
 #include "HEARTBIT.h"
 #include "AS1.h"
 #include "Application.h"
-#include "Piezo/Piezo.h"
+
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+
+piezo_data buff;
 
 /*
 ** ===================================================================
@@ -212,25 +214,77 @@ void ADQUIRIR_OnInterrupt(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
-void CMP1_OnInterrupt(void)
-{
-  /* place your CMP1 interrupt procedure body here*/
-	bool cmp1, cmp2, cmp3;
-	int8u i;
 
-	cmp1 = 0;
-	cmp2 = 1;
-	cmp3 = 1;
-	while(!CMP1_GetVal() && CMP2_GetVal());
-	if(!CMP2_GetVal()){
-		cmp2 = 0;
-		while(!CMP1_GetVal() && CMP3_GetVal());
-		if(!CMP3_GetVal()){
-			cmp3 = 0;
-		}
+
+
+
+/*
+** ===================================================================
+**     Event       :  CMP3_OnCapture (module Events)
+**
+**     Component   :  CMP3 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void CMP3_OnCapture(void)
+{
+  /* Write your code here ... */
+	if(!CMP1_GetPinValue()){		// Just in case
+		buff.cmp3 = true;
 	}
-	
-	get_shot(cmp1, cmp2, cmp3);
+}
+
+/*
+** ===================================================================
+**     Event       :  CMP2_OnCapture (module Events)
+**
+**     Component   :  CMP2 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void CMP2_OnCapture(void)
+{
+  /* Write your code here ... */
+	if(!CMP2_GetPinValue()){		// Just in case
+		buff.cmp2 = true;
+	}
+}
+
+/*
+** ===================================================================
+**     Event       :  CMP1_OnCapture (module Events)
+**
+**     Component   :  CMP1 [Capture]
+**     Description :
+**         This event is called on capturing of Timer/Counter actual
+**         value (only when the component is enabled - <Enable> and the
+**         events are enabled - <EnableEvent>.This event is available
+**         only if a <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void CMP1_OnCapture(void)
+{
+  /* Write your code here ... */
+	if(!CMP1_GetPinValue()){		// If its falling edge..
+		buff.cmp1 = true;
+	}
+	else{							// If its rising edge..
+		get_shot();					// I already checked the other comparators
+	}
 }
 
 /* END Events */

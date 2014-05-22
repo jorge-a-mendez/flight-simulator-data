@@ -847,7 +847,7 @@ autoselected pull
         <Interrupt v="Vtpm2ch1" />
         <Interrupt_priority v="medium priority" />
       </boolgroup>
-      <Interrupt_period v="100 ms" />
+      <Interrupt_period v="10 ms" />
       <Same_period_in_modes v="yes" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">

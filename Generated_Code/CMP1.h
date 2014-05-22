@@ -3,42 +3,62 @@
 **     Filename    : CMP1.h
 **     Project     : ProcessorExpert
 **     Processor   : MC9S08QE128CLK
-**     Component   : ExtInt
-**     Version     : Component 02.104, Driver 01.24, CPU db: 3.00.067
+**     Component   : Capture
+**     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-18, 18:01, # CodeGen: 55
+**     Date/Time   : 2014-05-22, 18:46, # CodeGen: 62
 **     Abstract    :
-**         This component "ExtInt" implements an external 
-**         interrupt, its control methods and interrupt/event 
-**         handling procedure.
-**         The component uses one pin which generates interrupt on 
-**         selected edge.
+**         This component "Capture" simply implements the capture function
+**         of timer. The counter counts the same way as in free run mode. On
+**         the selected edge of the input signal (on the input pin), the current
+**         content of the counter register is written into the capture
+**         register and the OnCapture event is called.
 **     Settings    :
-**         Interrupt name              : Vkeyboard
-**         User handling procedure     : CMP1_OnInterrupt
+**             Timer capture encapsulation : Capture
 **
-**         Used pin                    :
+**         Timer
+**             Timer                   : TPM1
+**             Counter shared          : Yes
+**
+**         High speed mode
+**             Prescaler               : divide-by-4
+**           Maximal time for capture register
+**             Xtal ticks              : 341
+**             microseconds            : 10417
+**             milliseconds            : 10
+**             seconds (real)          : 0.010416666667
+**             Hz                      : 96
+**           One tick of timer is
+**             nanoseconds             : 166.666666666667
+**
+**         Initialization:
+**              Timer                  : Enabled
+**              Events                 : Enabled
+**
+**         Timer registers
+**              Capture                : TPM1C1V   [$0049]
+**              Counter                : TPM1CNT   [$0041]
+**              Mode                   : TPM1SC    [$0040]
+**              Run                    : TPM1SC    [$0040]
+**              Prescaler              : TPM1SC    [$0040]
+**
+**         Used input pin              : 
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       1             |  PTD1_KBI2P1_MOSI2
+**                       22            |  PTB5_TPM1CH1_SS1
 **             ----------------------------------------------------
 **
-**         Port name                   : PTD
+**         Port name                   : PTB
+**         Bit number (in port)        : 5
+**         Bit mask of the port        : $0020
 **
-**         Bit number (in port)        : 1
-**         Bit mask of the port        : $0002
-**
-**         Signal edge/level           : falling
+**         Signal edge/level           : both
 **         Priority                    : 
 **         Pull option                 : off
-**         Initial state               : Enabled
 **
-**
-**         Port data register          : PTDD      [$0006]
-**         Port control register       : PTDDD     [$0007]
 **     Contents    :
-**         GetVal - bool CMP1_GetVal(void);
+**         GetPinValue - bool CMP1_GetPinValue(void);
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -46,51 +66,80 @@
 **     mail      : support@freescale.com
 ** ###################################################################*/
 
-#ifndef __CMP1_H
-#define __CMP1_H
+#ifndef __CMP1
+#define __CMP1
 
-/* MODULE CMP1. */
-
-
-
-/*Including shared modules, which are used in the whole project*/
+/*Include shared modules, which are used for whole project*/
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
-#include "Events.h"
+
+/* MODULE CMP1. */
+
 #include "Cpu.h"
 
+/* PUBLISHED CONSTANTS */
+#define CMP1_PRESCALER_VALUE           0x04U /* Prescaler value of the timer in high speed mode */
+#define CMP1_COUNTER_INPUT_CLOCK_HZ    0x00600000LU /* Initial counter input clock frequency [Hz] */
+#define CMP1_TIMER_INPUT_CLOCK         0x01800000LU /* Deprecated, Initial timer input clock frequency [Hz] */
+#define CMP1_PRESCALER_VALUE_HIGH      0x04U /* Prescaler value of the timer in high speed mode */
+#define CMP1_COUNTER_INPUT_CLOCK_HZ_HIGH 0x00600000LU /* Counter input clock frequency in high speed mode [Hz] */
+#define CMP1_TIMER_INPUT_CLOCK_HIGH    0x01800000LU /* Deprecated, Timer input clock frequency in high speed mode[Hz] */
 
-__interrupt void CMP1_Interrupt(void);
+#ifndef __BWUserType_CMP1_TCapturedValue
+#define __BWUserType_CMP1_TCapturedValue
+  #define CMP1_TCapturedValue word     /*  Captured value, unsigned integer value. Bit-width of the type depends on the width of selected timer. */
+#endif
+
+
+
+#define CMP1_GetPinValue() ((PTBD & 0x20U) ? TRUE : FALSE)
 /*
 ** ===================================================================
-**     Method      :  CMP1_Interrupt (component ExtInt)
+**     Method      :  CMP1_GetPinValue (component Capture)
 **
 **     Description :
-**         The method services the interrupt of the selected peripheral(s)
-**         and eventually invokes the components event(s).
+**         The method reads the Capture pin value. The method is
+**         available only if it is possible to read the pin value
+**         (usually not available for internal signals).
+**     Parameters  : None
+**     Returns     :
+**         ---             - Capture pin value.
+**                           <true> - high level
+**                           <false> - low level.
+** ===================================================================
+*/
+
+void CMP1_Init(void);
+/*
+** ===================================================================
+**     Method      :  CMP1_Init (component Capture)
+**
+**     Description :
+**         Initializes the associated peripheral(s) and the component 
+**         internal variables. The method is called automatically as a 
+**         part of the application initialization code.
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
 
-#define CMP1_GetVal() \
-  ((bool)((PTDD) & 0x02U))
-
+__interrupt void CMP1_Interrupt(void);
 /*
 ** ===================================================================
-**     Method      :  CMP1_GetVal (component ExtInt)
+**     Method      :  Interrupt (component Capture)
 **
 **     Description :
-**         Returns the actual value of the input pin of the component.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Returned input value. Possible values:
-**                           <false> - logical "0" (Low level) <true> -
-**                           logical "1" (High level)
+**         The method services the interrupt of the selected peripheral(s)
+**         and eventually invokes event(s) of the component.
+**         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
-#endif /* __CMP1_H*/
+
+
+/* END CMP1. */
+
+#endif /* ifndef __CMP1 */
 /*
 ** ###################################################################
 **

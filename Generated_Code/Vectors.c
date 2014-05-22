@@ -5,7 +5,7 @@
 **     Processor   : MC9S08QE128CLK
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-18, 18:03, # CodeGen: 56
+**     Date/Time   : 2014-05-22, 18:46, # CodeGen: 62
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -48,7 +48,7 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          Cpu_Interrupt,                /* Int.no. 21 Vsci2err (at FFD4)              Unassigned */
          Cpu_Interrupt,                /* Int.no. 20 Vacmpx (at FFD6)                Unassigned */
          ADC_ANALOG_Interrupt,         /* Int.no. 19 Vadc (at FFD8)                  Used */
-         CMP1_Interrupt,               /* Int.no. 18 Vkeyboard (at FFDA)             Used */
+         Cpu_Interrupt,                /* Int.no. 18 Vkeyboard (at FFDA)             Unassigned */
          Cpu_Interrupt,                /* Int.no. 17 Viicx (at FFDC)                 Unassigned */
          AS1_InterruptTx,              /* Int.no. 16 Vsci1tx (at FFDE)               Used */
          AS1_InterruptRx,              /* Int.no. 15 Vsci1rx (at FFE0)               Used */
@@ -56,12 +56,12 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          Cpu_Interrupt,                /* Int.no. 13 Vspi1 (at FFE4)                 Unassigned */
          Cpu_Interrupt,                /* Int.no. 12 Vspi2 (at FFE6)                 Unassigned */
          Cpu_Interrupt,                /* Int.no. 11 Vtpm2ovf (at FFE8)              Unassigned */
-         Cpu_Interrupt,                /* Int.no. 10 Vtpm2ch2 (at FFEA)              Unassigned */
+         CMP2_Interrupt,               /* Int.no. 10 Vtpm2ch2 (at FFEA)              Used */
          ENVIAR_Interrupt,             /* Int.no.  9 Vtpm2ch1 (at FFEC)              Used */
          Cpu_Interrupt,                /* Int.no.  8 Vtpm2ch0 (at FFEE)              Unassigned */
          Cpu_Interrupt,                /* Int.no.  7 Vtpm1ovf (at FFF0)              Unassigned */
-         Cpu_Interrupt,                /* Int.no.  6 Vtpm1ch2 (at FFF2)              Unassigned */
-         Cpu_Interrupt,                /* Int.no.  5 Vtpm1ch1 (at FFF4)              Unassigned */
+         CMP3_Interrupt,               /* Int.no.  6 Vtpm1ch2 (at FFF2)              Used */
+         CMP1_Interrupt,               /* Int.no.  5 Vtpm1ch1 (at FFF4)              Used */
          Cpu_Interrupt,                /* Int.no.  4 Vtpm1ch0 (at FFF6)              Unassigned */
          Cpu_Interrupt,                /* Int.no.  3 Vlvd (at FFF8)                  Unassigned */
          Cpu_Interrupt,                /* Int.no.  2 Virq (at FFFA)                  Unassigned */
