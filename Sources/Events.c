@@ -215,7 +215,22 @@ void ADQUIRIR_OnInterrupt(void)
 void CMP1_OnInterrupt(void)
 {
   /* place your CMP1 interrupt procedure body here*/
-	get_shot();
+	bool cmp1, cmp2, cmp3;
+	int8u i;
+
+	cmp1 = 0;
+	cmp2 = 1;
+	cmp3 = 1;
+	while(!CMP1_GetVal() && CMP2_GetVal());
+	if(!CMP2_GetVal()){
+		cmp2 = 0;
+		while(!CMP1_GetVal() && CMP3_GetVal());
+		if(!CMP3_GetVal()){
+			cmp3 = 0;
+		}
+	}
+	
+	get_shot(cmp1, cmp2, cmp3);
 }
 
 /* END Events */

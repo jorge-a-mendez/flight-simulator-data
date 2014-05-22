@@ -23,8 +23,8 @@ void __read_info();
 
 
 void init(){					//< Aqui van incluidas las funciones de inicializacion de los modulos.
-	init_accel();
-	//init_piezo();
+	//init_accel();
+	init_piezo();
 }
 
 void state_machine(){
@@ -59,7 +59,7 @@ void state_machine(){
 void __acquire(){										//< Esta funcion solicita los datos a adquiri: ADC, Periodo.
 	int8u error;
 	if(estado == ADQUIRIR){
-		error = ADC_ANALOG_Measure(FALSE);			//< Solicita conversion de todos los canales del ADC. No espera por el resultado.
+		//error = ADC_ANALOG_Measure(FALSE);			//< Solicita conversion de todos los canales del ADC. No espera por el resultado.
 		//Solicitud de medicion de los periodos.
 		estado = ESPERAR;							//< La maquina espera por los resultados
 	}
