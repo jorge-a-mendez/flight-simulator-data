@@ -487,7 +487,7 @@ ISR(AS1_InterruptTx)
     if (!OnFreeTxBuf_semaphore) {
       OnFlags |= ON_FREE_TX;           /* Set flag "OnFreeTxBuf" */
     }
-    SCI1C2_TIE = 0x00U;                /* Disable transmit interrupt */
+    //SCI1C2_TIE = 0x00U;                /* Disable transmit interrupt */
   }
   if (AS1_EnEvent) {                   /* Are the events enabled? */
     if (OnFlags & ON_TX_CHAR) {        /* Is flag "OnTxChar" set? */

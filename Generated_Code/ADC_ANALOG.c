@@ -6,7 +6,7 @@
 **     Component   : ADC
 **     Version     : Component 01.667, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-12, 14:12, # CodeGen: 51
+**     Date/Time   : 2014-05-21, 14:15, # CodeGen: 58
 **     Abstract    :
 **         This device "ADC" implements an A/D converter,
 **         its control methods and interrupt/event handling procedure.
@@ -17,25 +17,16 @@
 **          Interrupt service/event                        : Enabled
 **            A/D interrupt                                : Vadc
 **            A/D interrupt priority                       : medium priority
-**          A/D channels                                   : 6
+**          A/D channels                                   : 3
 **            Channel0                                     : 
-**              A/D channel (pin)                          : PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS
-**              A/D channel (pin) signal                   : POT
-**            Channel1                                     : 
 **              A/D channel (pin)                          : PTA2_KBI1P2_SDA1_ADP2
 **              A/D channel (pin) signal                   : ACCELX
-**            Channel2                                     : 
+**            Channel1                                     : 
 **              A/D channel (pin)                          : PTA3_KBI1P3_SCL1_ADP3
 **              A/D channel (pin) signal                   : ACCELY
-**            Channel3                                     : 
+**            Channel2                                     : 
 **              A/D channel (pin)                          : PTB3_KBI1P7_MOSI1_ADP7
 **              A/D channel (pin) signal                   : ACCELZ
-**            Channel4                                     : 
-**              A/D channel (pin)                          : PTF0_ADP10
-**              A/D channel (pin) signal                   : PIEZO
-**            Channel5                                     : 
-**              A/D channel (pin)                          : PTF1_ADP11
-**              A/D channel (pin) signal                   : 
 **          A/D resolution                                 : 8 bits
 **          Conversion time                                : 3.178914 µs
 **          Low-power mode                                 : Disabled
@@ -89,15 +80,15 @@ static void ClrSumV(void);
 #define CONTINUOUS      0x02U          /* CONTINUOS state      */
 #define SINGLE          0x03U          /* SINGLE state         */
 
-static const  byte Table[6] = {0x01U,0x02U,0x04U,0x08U,0x10U,0x20U};  /* Table of mask constants */
+static const  byte Table[3] = {0x01U,0x02U,0x04U};  /* Table of mask constants */
 
-static const  byte Channels[6] = {0x40U,0x42U,0x43U,0x47U,0x4AU,0x4BU};  /* Contents for the device control register */
+static const  byte Channels[3] = {0x42U,0x43U,0x47U};  /* Contents for the device control register */
 
 static volatile byte OutFlg;           /* Measurement finish flag */
 static volatile byte SumChan;          /* Number of measured channels */
 static volatile byte ModeFlg;          /* Current state of device */
 
-volatile byte ADC_ANALOG_OutV[6];      /* Sum of measured values */
+volatile byte ADC_ANALOG_OutV[3];      /* Sum of measured values */
 
 
 
@@ -118,9 +109,9 @@ ISR(ADC_ANALOG_Interrupt)
   if (ModeFlg != SINGLE) {
     ADC_ANALOG_OutV[SumChan] = ADCRL;  /* Save measured value */
     SumChan++;                         /* Number of measurement */
-    if (SumChan == 6U) {               /* Is number of measurement equal to the number of conversions? */
+    if (SumChan == 3U) {               /* Is number of measurement equal to the number of conversions? */
       SumChan = 0U;                    /* If yes then set the number of measurement to 0 */
-      OutFlg = 0x3FU;                  /* Measured values are available */
+      OutFlg = 0x07U;                  /* Measured values are available */
       ADC_ANALOG_OnEnd();              /* Invoke user event */
       ModeFlg = STOP;                  /* Set the device to the stop mode */
       return;                          /* Return from interrupt */
@@ -152,9 +143,6 @@ static void ClrSumV(void)
   ADC_ANALOG_OutV[0] = 0U;             /* Set variable for storing measured values to 0 */
   ADC_ANALOG_OutV[1] = 0U;             /* Set variable for storing measured values to 0 */
   ADC_ANALOG_OutV[2] = 0U;             /* Set variable for storing measured values to 0 */
-  ADC_ANALOG_OutV[3] = 0U;             /* Set variable for storing measured values to 0 */
-  ADC_ANALOG_OutV[4] = 0U;             /* Set variable for storing measured values to 0 */
-  ADC_ANALOG_OutV[5] = 0U;             /* Set variable for storing measured values to 0 */
 }
 
 /*
@@ -265,7 +253,7 @@ byte ADC_ANALOG_Measure(bool WaitForResult)
 */
 byte ADC_ANALOG_MeasureChan(bool WaitForResult,byte Channel)
 {
-  if (Channel >= 6U) {                 /* Is channel number greater than or equal to 6 */
+  if (Channel >= 3U) {                 /* Is channel number greater than or equal to 3 */
     return ERR_RANGE;                  /* If yes then error */
   }
   if (ModeFlg != STOP) {               /* Is the device in different mode than "stop"? */
@@ -312,15 +300,12 @@ byte ADC_ANALOG_MeasureChan(bool WaitForResult,byte Channel)
 */
 byte ADC_ANALOG_GetValue(void *Values)
 {
-  if (OutFlg != 0x3FU) {               /* Is output flag set? */
+  if (OutFlg != 0x07U) {               /* Is output flag set? */
     return ERR_NOTAVAIL;               /* If no then error */
   }
   ((byte*)Values)[0] = ADC_ANALOG_OutV[0]; /* Save measured values to the output buffer */
   ((byte*)Values)[1] = ADC_ANALOG_OutV[1]; /* Save measured values to the output buffer */
   ((byte*)Values)[2] = ADC_ANALOG_OutV[2]; /* Save measured values to the output buffer */
-  ((byte*)Values)[3] = ADC_ANALOG_OutV[3]; /* Save measured values to the output buffer */
-  ((byte*)Values)[4] = ADC_ANALOG_OutV[4]; /* Save measured values to the output buffer */
-  ((byte*)Values)[5] = ADC_ANALOG_OutV[5]; /* Save measured values to the output buffer */
   return ERR_OK;                       /* OK */
 }
 
@@ -361,7 +346,7 @@ byte ADC_ANALOG_GetValue(void *Values)
 */
 byte ADC_ANALOG_GetChanValue(byte Channel,void* Value)
 {
-  if (Channel >= 6U) {                 /* Is channel number greater than or equal to 6 */
+  if (Channel >= 3U) {                 /* Is channel number greater than or equal to 3 */
     return ERR_RANGE;                  /* If yes then error */
   }
   if ((OutFlg & Table[Channel]) == 0U) { /* Is output flag set? */
