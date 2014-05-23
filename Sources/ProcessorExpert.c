@@ -29,6 +29,7 @@
 #include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
+#include "Control.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"

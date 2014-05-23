@@ -1,8 +1,11 @@
 /* ###################################################################################
  * Accel.c
- *		Este modulo implementa las funciones y procedimientos necesarias
- *		para la adquisicion, procesamiento y transmision de datos provenientes
- *		del acelerometro de 3 ejes de Freescale.
+ * 		
+ * 		This module contains the functions needed to measure tilting using
+ * 		an analog 3 axis accelerometer designed by Freescale. It includes some
+ * 		processing functions and transmission functions to simplify the
+ * 		communication with the computer.
+ * 		
  *      Author: Rafael Rodriguez
  *      		Jorge Mendez
  * ###################################################################################
@@ -13,41 +16,41 @@
 #include "Events.h"
 
 #define 	ACCEL_BUFSIZE	64
-#define 	ANGLE_XZ		0u			//< Constantes para seleccionar angulo a medir o enviar.
+#define 	ANGLE_XZ		0u		//< Data Identifiers need for the communication.
 #define 	ANGLE_YZ		1u
 #define 	CH_X			1u
 #define 	CH_Y			2u
 #define 	CH_Z			3u
 
-#define 	ZG				127		//< Puede ser sustituido por el nombre de alguna variable que almacene el valor de 0g dinamicamente.
+#define 	ZG				127		//< 0g value.
 
 typedef struct {					//< Private struct for data buffering
-	int8u x[ACCEL_BUFSIZE];
+	int8u x[ACCEL_BUFSIZE];			//< Array to save the samples of every axis.
 	int8u y[ACCEL_BUFSIZE];
 	int8u z[ACCEL_BUFSIZE];
-	int16u last;
-	int32s averageX;
+	int16u last;					//< Index of the last element in the array.
+	int32s averageX;				//< Averages of the samples of each axis.
 	int32s averageY;
 	int32s averageZ;
+	int16u datos;					//< Number of samples taken since the last time the data was sent.
 }__accel_data;
 
-typedef union {		//< Private union for byte access of angle data.
+typedef union {						//< Private union for byte access of angle data.
 	float x;
 	int8u byte[4];
 } __angle;
 
+// Module's Global Variables.
 
-typedef union{
-	float x;
-	int8u byte[2];
-}__avg;
-
-__accel_data buffer; 
+__accel_data buffer; 				//< Buffer to keep the acquired data.		
+bool datalista;						//< Boolean to signal when the data's ready to be sent.
 
 
+//######################################################################################
 
+//		Private Functions.
 
-//Funciones privadas
+// #####################################################################################
 
 float __calculateAngle(int8u ang);
 void __average_accel();
@@ -56,11 +59,21 @@ void __calibrate();
 void __send_angle(int8u ang);
 void __send_avgs();
 
-//Funciones Publicas
+//######################################################################################
+
+//		Public Functions.
+
+// #####################################################################################
 
 void init_accel(){
 	buffer.last = 0;
+	buffer.datos = 0;
 	__calibrate();			//< Para hallar el valor de 0g.
+	datalista = false;
+}
+
+bool accel_data_lista() {
+	return datalista;
 }
 
 void read_accel(){
@@ -85,15 +98,26 @@ void read_accel(){
 	buffer.averageY = buffer.averageY - fix;
 	fix = z - buffer.z[buffer.last];
 	buffer.averageZ = buffer.averageZ - fix;
+	
+	buffer.datos++;
+	if (buffer.datos == ACCEL_BUFSIZE) {
+		datalista = true;
+		buffer.datos = 0;
+	}
 }
 
 void send_angles(){
+	if (!datalista) return;
 	__send_angle(0);
 	__send_angle(1);
-	//__send_avgs();				//For debugging
+	datalista = false;
 }
 
-//#####################################################################################
+//######################################################################################
+
+//		Private Functions Implementation.
+
+// #####################################################################################
 
 /**
  * __calculateAngle calcula la tangente cuadrada del angulo deseado a partir de un
@@ -167,7 +191,7 @@ void __average_accel(){
 	buffer.averageZ = avz / ACCEL_BUFSIZE;
 }
 
-void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadrada del angulo deseado.
+void __send_angle(int8u ang){					//< Envia un float que contiene la tangente cuadrada del angulo deseado.
 	int8u i, correction = 0;
 	_trama t;
 	__angle angle;
@@ -176,55 +200,11 @@ void __send_angle(int8u ang){		//< Envia un float que contiene la tangente cuadr
 	for (i = 0; i < 4; i++){
 		if(angle.byte[i] == 0xFF){
 			t.t[i + 1] = 0xFE;
-			correction |= 1<<(3 - i);							//< Los ultimos 4bits corresponden al byte que necesita correccion 	
+			correction |= 1<<(3 - i);			//< Los ultimos 4bits corresponden al byte que necesita correccion 	
 		}
 		else t.t[i + 1] = angle.byte[i];
 	}
 	t.tam = i + 1; 
 	send_data(&t, correction);
-}
-
-void __send_avgs(){
-	int8u i;
-	_trama t;
-	__avg avg;
-	__average_accel();
-	
-	avg.x = buffer.averageX;
-	t.tam = 3;
-	t.t[0] = 0;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}	
-	send_data(&t, 0);
-	
-	avg.x = buffer.averageY;
-	t.t[0] = 1;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}
-	send_data(&t, 0);
-	
-	avg.x = buffer.averageZ;
-	t.t[0] = 2;
-	for(i = 0; i < 2; i++){
-		if(avg.byte[i] == 0xFF){
-			t.t[i+1] = 0xFE;
-		}
-		else{
-			t.t[i+1] = avg.byte[i];
-		}
-	}
-	send_data(&t, 0);
 }
 
