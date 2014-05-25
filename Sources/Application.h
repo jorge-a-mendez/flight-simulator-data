@@ -1,9 +1,17 @@
-/*
- * Application.h
+/*###############################################################################
+ * Application.c
+ *		This module contains the main application design for the HCS08 
+ *		to acquire and process the data from the sensors. 
+ *		Here is implemented a simple state machine to acquire, process and
+ *		send the data from the piezoelectric, the plates of the capacitive
+ *		sensors and the signals from each axis of the Freescale Accelerometer. 
  *
- *  Created on: Mar 26, 2014
- *      Author: Rafael Rodriguez
- */
+ *		Authors:
+ *			Rafael Rodriguez (rafaelrs307@gmail.com)
+ *			Jorge Mendez (jorgeamendezm@gmail.com)
+ *
+ *###############################################################################*/
+
 
 #ifndef APPLICATION_H_
 #define APPLICATION_H_
@@ -21,9 +29,6 @@
 #define  LEER		2u					//< Se leen los datos. Se almacena en los buffers...
 #define  RECIBIR 	3u					//< Se lee datos provenientes del PC.
 #define  ADQUIRIR   4u					//< Solicita medicion de datos.
-
-#define  ALL_DATA   1					//< Cantidad de medidas que se tienen que esperar.
-
 
 extern int8u data_lista;
 extern int8u estado;

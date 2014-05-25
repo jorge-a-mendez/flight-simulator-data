@@ -1,9 +1,16 @@
-/*
+/*###############################################################################
  * Application.c
+ *		This module contains the main application design for the HCS08 
+ *		to acquire and process the data from the sensors. 
+ *		Here is implemented a simple state machine to acquire, process and
+ *		send the data from the piezoelectric, the plates of the capacitive
+ *		sensors and the signals from each axis of the Freescale Accelerometer. 
  *
- *  Created on: Mar 26, 2014
- *      Author: Rafael Rodriguez
- */
+ *		Authors:
+ *			Rafael Rodriguez (rafaelrs307@gmail.com)
+ *			Jorge Mendez (jorgeamendezm@gmail.com)
+ *
+ *###############################################################################*/
 
 
 #include "Application.h"
@@ -27,13 +34,13 @@ void __read_info();
 //		Public Functions.
 
 // #####################################################################################
-void init(){					//< Aqui van incluidas las funciones de inicializacion de los modulos.
+void init(){					//< This includes all the initialisation of the modules.
 	init_accel();
 	init_piezo();
 	init_SCube();
 }
 
-void state_machine(){
+void state_machine(){			//< State machine for the data acquisition and processing.
 	data_lista = 0;
 	estado = ESPERAR;
 	for(;;) {
@@ -60,22 +67,21 @@ void state_machine(){
 	}
 }
 
-void __acquire(){									//< Esta funcion solicita los datos a adquirir: ADC, Periodo.
+void __acquire(){									//< Initialise the acquisition process of the ADC
 	int8u error;
 	if(estado == ADQUIRIR){
-		error = ADC_ANALOG_Measure(FALSE);			//< Solicita conversion de todos los canales del ADC. No espera por el resultado.
-		//Solicitud de medicion de los periodos.
-		estado = ESPERAR;							//< La maquina espera por los resultados
+		error = ADC_ANALOG_Measure(FALSE);			
+		estado = ESPERAR;							//< Change the state of the machine: WAIT
 	}
 }
 
-void __send_info(){									//< Encapsula todos los envios necesarios a la PC
+void __send_info(){									//< It sends any data that's ready to be sent to the PC.
 	send_angles();
 	send_shot();
 	send_SCube();
 }
 
-void __read_info(){
+void __read_info(){									//< Read the data from the ADC and the SCube plates.
 	read_accel();
 	read_SCube();
 }
