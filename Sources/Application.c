@@ -12,19 +12,25 @@
 int8u estado;
 int8u data_lista;
 
+//######################################################################################
 
-//Funciones privadas..
+//		Private Functions.
+
+// #####################################################################################
 
 void __send_info();
 void __acquire();
 void __read_info();
 
-//Funciones publicas...
+//######################################################################################
 
+//		Public Functions.
 
+// #####################################################################################
 void init(){					//< Aqui van incluidas las funciones de inicializacion de los modulos.
-	//init_accel();
+	init_accel();
 	init_piezo();
+	init_SCube();
 }
 
 void state_machine(){
@@ -33,10 +39,8 @@ void state_machine(){
 	for(;;) {
 		switch(estado){
 		case ESPERAR:
-			if(data_lista == ALL_DATA){
-				data_lista = 0;
-				estado = LEER;
-			}
+			if (accel_data_lista() || Scube_data_lista())
+				estado = ENVIAR;
 			break;
 		case ADQUIRIR:
 			__acquire();
@@ -56,20 +60,22 @@ void state_machine(){
 	}
 }
 
-void __acquire(){										//< Esta funcion solicita los datos a adquiri: ADC, Periodo.
+void __acquire(){									//< Esta funcion solicita los datos a adquirir: ADC, Periodo.
 	int8u error;
 	if(estado == ADQUIRIR){
-		//error = ADC_ANALOG_Measure(FALSE);			//< Solicita conversion de todos los canales del ADC. No espera por el resultado.
+		error = ADC_ANALOG_Measure(FALSE);			//< Solicita conversion de todos los canales del ADC. No espera por el resultado.
 		//Solicitud de medicion de los periodos.
 		estado = ESPERAR;							//< La maquina espera por los resultados
 	}
 }
 
 void __send_info(){									//< Encapsula todos los envios necesarios a la PC
-	//send_angles();
+	send_angles();
 	send_shot();
+	send_SCube();
 }
 
 void __read_info(){
-	//read_accel();
+	read_accel();
+	read_SCube();
 }

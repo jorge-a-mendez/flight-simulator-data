@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-18, 18:03, # CodeGen: 56
+**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -34,11 +34,13 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
-#include "ADQUIRIR.h"
-#include "ENVIAR.h"
-#include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
+#include "ControlX.h"
+#include "ControlY.h"
+#include "ControlZ.h"
+#include "CMP1.h"
+#include "ADQUIRIR.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -52,6 +54,8 @@ volatile byte CCR_reg;                 /* Current CCR register */
 
 /*Definition of global shadow variables*/
 byte Shadow_PTC;
+byte Shadow_PTA;
+byte Shadow_PTF;
 
 
 /*
@@ -185,6 +189,8 @@ void _EntryPoint(void)
   /* Common initialization of the write once registers */
   /* SOPT1: COPE=0,COPT=1,STOPE=0,??=0,??=0,RSTOPE=0,BKGDPE=1,RSTPE=1 */
   setReg8(SOPT1, 0x43U);                
+  /* SOPT2: COPCLKS=0,??=0,??=0,??=0,SPI1PS=0,ACIC2=0,IIC1PS=0,ACIC1=0 */
+  setReg8(SOPT2, 0x00U);                
   /* SPMSC1: LVDF=0,LVDACK=0,LVDIE=0,LVDRE=1,LVDSE=1,LVDE=1,??=0,BGBE=0 */
   setReg8(SPMSC1, 0x1CU);               
   /* SPMSC2: LPR=0,LPRS=0,LPWUI=0,??=0,PPDF=0,PPDACK=0,PPDE=1,PPDC=0 */
@@ -233,8 +239,8 @@ void PE_low_level_init(void)
   /* SCGC2: DBG=1,FLS=1,IRQ=1,KBI=1,ACMP=1,RTC=1,SPI2=1,SPI1=1 */
   setReg8(SCGC2, 0xFFU);                
   /* Common initialization of the CPU registers */
-  /* PTBDD: PTBDD1=1,PTBDD0=0 */
-  clrSetReg8Bits(PTBDD, 0x01U, 0x02U);  
+  /* PTBDD: PTBDD5=0,PTBDD1=1,PTBDD0=0 */
+  clrSetReg8Bits(PTBDD, 0x21U, 0x02U);  
   /* PTBD: PTBD1=1 */
   setReg8Bits(PTBD, 0x02U);             
   /* PTCD: PTCD1=1,PTCD0=1 */
@@ -243,18 +249,30 @@ void PE_low_level_init(void)
   clrReg8Bits(PTCPE, 0x03U);            
   /* PTCDD: PTCDD1=1,PTCDD0=1 */
   setReg8Bits(PTCDD, 0x03U);            
-  /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1,ADPC0=1 */
-  setReg8Bits(APCTL1, 0x8DU);           
-  /* APCTL2: ADPC11=1,ADPC10=1 */
-  setReg8Bits(APCTL2, 0x0CU);           
-  /* PTDDD: PTDDD1=0,PTDDD0=0 */
-  clrReg8Bits(PTDDD, 0x03U);            
-  /* PTDPE: PTDPE1=0,PTDPE0=0 */
-  clrReg8Bits(PTDPE, 0x03U);            
+  /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1 */
+  setReg8Bits(APCTL1, 0x8CU);           
+  /* PTDPE: PTDPE0=0 */
+  clrReg8Bits(PTDPE, 0x01U);            
+  /* PTDDD: PTDDD0=0 */
+  clrReg8Bits(PTDDD, 0x01U);            
   /* PTHPE: PTHPE7=0 */
   clrReg8Bits(PTHPE, 0x80U);            
   /* PTHDD: PTHDD7=0 */
   clrReg8Bits(PTHDD, 0x80U);            
+  /* PTAD: PTAD0=0 */
+  clrReg8Bits(PTAD, 0x01U);             
+  /* PTAPE: PTAPE0=0 */
+  clrReg8Bits(PTAPE, 0x01U);            
+  /* PTADD: PTADD0=1 */
+  setReg8Bits(PTADD, 0x01U);            
+  /* PTFD: PTFD1=0,PTFD0=0 */
+  clrReg8Bits(PTFD, 0x03U);             
+  /* PTFPE: PTFPE1=0,PTFPE0=0 */
+  clrReg8Bits(PTFPE, 0x03U);            
+  /* PTFDD: PTFDD1=1,PTFDD0=1 */
+  setReg8Bits(PTFDD, 0x03U);            
+  /* PTBPE: PTBPE5=0 */
+  clrReg8Bits(PTBPE, 0x20U);            
   /* PTASE: PTASE7=0,PTASE6=0,PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   clrReg8Bits(PTASE, 0xDFU);            
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -302,19 +320,18 @@ void PE_low_level_init(void)
   HEARTBIT_Init();
   /* ###  "ADC_ANALOG" init code ... */
   ADC_ANALOG_Init();
-  /* ### TimerInt "ADQUIRIR" init code ... */
-  ADQUIRIR_Init();
-  /* ### TimerInt "ENVIAR" init code ... */
-  ENVIAR_Init();
-  /* ### External interrupt "CMP1" init code ... */
-  /* KBI2PE: KBIPE1=1 */
-  KBI2PE |= 0x02U;
-  /* KBI2SC: ??=0,??=0,??=0,??=0,KBF=0,KBACK=0,KBIE=0,KBIMOD=0 */
-  setReg8(KBI2SC, 0x00U);               
-  KBI2SC_KBACK = 0x01U;                /* Clear Interrupt flag */
-  KBI2SC_KBIE = 0x01U;
   /* ### BitIO "CMP2" init code ... */
   /* ### BitIO "CMP3" init code ... */
+  /* ### BitIO "ControlX" init code ... */
+  Shadow_PTA &= 0xFEU;                 /* Initialize pin shadow variable bit */
+  /* ### BitIO "ControlY" init code ... */
+  Shadow_PTF &= 0xFEU;                 /* Initialize pin shadow variable bit */
+  /* ### BitIO "ControlZ" init code ... */
+  Shadow_PTF &= 0xFDU;                 /* Initialize pin shadow variable bit */
+  /* ### Timer capture encapsulation "CMP1" init code ... */
+  CMP1_Init();
+  /* ### TimerInt "ADQUIRIR" init code ... */
+  ADQUIRIR_Init();
   __EI();                              /* Enable interrupts */
 }
 

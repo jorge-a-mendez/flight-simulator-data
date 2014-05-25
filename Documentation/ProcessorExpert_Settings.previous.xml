@@ -715,30 +715,18 @@ autoselected pull
         <A_D_interrupt v="Vadc" />
         <A_D_interrupt_priority v="medium priority" />
       </boolgroup>
-      <list name="A/D channels" v="6">
+      <list name="A/D channels" v="3">
         <group name="Channel0">
-          <A_D_channel__pin_ v="PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS" />
-          <A_D_channel__pin__signal v="POT" />
-        </group>
-        <group name="Channel1">
           <A_D_channel__pin_ v="PTA2_KBI1P2_SDA1_ADP2" />
           <A_D_channel__pin__signal v="ACCELX" />
         </group>
-        <group name="Channel2">
+        <group name="Channel1">
           <A_D_channel__pin_ v="PTA3_KBI1P3_SCL1_ADP3" />
           <A_D_channel__pin__signal v="ACCELY" />
         </group>
-        <group name="Channel3">
+        <group name="Channel2">
           <A_D_channel__pin_ v="PTB3_KBI1P7_MOSI1_ADP7" />
           <A_D_channel__pin__signal v="ACCELZ" />
-        </group>
-        <group name="Channel4">
-          <A_D_channel__pin_ v="PTF0_ADP10" />
-          <A_D_channel__pin__signal v="PIEZO" />
-        </group>
-        <group name="Channel5">
-          <A_D_channel__pin_ v="PTF1_ADP11" />
-          <A_D_channel__pin__signal v="" />
         </group>
       </list>
       <A_D_resolution v="8 bits" />
@@ -798,7 +786,7 @@ autoselected pull
         <Interrupt v="Vrtc" />
         <Interrupt_priority v="medium priority" />
       </boolgroup>
-      <Interrupt_period v="5 ms" />
+      <Interrupt_period v="2 ms" />
       <Same_period_in_modes v="yes" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
@@ -847,7 +835,7 @@ autoselected pull
         <Interrupt v="Vtpm2ch1" />
         <Interrupt_priority v="medium priority" />
       </boolgroup>
-      <Interrupt_period v="10 ms" />
+      <Interrupt_period v="100 ms" />
       <Same_period_in_modes v="yes" />
       <Component_uses_entire_timer v="no" />
       <group name="Initialization">
@@ -1000,6 +988,44 @@ push-pull
       <PutVal v="don&amp;apos;t generate code" />
       <ClrVal v="don&amp;apos;t generate code" />
       <SetVal v="don&amp;apos;t generate code" />
+      <NegVal v="don&amp;apos;t generate code" />
+    </Methods>
+    <Events>
+      <EmptySection_DummyValue />
+    </Events>
+  </Bean>
+  <Bean name="Control" type="BitIO">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="Control" />
+      <Pin_for_I_O v="PTA0_KBI1P0_TPM1CH0_ADP0_ACMP1PLUS" />
+      <Pin_signal v="" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Open_drain v="push-pull" />
+      <Slew_rate_control_for_PTA0 v="no" />
+      <Drive_strength_for_PTA0 v="High" />
+      <Direction v="Input/Output" />
+      <group name="Initialization">
+        <Init__direction v="Output" />
+        <Init__value v="0" />
+      </group>
+      <Safe_mode v="yes" />
+      <Optimization_for v="speed" />
+    </Properties>
+    <Methods>
+      <GetDir v="don&amp;apos;t generate code" />
+      <SetDir v="generate code" />
+      <SetInput v="don&amp;apos;t generate code" />
+      <SetOutput v="don&amp;apos;t generate code" />
+      <GetVal v="generate code" />
+      <PutVal v="generate code" />
+      <ClrVal v="generate code" />
+      <SetVal v="generate code" />
       <NegVal v="don&amp;apos;t generate code" />
     </Methods>
     <Events>

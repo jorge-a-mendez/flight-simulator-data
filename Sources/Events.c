@@ -103,7 +103,7 @@ void HEARTBIT_OnInterrupt(void)
 */
 void ADC_ANALOG_OnEnd(void)
 {
-	data_lista++;
+	estado = LEER;
 }
 
 

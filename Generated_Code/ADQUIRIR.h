@@ -6,7 +6,7 @@
 **     Component   : TimerInt
 **     Version     : Component 02.160, Driver 01.23, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-21, 14:15, # CodeGen: 58
+**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
 **     Abstract    :
 **         This component "TimerInt" implements a periodic interrupt.
 **         When the component and its events are enabled, the "OnInterrupt"
@@ -46,8 +46,7 @@
 **
 **         Flip-flop registers
 **     Contents    :
-**         EnableEvent  - byte ADQUIRIR_EnableEvent(void);
-**         DisableEvent - byte ADQUIRIR_DisableEvent(void);
+**         No public methods
 **
 **     Copyright : 1997 - 2012 Freescale, Inc. All Rights Reserved.
 **     
@@ -66,38 +65,6 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "Cpu.h"
-
-byte ADQUIRIR_EnableEvent(void);
-/*
-** ===================================================================
-**     Method      :  ADQUIRIR_EnableEvent (component TimerInt)
-**
-**     Description :
-**         This method enables the events.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-** ===================================================================
-*/
-
-#define ADQUIRIR_DisableEvent() (RTCSC_RTIE = 0x00U, (byte)ERR_OK) /* Disable interrupt */
-/*
-** ===================================================================
-**     Method      :  ADQUIRIR_DisableEvent (component TimerInt)
-**
-**     Description :
-**         This method disables the events.
-**     Parameters  : None
-**     Returns     :
-**         ---             - Error code, possible codes:
-**                           ERR_OK - OK
-**                           ERR_SPEED - This device does not work in
-**                           the active speed mode
-** ===================================================================
-*/
 
 __interrupt void ADQUIRIR_Interrupt(void);
 /*

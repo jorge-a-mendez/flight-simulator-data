@@ -6,7 +6,7 @@
 **     Component   : AsynchroSerial
 **     Version     : Component 02.601, Driver 01.33, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-31, 18:46, # CodeGen: 36
+**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -487,7 +487,7 @@ ISR(AS1_InterruptTx)
     if (!OnFreeTxBuf_semaphore) {
       OnFlags |= ON_FREE_TX;           /* Set flag "OnFreeTxBuf" */
     }
-    //SCI1C2_TIE = 0x00U;                /* Disable transmit interrupt */
+    SCI1C2_TIE = 0x00U;                /* Disable transmit interrupt */
   }
   if (AS1_EnEvent) {                   /* Are the events enabled? */
     if (OnFlags & ON_TX_CHAR) {        /* Is flag "OnTxChar" set? */
