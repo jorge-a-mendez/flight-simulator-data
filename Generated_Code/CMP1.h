@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-22, 18:46, # CodeGen: 62
+**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On
@@ -18,7 +18,7 @@
 **
 **         Timer
 **             Timer                   : TPM1
-**             Counter shared          : Yes
+**             Counter shared          : No
 **
 **         High speed mode
 **             Prescaler               : divide-by-4

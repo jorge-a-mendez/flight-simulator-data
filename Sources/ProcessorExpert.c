@@ -25,10 +25,12 @@
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
 #include "ADQUIRIR.h"
-#include "ENVIAR.h"
 #include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
+#include "ControlX.h"
+#include "ControlY.h"
+#include "ControlZ.h"
 #include "Control.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
