@@ -80,16 +80,6 @@ Module "ADC_ANALOG" (component ADC)
    - ADC_ANALOG_GetChanValue -Returns the last measured value of the required channel. Format and width of the value is a 
                 native format of the A/D converter.
 
-Module "CMP2"      (component BitIO)
-   - CMP2_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
-                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
-                limitations). This method cannot be disabled if direction is [input].
-
-Module "CMP3"      (component BitIO)
-   - CMP3_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
-                returned. If the direction is [output] then the last written value is returned (see <Safe mode> property for 
-                limitations). This method cannot be disabled if direction is [input].
-
 Module "ControlX"  (component BitIO)
    - ControlX_SetDir -Sets a pin direction (available only if the direction = _[input/output]_).
    - ControlX_GetVal -Returns the input/output value. If the direction is [input] then the input value of the pin is read and 
@@ -137,6 +127,17 @@ Module "CMP1"      (component Capture)
                 value (usually not available for internal signals).
 
 Module "ADQUIRIR"  (component TimerInt)
+
+Module "CMP2"      (component Capture)
+   - CMP2_GetCaptureValue -This method gets the last value captured by enabled timer (see implementation note in <General Info>)
+                . The method does not return valid value after initialization or after <Reset> until new capture event (even if 
+                the returned Error code is ERR_OK).
+   - CMP2_GetPinValue -The method reads the Capture pin value. The method is available only if it is possible to read the pin 
+                value (usually not available for internal signals).
+
+Module "CMP3"      (component Capture)
+   - CMP3_GetPinValue -The method reads the Capture pin value. The method is available only if it is possible to read the pin 
+                value (usually not available for internal signals).
 
 Module "Cpu"       (component MC9S08QE128_80)
    - Cpu_EnableInt -Enables maskable interrupts

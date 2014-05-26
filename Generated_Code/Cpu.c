@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
+**     Date/Time   : 2014-05-26, 13:37, # CodeGen: 63
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -34,13 +34,13 @@
 #include "TX_LED.h"
 #include "HEARTBIT.h"
 #include "ADC_ANALOG.h"
-#include "CMP2.h"
-#include "CMP3.h"
 #include "ControlX.h"
 #include "ControlY.h"
 #include "ControlZ.h"
 #include "CMP1.h"
 #include "ADQUIRIR.h"
+#include "CMP2.h"
+#include "CMP3.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -251,20 +251,12 @@ void PE_low_level_init(void)
   setReg8Bits(PTCDD, 0x03U);            
   /* APCTL1: ADPC7=1,ADPC3=1,ADPC2=1 */
   setReg8Bits(APCTL1, 0x8CU);           
-  /* PTDPE: PTDPE0=0 */
-  clrReg8Bits(PTDPE, 0x01U);            
-  /* PTDDD: PTDDD0=0 */
-  clrReg8Bits(PTDDD, 0x01U);            
-  /* PTHPE: PTHPE7=0 */
-  clrReg8Bits(PTHPE, 0x80U);            
-  /* PTHDD: PTHDD7=0 */
-  clrReg8Bits(PTHDD, 0x80U);            
   /* PTAD: PTAD0=0 */
   clrReg8Bits(PTAD, 0x01U);             
-  /* PTAPE: PTAPE0=0 */
-  clrReg8Bits(PTAPE, 0x01U);            
-  /* PTADD: PTADD0=1 */
-  setReg8Bits(PTADD, 0x01U);            
+  /* PTAPE: PTAPE7=0,PTAPE6=0,PTAPE0=0 */
+  clrReg8Bits(PTAPE, 0xC1U);            
+  /* PTADD: PTADD7=0,PTADD6=0,PTADD0=1 */
+  clrSetReg8Bits(PTADD, 0xC0U, 0x01U);  
   /* PTFD: PTFD1=0,PTFD0=0 */
   clrReg8Bits(PTFD, 0x03U);             
   /* PTFPE: PTFPE1=0,PTFPE0=0 */
@@ -320,8 +312,6 @@ void PE_low_level_init(void)
   HEARTBIT_Init();
   /* ###  "ADC_ANALOG" init code ... */
   ADC_ANALOG_Init();
-  /* ### BitIO "CMP2" init code ... */
-  /* ### BitIO "CMP3" init code ... */
   /* ### BitIO "ControlX" init code ... */
   Shadow_PTA &= 0xFEU;                 /* Initialize pin shadow variable bit */
   /* ### BitIO "ControlY" init code ... */
@@ -332,6 +322,13 @@ void PE_low_level_init(void)
   CMP1_Init();
   /* ### TimerInt "ADQUIRIR" init code ... */
   ADQUIRIR_Init();
+  /* ### Timer capture encapsulation "CMP2" init code ... */
+  CMP2_Init();
+  /* ### Timer capture encapsulation "CMP3" init code ... */
+  CMP3_Init();
+  /* Common peripheral initialization - ENABLE */
+  /* TPM1SC: CLKSB=0,CLKSA=1 */
+  clrSetReg8Bits(TPM1SC, 0x10U, 0x08U); 
   __EI();                              /* Enable interrupts */
 }
 
