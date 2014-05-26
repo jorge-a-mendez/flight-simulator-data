@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-24, 19:50, # CodeGen: 59
+**     Date/Time   : 2014-05-26, 13:37, # CodeGen: 63
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On
@@ -18,7 +18,7 @@
 **
 **         Timer
 **             Timer                   : TPM1
-**             Counter shared          : No
+**             Counter shared          : Yes
 **
 **         High speed mode
 **             Prescaler               : divide-by-4
@@ -120,8 +120,6 @@ void CMP1_Init(void)
   clrSetReg8Bits(TPM1SC, 0x05U, 0x02U); /* Set prescaler register */ 
   /* TPM1C1SC: CH1F=0,CH1IE=1,MS1B=0,MS1A=0,ELS1B=1,ELS1A=1,??=0,??=0 */
   setReg8(TPM1C1SC, 0x4CU);            /* Enable both interrupt and capture function */ 
-  /* TPM1SC: CLKSB=0,CLKSA=1 */
-  clrSetReg8Bits(TPM1SC, 0x10U, 0x08U); /* Run counter */ 
 }
 
 
