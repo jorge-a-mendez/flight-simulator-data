@@ -45,12 +45,13 @@ void tx_handler() {
 }
 
 void send_data(_trama* data, int8u correction){
-	int8u i;
+	int8u i; 
 	__encola(&bufTx, INICIAR);
 	for(i = 0; i < data->tam; i++)
 		__encola(&bufTx, data->t[i]);
 	__encola(&bufTx, correction);
 	__encola(&bufTx, FIN);
+	SCI1C2 |= 0x80;
 }
 
 /*

@@ -19,5 +19,6 @@
 void init_piezo();
 void get_shot();
 void send_shot();
+bool piezo_data_lista();
 
 #endif /* PIEZO_H_ */

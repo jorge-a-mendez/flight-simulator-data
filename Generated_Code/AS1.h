@@ -6,7 +6,7 @@
 **     Component   : AsynchroSerial
 **     Version     : Component 02.601, Driver 01.33, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-03-31, 18:46, # CodeGen: 36
+**     Date/Time   : 2014-05-26, 15:49, # CodeGen: 69
 **     Abstract    :
 **         This component "AsynchroSerial" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -24,7 +24,7 @@
 **             Parity                  : none
 **             Breaks                  : Disabled
 **             Input buffer size       : 4
-**             Output buffer size      : 1
+**             Output buffer size      : 5
 **
 **         Registers
 **             Input buffer            : SCI1D     [$0027]
@@ -107,7 +107,7 @@
 #endif
 
 #define AS1_INP_BUF_SIZE 0x04U         /* Input buffer size */
-#define AS1_OUT_BUF_SIZE 0x01U         /* Output buffer size */
+#define AS1_OUT_BUF_SIZE 0x05U         /* Output buffer size */
 
 extern volatile bool AS1_EnEvent;      /* Enable/Disable events */
 

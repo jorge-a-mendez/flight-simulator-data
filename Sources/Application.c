@@ -46,7 +46,7 @@ void state_machine(){			//< State machine for the data acquisition and processin
 	for(;;) {
 		switch(estado){
 		case ESPERAR:
-			if (accel_data_lista() || Scube_data_lista())
+			if (accel_data_lista() || Scube_data_lista() || piezo_data_lista())
 				estado = ENVIAR;
 			break;
 		case ADQUIRIR:
@@ -76,12 +76,12 @@ void __acquire(){									//< Initialise the acquisition process of the ADC
 }
 
 void __send_info(){									//< It sends any data that's ready to be sent to the PC.
-	send_angles();
+	//send_angles();
 	send_shot();
-	send_SCube();
+	//send_SCube();
 }
 
 void __read_info(){									//< Read the data from the ADC and the SCube plates.
-	read_accel();
-	read_SCube();
+	//read_accel();
+	//read_SCube();
 }

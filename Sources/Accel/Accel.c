@@ -43,7 +43,7 @@ typedef union {						//< Private union for byte access of angle data.
 // Module's Global Variables.
 
 __accel_data buffer; 				//< Buffer to keep the acquired data.		
-bool datalista;						//< Boolean to signal when the data's ready to be sent.
+bool datalistaaccel;						//< Boolean to signal when the data's ready to be sent.
 
 
 //######################################################################################
@@ -69,11 +69,11 @@ void init_accel(){
 	buffer.last = 0;
 	buffer.datos = 0;
 	__calibrate();			//< Para hallar el valor de 0g.
-	datalista = false;
+	datalistaaccel = false;
 }
 
 bool accel_data_lista() {
-	return datalista;
+	return datalistaaccel;
 }
 
 void read_accel(){
@@ -101,16 +101,16 @@ void read_accel(){
 	
 	buffer.datos++;
 	if (buffer.datos == ACCEL_BUFSIZE) {
-		datalista = true;
+		datalistaaccel = true;
 		buffer.datos = 0;
 	}
 }
 
 void send_angles(){
-	if (!datalista) return;
+	if (!datalistaaccel) return;
 	__send_angle(0);
 	__send_angle(1);
-	datalista = false;
+	datalistaaccel = false;
 }
 
 //######################################################################################

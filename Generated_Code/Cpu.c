@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-26, 13:37, # CodeGen: 63
+**     Date/Time   : 2014-05-26, 14:49, # CodeGen: 67
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -327,8 +327,8 @@ void PE_low_level_init(void)
   /* ### Timer capture encapsulation "CMP3" init code ... */
   CMP3_Init();
   /* Common peripheral initialization - ENABLE */
-  /* TPM1SC: CLKSB=0,CLKSA=1 */
-  clrSetReg8Bits(TPM1SC, 0x10U, 0x08U); 
+  /* TPM1SC: CLKSB=1,CLKSA=0 */
+  clrSetReg8Bits(TPM1SC, 0x08U, 0x10U); 
   __EI();                              /* Enable interrupts */
 }
 
