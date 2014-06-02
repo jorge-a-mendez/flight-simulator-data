@@ -86,15 +86,13 @@ void main(void)
   
   	init();
   	ADQUIRIR_DisableEvent();
-  	ENVIAR_DisableEvent();
   	AS1_ClearRxBuf();
   	AS1_SendChar('i');
-  	while(!read_data2(&rx));
+  	//while(!read_data2(&rx));
   	aux = RTCMOD;
   	RTCMOD = aux;
   	TPM2CNT = 0;
   	
-  	ENVIAR_EnableEvent();
   	ADQUIRIR_EnableEvent();
 	state_machine();
 

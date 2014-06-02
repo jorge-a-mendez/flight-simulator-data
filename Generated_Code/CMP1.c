@@ -6,7 +6,7 @@
 **     Component   : Capture
 **     Version     : Component 02.216, Driver 01.30, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-26, 13:37, # CodeGen: 63
+**     Date/Time   : 2014-05-26, 14:49, # CodeGen: 67
 **     Abstract    :
 **         This component "Capture" simply implements the capture function
 **         of timer. The counter counts the same way as in free run mode. On
@@ -21,15 +21,15 @@
 **             Counter shared          : Yes
 **
 **         High speed mode
-**             Prescaler               : divide-by-4
+**             Prescaler               : divide-by-1
 **           Maximal time for capture register
-**             Xtal ticks              : 341
-**             microseconds            : 10417
-**             milliseconds            : 10
-**             seconds (real)          : 0.010416666667
-**             Hz                      : 96
+**             Xtal ticks              : 131072
+**             microseconds            : 4000000
+**             milliseconds            : 4000
+**             seconds                 : 4
+**             seconds (real)          : 4.0
 **           One tick of timer is
-**             nanoseconds             : 166.666666666667
+**             microseconds            : 61.035156
 **
 **         Initialization:
 **              Timer                  : Enabled
@@ -116,8 +116,8 @@ void CMP1_Init(void)
   setReg8(TPM1CNTH, 0x00U);            /* Reset counter */ 
   /* TPM1C1V: BIT15=0,BIT14=0,BIT13=0,BIT12=0,BIT11=0,BIT10=0,BIT9=0,BIT8=0,BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
   setReg16(TPM1C1V, 0x00U);            /* Clear capture register */ 
-  /* TPM1SC: PS2=0,PS1=1,PS0=0 */
-  clrSetReg8Bits(TPM1SC, 0x05U, 0x02U); /* Set prescaler register */ 
+  /* TPM1SC: PS2=0,PS1=0,PS0=0 */
+  clrReg8Bits(TPM1SC, 0x07U);          /* Set prescaler register */ 
   /* TPM1C1SC: CH1F=0,CH1IE=1,MS1B=0,MS1A=0,ELS1B=1,ELS1A=1,??=0,??=0 */
   setReg8(TPM1C1SC, 0x4CU);            /* Enable both interrupt and capture function */ 
 }

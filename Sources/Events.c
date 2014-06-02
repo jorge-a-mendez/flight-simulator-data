@@ -235,9 +235,9 @@ void ADQUIRIR_OnInterrupt(void)
 void CMP3_OnCapture(void)
 {
   /* Write your code here ... */
-	if(!CMP1_GetPinValue()){		// Just in case
+	//if(!CMP3_GetPinValue()){		// Just in case
 		buff.cmp3 = true;
-	}
+	//}
 }
 
 /*
@@ -257,9 +257,9 @@ void CMP3_OnCapture(void)
 void CMP2_OnCapture(void)
 {
   /* Write your code here ... */
-	if(!CMP2_GetPinValue()){		// Just in case
+	//if(!CMP2_GetPinValue()){		// Just in case
 		buff.cmp2 = true;
-	}
+	//}
 }
 
 /*

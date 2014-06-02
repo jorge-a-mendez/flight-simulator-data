@@ -776,92 +776,6 @@ autoselected pull
       </event>
     </Events>
   </Bean>
-  <Bean name="CMP2" type="BitIO">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="CMP2" />
-      <Pin_for_I_O v="PTD0_KBI2P0_SPSCK2" />
-      <Pin_signal v="" />
-      <Pull_resistor sel_value="no pull resistor">
-        
-autoselected pull
-
-        <EmptySection_DummyValue />
-      </Pull_resistor>
-      <Open_drain sel_value="The settings is irrelevant for input direction">
-        
-push-pull
-
-        <EmptySection_DummyValue />
-      </Open_drain>
-      <Slew_rate_control_for_PTD0 v="no" />
-      <Drive_strength_for_PTD0 v="High" />
-      <Direction v="Input" />
-      <group name="Initialization">
-        <Init__direction v="Input" />
-        <Init__value v="0" />
-      </group>
-      <Safe_mode v="yes" />
-      <Optimization_for v="speed" />
-    </Properties>
-    <Methods>
-      <GetDir v="don&amp;apos;t generate code" />
-      <SetDir v="don&amp;apos;t generate code" />
-      <SetInput v="don&amp;apos;t generate code" />
-      <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="don&amp;apos;t generate code" />
-      <ClrVal v="don&amp;apos;t generate code" />
-      <SetVal v="don&amp;apos;t generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
-    </Methods>
-    <Events>
-      <EmptySection_DummyValue />
-    </Events>
-  </Bean>
-  <Bean name="CMP3" type="BitIO">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="CMP3" />
-      <Pin_for_I_O v="PTH7_SDA2" />
-      <Pin_signal v="" />
-      <Pull_resistor sel_value="no pull resistor">
-        
-autoselected pull
-
-        <EmptySection_DummyValue />
-      </Pull_resistor>
-      <Open_drain sel_value="The settings is irrelevant for input direction">
-        
-push-pull
-
-        <EmptySection_DummyValue />
-      </Open_drain>
-      <Slew_rate_control_for_PTH7 v="no" />
-      <Drive_strength_for_PTH7 v="High" />
-      <Direction v="Input" />
-      <group name="Initialization">
-        <Init__direction v="Input" />
-        <Init__value v="0" />
-      </group>
-      <Safe_mode v="yes" />
-      <Optimization_for v="speed" />
-    </Properties>
-    <Methods>
-      <GetDir v="don&amp;apos;t generate code" />
-      <SetDir v="don&amp;apos;t generate code" />
-      <SetInput v="don&amp;apos;t generate code" />
-      <SetOutput v="don&amp;apos;t generate code" />
-      <GetVal v="generate code" />
-      <PutVal v="don&amp;apos;t generate code" />
-      <ClrVal v="don&amp;apos;t generate code" />
-      <SetVal v="don&amp;apos;t generate code" />
-      <NegVal v="don&amp;apos;t generate code" />
-    </Methods>
-    <Events>
-      <EmptySection_DummyValue />
-    </Events>
-  </Bean>
   <Bean name="ControlX" type="BitIO">
     <Enabled v="Y" />
     <Properties>
@@ -996,7 +910,7 @@ autoselected pull
         <Capture_priority v="medium priority" />
         <boolgroup name="Overflow support" v="Disabled" />
       </boolgroup>
-      <Maximum_time_of_event v="10.416666 ms" />
+      <Maximum_time_of_event v="1 sec" />
       <group name="Initialization">
         <Enabled_in_init__code v="yes" />
         <Events_enabled_in_init_ v="yes" />
@@ -1052,10 +966,10 @@ autoselected pull
       </group>
     </Properties>
     <Methods>
-      <Enable v="don&amp;apos;t generate code" />
-      <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
+      <Enable v="generate code" />
+      <Disable v="generate code" />
+      <EnableEvent v="generate code" />
+      <DisableEvent v="generate code" />
       <SetPeriodMode v="don&amp;apos;t generate code" />
       <SetPeriodTicks16 v="don&amp;apos;t generate code" />
       <SetPeriodTicks32 v="don&amp;apos;t generate code" />
@@ -1075,6 +989,110 @@ autoselected pull
         <Event_procedure_name v="ADQUIRIR_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
+    </Events>
+  </Bean>
+  <Bean name="CMP2" type="Capture">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="CMP2" />
+      <Capture_device v="TPM12" />
+      <Counter v="TPM1" />
+      <Capture_input_pin v="PTA6_TPM1CH2_ADP8" />
+      <Capture_input_signal v="" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Edge v="falling edge" />
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Capture_interrupt v="Vtpm1ch2" />
+        <Capture_priority v="medium priority" />
+        <boolgroup name="Overflow support" v="Disabled" />
+      </boolgroup>
+      <Maximum_time_of_event v="1 sec" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+        <Events_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <EnableEvent v="don&amp;apos;t generate code" />
+      <DisableEvent v="don&amp;apos;t generate code" />
+      <Reset v="don&amp;apos;t generate code" />
+      <GetCaptureValue v="generate code" />
+      <GetStatus v="don&amp;apos;t generate code" />
+      <GetPinValue v="generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="OnCapture" v="generate code">
+        <Event_procedure_name v="CMP2_OnCapture" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnOverflow" v="don&amp;apos;t generate code" />
+    </Events>
+  </Bean>
+  <Bean name="CMP3" type="Capture">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="CMP3" />
+      <Capture_device v="TPM22" />
+      <Counter v="TPM2" />
+      <Capture_input_pin v="PTA7_TPM2CH2_ADP9" />
+      <Capture_input_signal v="" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Edge v="falling edge" />
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Capture_interrupt v="Vtpm2ch2" />
+        <Capture_priority v="medium priority" />
+        <boolgroup name="Overflow support" v="Disabled" />
+      </boolgroup>
+      <Maximum_time_of_event v="1 sec" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+        <Events_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <EnableEvent v="don&amp;apos;t generate code" />
+      <DisableEvent v="don&amp;apos;t generate code" />
+      <Reset v="don&amp;apos;t generate code" />
+      <GetCaptureValue v="don&amp;apos;t generate code" />
+      <GetStatus v="don&amp;apos;t generate code" />
+      <GetPinValue v="generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="OnCapture" v="generate code">
+        <Event_procedure_name v="CMP3_OnCapture" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnOverflow" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

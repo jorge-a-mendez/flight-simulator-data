@@ -25,8 +25,12 @@
 #define 	RESOLUTION		8			//< Resolution for the measurement.
 #define 	TOTAL			17			//< Number of samples needed to take 2 cycles of a 60Hz signal.
 
-#define 	__Enter_Critical		asm {SEI};			
-#define 	__Exit_Critical			asm {CLI};
+#define 	__Enter_Critical		asm {\
+										SEI\
+										}			
+#define 	__Exit_Critical			asm {\
+										CLI\
+										}
 
 #define 	INPUT			0			//< Digital pins direction.
 #define 	OUTPUT			1
@@ -55,7 +59,7 @@ typedef union{						//< Union to facilitate the transmission.
 
 // Global Variables.
 __SCube_data buf;					//< Buffer of the Plates Data.
-bool datalista;						//< Boolean to indicate when the data's ready.
+bool datalistasc;						//< Boolean to indicate when the data's ready.
 
 // Private functions.
 
@@ -68,69 +72,123 @@ void reset();
 
 //##################################################################################
 
+
+/* ########################################################################################
+ * 		Function: init_SCube. Initialize cube sensor values.
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			
+ * ######################################################################################## */
+
 void init_SCube(){
 	buf.count[0] = 0;
 	buf.count[1] = 0;
 	buf.count[2] = 0;
 	buf.total = 0;
-	datalista = false;
+	datalistasc = false;
 }
+
+
+/* ########################################################################################
+ * 		Function: Scube_data_lista. Verify if the measurements are complete
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			bool datalistac. 
+ * 				- true: measurements complete.
+ * 				- false: measurements incomplete.
+ * ######################################################################################## */
 
 bool Scube_data_lista() {
-	return datalista;
+	return datalistasc;
 }
 
+
+/* ########################################################################################
+ * 		Function: get_shot. Check the intensity of the shot.
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 		
+ * 		Description: 	Measures the charge time of each RC circuit formed by the plates.
+ * 					 	This is done 17 times, in order to have an average of 2 cycles of
+ * 					 	a 60Hz signal. Once the 17 times are done, datalistac is set to
+ * 					 	true.
+ * 						
+ * ######################################################################################## */
+
 void read_SCube(){
+	int j;
+	if (datalistasc) return;
 	
-	if (datalista) return;
-	
-	__Enter_Critical
+	asm{
+		SEI				//< Disable interrupts.
+	}
 	
 		ControlX_SetDir(OUTPUT);		//< Output.
 		ControlX_ClrVal();				//< Discharge the plate
 		for (j = 0; j < 50; j++);		//< Delay
 		ControlX_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlX_GetVal())
-			count[CH_X]++;				//< Add time to the count
-	__Exit_Critical
+			buf.count[CH_X] = buf.count[CH_X]+1;				//< Add time to the count
+	asm{
+		CLI			//< Enable interrupts
+	}
 
-	__Enter_Critical
-		
+	asm{
+		SEI			//< Disable interrupts
+	}	
 		ControlY_SetDir(OUTPUT);		//< Output.
 		ControlY_ClrVal();				//< Discharge the plate
 		for (j = 0; j < 50; j++);		//< Delay
 		ControlY_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlY_GetVal())
-			count[CH_Y]++;				//< Add time to the count
-	__Exit_Critical
+			buf.count[CH_Y] = buf.count[CH_Y] + 1;				//< Add time to the count
+	asm{
+		CLI			//< Enable interrupts
+	}
 
 	
-	__Enter_Critical
-		
+	asm{
+		SEI			//< Disable interrupts
+	}	
 		ControlZ_SetDir(OUTPUT);		//< Output.
 		ControlZ_ClrVal();				//< Discharge the plate
 		for (j = 0; j < 50; j++);		//< Delay
 		ControlZ_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlZ_GetVal())
-			count[CH_Z]++;				//< Add time to the count
-	__Exit_Critical
+			buf.count[CH_Z] = buf.count[CH_Z] + 1;				//< Add time to the count
+	asm{
+		CLI			//< Enable interrupts
+	}
 	buf.total++;
-	if (buf.total == TOTAL) {
-		datalista = true;
+	if (buf.total == TOTAL) {		//< If the measurements are complete...
+		datalistasc = true;			//< data is ready
 	}
 }
+
+
+/* ########################################################################################
+ * 		Function: send_SCube. Queues the last values for charge time.
+ * 		Parameters: 
+ * 			
+ * 		Return:
+ * 			
+ * ######################################################################################## */
 
 void send_SCube(){
 	int8u correccion = 0, i;
 	_trama t;
 	__period period;
-	t.t[0] = panel;
+	
 	t.tam = 4;
-	if (!datalista) return;
+	if (!datalistasc) return;
 	
 	// Send the data of every plate.
 	
 	for(i = 0; i < 2; i++){ 
+		t.t[0] = i + 1;
 		period.period = (buf.count[i] << RESOLUTION) / buf.total;
 		if(period.byte[0] != 0xFF) 
 			t.t[1] = period.byte[0];
@@ -156,6 +214,9 @@ void send_SCube(){
 //		Private functions implementation.
 
 // ##################################################################################
+
+
+// Every time a value is sent, the cube sensor's values are reset.
 void reset() {
 	init_SCube();
 }
