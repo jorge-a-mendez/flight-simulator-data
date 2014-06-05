@@ -12,19 +12,19 @@
     <GeneratedByPE>
       <File Name="Generated_Code\ControlZ.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="84" />
       <File Name="Project_Settings\Linker_Files\ProcessorExpert.prm" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4" CompNumb="4" />
-      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-05-26, 15:49:32" FileAge="1401135572023" FileType="3072" />
+      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-06-05, 17:36:28" FileAge="1402005988027" FileType="3072" />
       <File Name="Generated_Code\ControlZ.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="84" />
       <File Name="Generated_Code\ControlY.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="83" />
       <File Name="Generated_Code\ControlY.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955705" FileType="4411" CompNumb="83" />
       <File Name="Generated_Code\ControlX.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955705" FileType="4411" CompNumb="79" />
-      <File Name="Generated_Code\ControlX.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955705" FileType="4411" CompNumb="79" />
       <File Name="Generated_Code\Cpu.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955755" FileType="4411" CompNumb="4" />
+      <File Name="Generated_Code\ControlX.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955705" FileType="4411" CompNumb="79" />
       <File Name="Generated_Code\Cpu.c" FileDate="2014-05-26, 14:49:12" FileAge="1401131952320" FileType="4411" CompNumb="4" />
-      <File Name="Generated_Code\ADQUIRIR.h" FileDate="2014-05-26, 14:04:15" FileAge="1401129255540" FileType="4411" CompNumb="0" />
+      <File Name="Generated_Code\ADQUIRIR.h" FileDate="2014-05-26, 14:04:15" FileAge="1401129255540" FileType="4411" CompNumb="90" />
       <File Name="Sources\ProcessorExpert.c" FileDate="2014-05-26, 14:49:06" FileAge="1401131946372" FileType="128" />
       <File Name="Generated_Code\IO_Map.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
       <File Name="Generated_Code\RX_LED.h" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="10" />
-      <File Name="Generated_Code\ADQUIRIR.c" FileDate="2014-05-26, 14:04:15" FileAge="1401129255589" FileType="4411" CompNumb="0" />
+      <File Name="Generated_Code\ADQUIRIR.c" FileDate="2014-05-26, 14:04:15" FileAge="1401129255589" FileType="4411" CompNumb="90" />
       <File Name="Generated_Code\IO_Map.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" />
       <File Name="Generated_Code\RX_LED.c" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4411" CompNumb="10" />
       <File Name="Documentation\ProcessorExpert.txt" FileDate="2014-05-26, 14:04:15" FileAge="1401129255887" FileType="3072" />
@@ -48,8 +48,8 @@
       <File Name="Sources\Events.c" FileDate="2014-05-26, 15:28:43" FileAge="1401134323136" FileType="16896" />
       <File Name="Generated_Code\AS1.h" FileDate="2014-05-26, 15:49:30" FileAge="1401135570391" FileType="4411" CompNumb="9" />
       <File Name="Generated_Code\Vectors.c" FileDate="2014-05-26, 14:02:17" FileAge="1401129137079" FileType="4411" CompNumb="4" />
-      <File Name="Generated_Code\AS1.c" FileDate="2014-05-26, 15:49:31" FileAge="1401135571154" FileType="4411" CompNumb="9" />
+      <File Name="Generated_Code\AS1.c" FileDate="2014-05-26, 15:55:50" FileAge="1401135950396" FileType="4411" CompNumb="9" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>70</CodeGenReference>
+  <CodeGenReference>71</CodeGenReference>
 </CodeGenerationInfo>

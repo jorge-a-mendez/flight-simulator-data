@@ -34,12 +34,30 @@ void __read_info();
 //		Public Functions.
 
 // #####################################################################################
+
+
+/* #######################################################################################
+ * 		Function: init. Initialize all the modules of the acquisition machine.
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			
+ * ######################################################################################## */
+
 void init(){					//< This includes all the initialisation of the modules.
 	init_accel();
 	init_piezo();
 	init_SCube();
 }
 
+/* #######################################################################################
+ * 		Function: state_machine. State machine to acquire, preprocess and send
+ * 				  the information to the pc.
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			
+ * ######################################################################################## */
 void state_machine(){			//< State machine for the data acquisition and processing.
 	data_lista = 0;
 	estado = ESPERAR;
@@ -76,12 +94,12 @@ void __acquire(){									//< Initialise the acquisition process of the ADC
 }
 
 void __send_info(){									//< It sends any data that's ready to be sent to the PC.
-	//send_angles();
+	send_angles();
 	send_shot();
 	//send_SCube();
 }
 
 void __read_info(){									//< Read the data from the ADC and the SCube plates.
-	//read_accel();
+	read_accel();
 	//read_SCube();
 }

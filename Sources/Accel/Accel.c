@@ -158,7 +158,7 @@ float __calculateAngle(int8u angle){
 }
 
 
-void __calibrate(){
+void __calibrate(){	
 	int16u i;
 	float avx = 0, avy = 0, avz = 0;
 	
