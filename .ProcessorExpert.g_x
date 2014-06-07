@@ -12,7 +12,7 @@
     <GeneratedByPE>
       <File Name="Generated_Code\ControlZ.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="84" />
       <File Name="Project_Settings\Linker_Files\ProcessorExpert.prm" FileDate="2014-04-01, 00:13:28" FileAge="1396327408000" FileType="4" CompNumb="4" />
-      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-06-05, 17:36:28" FileAge="1402005988027" FileType="3072" />
+      <File Name="Documentation\ProcessorExpert_SIGNALS.txt" FileDate="2014-06-07, 10:43:10" FileAge="1402153990377" FileType="3072" />
       <File Name="Generated_Code\ControlZ.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="84" />
       <File Name="Generated_Code\ControlY.h" FileDate="2014-05-26, 13:25:55" FileAge="1401126955735" FileType="4411" CompNumb="83" />
       <File Name="Generated_Code\ControlY.c" FileDate="2014-05-26, 13:25:55" FileAge="1401126955705" FileType="4411" CompNumb="83" />
@@ -51,5 +51,5 @@
       <File Name="Generated_Code\AS1.c" FileDate="2014-05-26, 15:55:50" FileAge="1401135950396" FileType="4411" CompNumb="9" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>71</CodeGenReference>
+  <CodeGenReference>73</CodeGenReference>
 </CodeGenerationInfo>

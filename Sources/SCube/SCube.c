@@ -23,7 +23,7 @@
 #define 	CH_Z			2u
 
 #define 	RESOLUTION		8			//< Resolution for the measurement.
-#define 	TOTAL			17			//< Number of samples needed to take 2 cycles of a 60Hz signal.
+#define 	TOTAL			17//25//75			//< Number of samples needed to take 3 cycles of a 60Hz signal.
 
 #define 	__Enter_Critical		asm {\
 										SEI\
@@ -182,12 +182,12 @@ void send_SCube(){
 	_trama t;
 	__period period;
 	
-	t.tam = 4;
+	t.tam = 3;
 	if (!datalistasc) return;
 	
 	// Send the data of every plate.
 	
-	for(i = 0; i < 2; i++){ 
+	for(i = 1; i <= 1; i++){ 
 		t.t[0] = i + 1;
 		period.period = (buf.count[i] << RESOLUTION) / buf.total;
 		if(period.byte[0] != 0xFF) 
@@ -196,13 +196,12 @@ void send_SCube(){
 			correccion |= 0x02;
 			t.t[1] = 0xFE;
 		}
-		if(period.byte[0] != 0xFF) 
-			t.t[2] = period.byte[0];
+		if(period.byte[1] != 0xFF) 
+			t.t[2] = period.byte[1];
 		else{
 			correccion |= 0x01;
 			t.t[2] = 0xFE;
 		}
-		t.t[3] = correccion;
 		send_data(&t,correccion);
 	}
 	
