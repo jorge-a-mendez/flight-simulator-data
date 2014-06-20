@@ -18,9 +18,9 @@
 #define 	ACCEL_BUFSIZE	64
 #define 	ANGLE_XZ		0u		//< Data Identifiers needed for the communication.
 #define 	ANGLE_YZ		1u
-#define 	CH_X			1u
-#define 	CH_Y			2u
-#define 	CH_Z			3u
+#define 	CH_X			0u
+#define 	CH_Y			1u
+#define 	CH_Z			2u
 
 #define 	ZG				127		//< 0g value.
 

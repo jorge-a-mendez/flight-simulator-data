@@ -7,7 +7,7 @@
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Datasheet   : MC9S08QE128RM Rev. 2 6/2007
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-26, 14:49, # CodeGen: 67
+**     Date/Time   : 2014-06-19, 14:04, # CodeGen: 80
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -37,8 +37,8 @@
 #include "ControlX.h"
 #include "ControlY.h"
 #include "ControlZ.h"
-#include "CMP1.h"
 #include "ADQUIRIR.h"
+#include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
 #include "PE_Types.h"
@@ -318,10 +318,10 @@ void PE_low_level_init(void)
   Shadow_PTF &= 0xFEU;                 /* Initialize pin shadow variable bit */
   /* ### BitIO "ControlZ" init code ... */
   Shadow_PTF &= 0xFDU;                 /* Initialize pin shadow variable bit */
-  /* ### Timer capture encapsulation "CMP1" init code ... */
-  CMP1_Init();
   /* ### TimerInt "ADQUIRIR" init code ... */
   ADQUIRIR_Init();
+  /* ### Timer capture encapsulation "CMP1" init code ... */
+  CMP1_Init();
   /* ### Timer capture encapsulation "CMP2" init code ... */
   CMP2_Init();
   /* ### Timer capture encapsulation "CMP3" init code ... */

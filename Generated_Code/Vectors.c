@@ -5,7 +5,7 @@
 **     Processor   : MC9S08QE128CLK
 **     Version     : Component 01.003, Driver 01.40, CPU db: 3.00.067
 **     Compiler    : CodeWarrior HCS08 C Compiler
-**     Date/Time   : 2014-05-26, 14:02, # CodeGen: 64
+**     Date/Time   : 2014-06-19, 14:04, # CodeGen: 80
 **     Abstract    :
 **         This component "MC9S08QE128_80" contains initialization 
 **         of the CPU and provides basic methods and events for 
@@ -29,8 +29,8 @@
 #include "ControlX.h"
 #include "ControlY.h"
 #include "ControlZ.h"
-#include "CMP1.h"
 #include "ADQUIRIR.h"
+#include "CMP1.h"
 #include "CMP2.h"
 #include "CMP3.h"
 
