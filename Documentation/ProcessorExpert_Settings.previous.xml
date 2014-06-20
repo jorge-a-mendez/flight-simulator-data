@@ -476,7 +476,7 @@ asm(BGND);
         <Interrupt_Error v="Vsci1err" />
         <Interrupt_Error_priority v="low priority" />
         <Input_buffer_size v="4" />
-        <Output_buffer_size v="1" />
+        <Output_buffer_size v="5" />
         <group name="Handshake">
           <boolgroup name="CTS" v="Disabled" />
           <boolgroup name="RTS" v="Disabled" />
@@ -890,58 +890,6 @@ autoselected pull
       <EmptySection_DummyValue />
     </Events>
   </Bean>
-  <Bean name="CMP1" type="Capture">
-    <Enabled v="Y" />
-    <Properties>
-      <Component_name v="CMP1" />
-      <Capture_device v="TPM11" />
-      <Counter v="TPM1" />
-      <Capture_input_pin v="PTB5_TPM1CH1_SS1" />
-      <Capture_input_signal v="" />
-      <Pull_resistor sel_value="no pull resistor">
-        
-autoselected pull
-
-        <EmptySection_DummyValue />
-      </Pull_resistor>
-      <Edge v="both edges" />
-      <boolgroup name="Interrupt service/event" v="Enabled">
-        <Capture_interrupt v="Vtpm1ch1" />
-        <Capture_priority v="medium priority" />
-        <boolgroup name="Overflow support" v="Disabled" />
-      </boolgroup>
-      <Maximum_time_of_event v="1 sec" />
-      <group name="Initialization">
-        <Enabled_in_init__code v="yes" />
-        <Events_enabled_in_init_ v="yes" />
-      </group>
-      <group name="CPU clock/speed selection">
-        <High_speed_mode v="This component enabled" />
-        <Low_speed_mode v="This component disabled" />
-        <Slow_speed_mode v="This component disabled" />
-      </group>
-    </Properties>
-    <Methods>
-      <Enable v="don&amp;apos;t generate code" />
-      <Disable v="don&amp;apos;t generate code" />
-      <EnableEvent v="don&amp;apos;t generate code" />
-      <DisableEvent v="don&amp;apos;t generate code" />
-      <Reset v="don&amp;apos;t generate code" />
-      <GetCaptureValue v="don&amp;apos;t generate code" />
-      <GetStatus v="don&amp;apos;t generate code" />
-      <GetPinValue v="generate code" />
-    </Methods>
-    <Events>
-      <Event_module_name v="Events" />
-      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
-      <event name="OnCapture" v="generate code">
-        <Event_procedure_name v="CMP1_OnCapture" />
-        <Priority v="same as interrupt" />
-      </event>
-      <event name="OnOverflow" v="don&amp;apos;t generate code" />
-    </Events>
-  </Bean>
   <Bean name="ADQUIRIR" type="TimerInt">
     <Enabled v="Y" />
     <Properties>
@@ -989,6 +937,58 @@ autoselected pull
         <Event_procedure_name v="ADQUIRIR_OnInterrupt" />
         <Priority v="same as interrupt" />
       </event>
+    </Events>
+  </Bean>
+  <Bean name="CMP3" type="Capture">
+    <Enabled v="Y" />
+    <Properties>
+      <Component_name v="CMP3" />
+      <Capture_device v="TPM11" />
+      <Counter v="TPM1" />
+      <Capture_input_pin v="PTB5_TPM1CH1_SS1" />
+      <Capture_input_signal v="" />
+      <Pull_resistor sel_value="no pull resistor">
+        
+autoselected pull
+
+        <EmptySection_DummyValue />
+      </Pull_resistor>
+      <Edge v="falling edge" />
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Capture_interrupt v="Vtpm1ch1" />
+        <Capture_priority v="medium priority" />
+        <boolgroup name="Overflow support" v="Disabled" />
+      </boolgroup>
+      <Maximum_time_of_event v="1 sec" />
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes" />
+        <Events_enabled_in_init_ v="yes" />
+      </group>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled" />
+        <Low_speed_mode v="This component disabled" />
+        <Slow_speed_mode v="This component disabled" />
+      </group>
+    </Properties>
+    <Methods>
+      <Enable v="don&amp;apos;t generate code" />
+      <Disable v="don&amp;apos;t generate code" />
+      <EnableEvent v="don&amp;apos;t generate code" />
+      <DisableEvent v="don&amp;apos;t generate code" />
+      <Reset v="don&amp;apos;t generate code" />
+      <GetCaptureValue v="don&amp;apos;t generate code" />
+      <GetStatus v="don&amp;apos;t generate code" />
+      <GetPinValue v="generate code" />
+    </Methods>
+    <Events>
+      <Event_module_name v="Events" />
+      <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
+      <event name="OnCapture" v="generate code">
+        <Event_procedure_name v="CMP3_OnCapture" />
+        <Priority v="same as interrupt" />
+      </event>
+      <event name="OnOverflow" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
   <Bean name="CMP2" type="Capture">
@@ -1043,10 +1043,10 @@ autoselected pull
       <event name="OnOverflow" v="don&amp;apos;t generate code" />
     </Events>
   </Bean>
-  <Bean name="CMP3" type="Capture">
+  <Bean name="CMP1" type="Capture">
     <Enabled v="Y" />
     <Properties>
-      <Component_name v="CMP3" />
+      <Component_name v="CMP1" />
       <Capture_device v="TPM22" />
       <Counter v="TPM2" />
       <Capture_input_pin v="PTA7_TPM2CH2_ADP9" />
@@ -1057,7 +1057,7 @@ autoselected pull
 
         <EmptySection_DummyValue />
       </Pull_resistor>
-      <Edge v="falling edge" />
+      <Edge v="both edges" />
       <boolgroup name="Interrupt service/event" v="Enabled">
         <Capture_interrupt v="Vtpm2ch2" />
         <Capture_priority v="medium priority" />
@@ -1089,7 +1089,7 @@ autoselected pull
       <event name="BeforeNewSpeed" v="don&amp;apos;t generate code" />
       <event name="AfterNewSpeed" v="don&amp;apos;t generate code" />
       <event name="OnCapture" v="generate code">
-        <Event_procedure_name v="CMP3_OnCapture" />
+        <Event_procedure_name v="CMP1_OnCapture" />
         <Priority v="same as interrupt" />
       </event>
       <event name="OnOverflow" v="don&amp;apos;t generate code" />

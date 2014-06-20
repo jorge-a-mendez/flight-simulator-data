@@ -122,16 +122,16 @@ Module "ControlZ"  (component BitIO)
    - ControlZ_SetVal -Sets (to one) the output value. It is equivalent to the [PutVal(TRUE)]. This method is available only if 
                 the direction = _[output]_ or _[input/output]_.
 
-Module "CMP1"      (component Capture)
-   - CMP1_GetPinValue -The method reads the Capture pin value. The method is available only if it is possible to read the pin 
-                value (usually not available for internal signals).
-
 Module "ADQUIRIR"  (component TimerInt)
    - ADQUIRIR_Enable -This method enables the component - it starts the timer. Events may be generated 
                 (<DisableEvent>/<EnableEvent>).
    - ADQUIRIR_Disable -This method disables the component - it stops the timer. No events will be generated.
    - ADQUIRIR_EnableEvent -This method enables the events.
    - ADQUIRIR_DisableEvent -This method disables the events.
+
+Module "CMP1"      (component Capture)
+   - CMP1_GetPinValue -The method reads the Capture pin value. The method is available only if it is possible to read the pin 
+                value (usually not available for internal signals).
 
 Module "CMP2"      (component Capture)
    - CMP2_GetCaptureValue -This method gets the last value captured by enabled timer (see implementation note in <General Info>)

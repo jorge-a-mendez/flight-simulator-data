@@ -23,7 +23,7 @@
 #define 	CH_Z			2u
 
 #define 	RESOLUTION		8			//< Resolution for the measurement.
-#define 	TOTAL			17//25//75			//< Number of samples needed to take 3 cycles of a 60Hz signal.
+#define 	TOTAL			33			//< Number of samples needed to take 9 cycles of a 60Hz signal.
 
 #define 	__Enter_Critical		asm {\
 										SEI\
@@ -128,37 +128,30 @@ void read_SCube(){
 	
 		ControlX_SetDir(OUTPUT);		//< Output.
 		ControlX_ClrVal();				//< Discharge the plate
-		for (j = 0; j < 50; j++);		//< Delay
+		for (j = 0; j < 70; j++);		//< Delay
 		ControlX_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlX_GetVal())
 			buf.count[CH_X] = buf.count[CH_X]+1;				//< Add time to the count
-	asm{
-		CLI			//< Enable interrupts
-	}
-
-	asm{
-		SEI			//< Disable interrupts
-	}	
+		//ControlX_SetDir(OUTPUT);		//< Output.
+		//ControlX_ClrVal();				//< Discharge the plate
+	
 		ControlY_SetDir(OUTPUT);		//< Output.
 		ControlY_ClrVal();				//< Discharge the plate
-		for (j = 0; j < 50; j++);		//< Delay
+		for (j = 0; j < 70; j++);		//< Delay
 		ControlY_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlY_GetVal())
 			buf.count[CH_Y] = buf.count[CH_Y] + 1;				//< Add time to the count
-	asm{
-		CLI			//< Enable interrupts
-	}
-
+		//ControlY_SetDir(OUTPUT);		//< Output.
+		//ControlY_ClrVal();				//< Discharge the plate
 	
-	asm{
-		SEI			//< Disable interrupts
-	}	
 		ControlZ_SetDir(OUTPUT);		//< Output.
 		ControlZ_ClrVal();				//< Discharge the plate
-		for (j = 0; j < 50; j++);		//< Delay
+		for (j = 0; j < 70; j++);		//< Delay
 		ControlZ_SetDir(INPUT);			//< Set the pin to an input
 		while (!ControlZ_GetVal())
 			buf.count[CH_Z] = buf.count[CH_Z] + 1;				//< Add time to the count
+		//ControlZ_SetDir(OUTPUT);		//< Output.
+		//ControlZ_ClrVal();				//< Discharge the plate
 	asm{
 		CLI			//< Enable interrupts
 	}
@@ -187,7 +180,7 @@ void send_SCube(){
 	
 	// Send the data of every plate.
 	
-	for(i = 1; i <= 1; i++){ 
+	for(i = 0; i < 3; i++){ 
 		t.t[0] = i + 1;
 		period.period = (buf.count[i] << RESOLUTION) / buf.total;
 		if(period.byte[0] != 0xFF) 

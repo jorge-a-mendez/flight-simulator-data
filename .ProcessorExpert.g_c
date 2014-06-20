@@ -33,7 +33,7 @@
         <Line>Project_Settings\Linker_Files\ProcessorExpert.prm</Line>
         <Line>Generated_Code\Vectors.c</Line>
       </GenExtraFiles>
-      <XtraAge1>1153069129</XtraAge1>
+      <XtraAge1>1154707612</XtraAge1>
       <GenExtraFileType1>4</GenExtraFileType1>
       <GenExtraFileType0>4</GenExtraFileType0>
       <GenEventModules lines_count="1">
@@ -42,8 +42,8 @@
       <GenMethodsInEvents lines_count="11">
         <Line>CMP3_OnCapture</Line>
         <Line>CMP2_OnCapture</Line>
-        <Line>ADQUIRIR_OnInterrupt</Line>
         <Line>CMP1_OnCapture</Line>
+        <Line>ADQUIRIR_OnInterrupt</Line>
         <Line>ADC_ANALOG_OnEnd</Line>
         <Line>HEARTBIT_OnInterrupt</Line>
         <Line>AS1_OnError</Line>
@@ -82,15 +82,15 @@
         <Line>ControlX</Line>
         <Line>ControlY</Line>
         <Line>ControlZ</Line>
-        <Line>CMP1</Line>
         <Line>ADQUIRIR</Line>
+        <Line>CMP1</Line>
         <Line>CMP2</Line>
         <Line>CMP3</Line>
       </GenBeanModules>
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>59</ProjectModificationStamp>
+    <ProjectModificationStamp>60</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
@@ -99,7 +99,7 @@
     <GenDriverVersion>01.40</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
     <HeaderAge>1153067836</HeaderAge>
-    <CodeAge>1153070630</CodeAge>
+    <CodeAge>1154707612</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>20</GenNumMethods>
     <Delay100US>true</Delay100US>
@@ -1171,85 +1171,6 @@
     </MethodPos>
     <GenExtraFilesCount>0</GenExtraFilesCount>
   </ComponentID_84>
-  <ComponentID_86>
-    <Generated>true</Generated>
-    <GenCompName>CMP1</GenCompName>
-    <GenComponentVersion>02.216</GenComponentVersion>
-    <GenDriverVersion>01.30</GenDriverVersion>
-    <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1153070630</HeaderAge>
-    <CodeAge>1153070630</CodeAge>
-    <AsemblAge>-1</AsemblAge>
-    <GenNumMethods>8</GenNumMethods>
-    <GetPinValue>true</GetPinValue>
-    <GetStatus>false</GetStatus>
-    <GetCaptureValue>false</GetCaptureValue>
-    <Reset>false</Reset>
-    <DisableEvent>false</DisableEvent>
-    <EnableEvent>false</EnableEvent>
-    <Disable>false</Disable>
-    <Enable>false</Enable>
-    <GenNumEvents>4</GenNumEvents>
-    <BeforeNewSpeed_Selected>0</BeforeNewSpeed_Selected>
-    <BeforeNewSpeed_Name>CMP1_BeforeNewSpeed</BeforeNewSpeed_Name>
-    <BeforeNewSpeed_Priority>interrupts disabled</BeforeNewSpeed_Priority>
-    <AfterNewSpeed_Selected>0</AfterNewSpeed_Selected>
-    <AfterNewSpeed_Name>CMP1_AfterNewSpeed</AfterNewSpeed_Name>
-    <AfterNewSpeed_Priority>interrupts disabled</AfterNewSpeed_Priority>
-    <OnCapture_Selected>3</OnCapture_Selected>
-    <OnCapture_Name>CMP1_OnCapture</OnCapture_Name>
-    <OnCapture_Priority>same as interrupt</OnCapture_Priority>
-    <OnOverflow_Selected>1</OnOverflow_Selected>
-    <OnOverflow_Name>CMP1_OnOverflow</OnOverflow_Name>
-    <OnOverflow_Priority>same as interrupt</OnOverflow_Priority>
-    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
-    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
-    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
-    <GenMethodPos>6</GenMethodPos>
-    <MethodPos>
-      <MethodPos0>GetPinValue</MethodPos0>
-      <MethodType>method</MethodType>
-      <ModuleType>Header</ModuleType>
-      <LineBeg>96</LineBeg>
-      <LineEnd>112</LineEnd>
-    </MethodPos>
-    <MethodPos>
-      <MethodPos1>Init</MethodPos1>
-      <MethodType>internal_method</MethodType>
-      <ModuleType>Header</ModuleType>
-      <LineBeg>113</LineBeg>
-      <LineEnd>125</LineEnd>
-    </MethodPos>
-    <MethodPos>
-      <MethodPos2>Interrupt</MethodPos2>
-      <MethodType>internal_method</MethodType>
-      <ModuleType>Header</ModuleType>
-      <LineBeg>126</LineBeg>
-      <LineEnd>137</LineEnd>
-    </MethodPos>
-    <MethodPos>
-      <MethodPos3>GetPinValue</MethodPos3>
-      <MethodType>method</MethodType>
-      <ModuleType>Code</ModuleType>
-      <LineBeg>76</LineBeg>
-      <LineEnd>96</LineEnd>
-    </MethodPos>
-    <MethodPos>
-      <MethodPos4>Init</MethodPos4>
-      <MethodType>internal_method</MethodType>
-      <ModuleType>Code</ModuleType>
-      <LineBeg>97</LineBeg>
-      <LineEnd>123</LineEnd>
-    </MethodPos>
-    <MethodPos>
-      <MethodPos5>Interrupt</MethodPos5>
-      <MethodType>internal_method</MethodType>
-      <ModuleType>Code</ModuleType>
-      <LineBeg>124</LineBeg>
-      <LineEnd>143</LineEnd>
-    </MethodPos>
-    <GenExtraFilesCount>0</GenExtraFilesCount>
-  </ComponentID_86>
   <ComponentID_90>
     <Generated>true</Generated>
     <GenCompName>ADQUIRIR</GenCompName>
@@ -1388,6 +1309,85 @@
     </MethodPos>
     <GenExtraFilesCount>0</GenExtraFilesCount>
   </ComponentID_90>
+  <ComponentID_86>
+    <Generated>true</Generated>
+    <GenCompName>CMP1</GenCompName>
+    <GenComponentVersion>02.216</GenComponentVersion>
+    <GenDriverVersion>01.30</GenDriverVersion>
+    <GenEventModule>Events</GenEventModule>
+    <HeaderAge>1154707611</HeaderAge>
+    <CodeAge>1154707611</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>8</GenNumMethods>
+    <GetPinValue>true</GetPinValue>
+    <GetStatus>false</GetStatus>
+    <GetCaptureValue>false</GetCaptureValue>
+    <Reset>false</Reset>
+    <DisableEvent>false</DisableEvent>
+    <EnableEvent>false</EnableEvent>
+    <Disable>false</Disable>
+    <Enable>false</Enable>
+    <GenNumEvents>4</GenNumEvents>
+    <BeforeNewSpeed_Selected>0</BeforeNewSpeed_Selected>
+    <BeforeNewSpeed_Name>CMP1_BeforeNewSpeed</BeforeNewSpeed_Name>
+    <BeforeNewSpeed_Priority>interrupts disabled</BeforeNewSpeed_Priority>
+    <AfterNewSpeed_Selected>0</AfterNewSpeed_Selected>
+    <AfterNewSpeed_Name>CMP1_AfterNewSpeed</AfterNewSpeed_Name>
+    <AfterNewSpeed_Priority>interrupts disabled</AfterNewSpeed_Priority>
+    <OnCapture_Selected>3</OnCapture_Selected>
+    <OnCapture_Name>CMP1_OnCapture</OnCapture_Name>
+    <OnCapture_Priority>same as interrupt</OnCapture_Priority>
+    <OnOverflow_Selected>1</OnOverflow_Selected>
+    <OnOverflow_Name>CMP1_OnOverflow</OnOverflow_Name>
+    <OnOverflow_Priority>same as interrupt</OnOverflow_Priority>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>6</GenMethodPos>
+    <MethodPos>
+      <MethodPos0>GetPinValue</MethodPos0>
+      <MethodType>method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>96</LineBeg>
+      <LineEnd>112</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos1>Init</MethodPos1>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>113</LineBeg>
+      <LineEnd>125</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos2>Interrupt</MethodPos2>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Header</ModuleType>
+      <LineBeg>126</LineBeg>
+      <LineEnd>137</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos3>GetPinValue</MethodPos3>
+      <MethodType>method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>76</LineBeg>
+      <LineEnd>96</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos4>Init</MethodPos4>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>97</LineBeg>
+      <LineEnd>123</LineEnd>
+    </MethodPos>
+    <MethodPos>
+      <MethodPos5>Interrupt</MethodPos5>
+      <MethodType>internal_method</MethodType>
+      <ModuleType>Code</ModuleType>
+      <LineBeg>124</LineBeg>
+      <LineEnd>143</LineEnd>
+    </MethodPos>
+    <GenExtraFilesCount>0</GenExtraFilesCount>
+  </ComponentID_86>
   <ComponentID_91>
     <Generated>true</Generated>
     <GenCompName>CMP2</GenCompName>
@@ -1487,8 +1487,8 @@
     <GenComponentVersion>02.216</GenComponentVersion>
     <GenDriverVersion>01.30</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1153070630</HeaderAge>
-    <CodeAge>1153070630</CodeAge>
+    <HeaderAge>1154707612</HeaderAge>
+    <CodeAge>1154707612</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>8</GenNumMethods>
     <GetPinValue>true</GetPinValue>
@@ -1625,22 +1625,22 @@
     <SrcFile61>Drivers\Common\PE_TypesAbstract.inc=1091418912</SrcFile61>
     <SrcFile62>Drivers\HCS08\PE_Types.drv=1091418920</SrcFile62>
     <SrcFile63>Drivers\Common\CaptureGetCaptureValue.inc=1091418907</SrcFile63>
-    <SrcFile64>Drivers\Common\TimerIntDisableEvent.inc=1091418906</SrcFile64>
-    <SrcFile65>Drivers\Common\TimerIntEnableEvent.inc=1091418913</SrcFile65>
-    <SrcFile66>Drivers\Common\TimerIntDisable.inc=1091418912</SrcFile66>
-    <SrcFile67>Drivers\Common\TimerIntEnable.inc=1091418913</SrcFile67>
-    <SrcFile68>Drivers\Common\InitReg8Enable.prg=1091418912</SrcFile68>
-    <SrcFile69>Drivers\HCS08\InitPin.prg=1091418919</SrcFile69>
-    <SrcFile70>Drivers\Common\GenReg16BitsInitInfo.prg=1099114021</SrcFile70>
-    <SrcFile71>Drivers\Common\SetReg16.prg=1095613925</SrcFile71>
-    <SrcFile72>Drivers\Common\SetReg16_Rst.prg=1091418912</SrcFile72>
-    <SrcFile73>Drivers\Common\CaptureOnCapture.inc=1091418913</SrcFile73>
-    <SrcFile74>Drivers\Common\CaptureGetPinValue.inc=1091418907</SrcFile74>
-    <SrcFile75>Drivers\Common\UsedExtPin.inc=1091418914</SrcFile75>
-    <SrcFile76>Drivers\Common\CaptureSettings.inc=1091418913</SrcFile76>
-    <SrcFile77>Drivers\Common\CaptureAbstract.inc=1091418913</SrcFile77>
-    <SrcFile78>Drivers\HCS08\Capture.drv=1095613925</SrcFile78>
-    <SrcFile79>Drivers\Capture.src=1099114021</SrcFile79>
+    <SrcFile64>Drivers\Common\InitReg8Enable.prg=1091418912</SrcFile64>
+    <SrcFile65>Drivers\HCS08\InitPin.prg=1091418919</SrcFile65>
+    <SrcFile66>Drivers\Common\GenReg16BitsInitInfo.prg=1099114021</SrcFile66>
+    <SrcFile67>Drivers\Common\SetReg16.prg=1095613925</SrcFile67>
+    <SrcFile68>Drivers\Common\SetReg16_Rst.prg=1091418912</SrcFile68>
+    <SrcFile69>Drivers\Common\CaptureOnCapture.inc=1091418913</SrcFile69>
+    <SrcFile70>Drivers\Common\CaptureGetPinValue.inc=1091418907</SrcFile70>
+    <SrcFile71>Drivers\Common\UsedExtPin.inc=1091418914</SrcFile71>
+    <SrcFile72>Drivers\Common\CaptureSettings.inc=1091418913</SrcFile72>
+    <SrcFile73>Drivers\Common\CaptureAbstract.inc=1091418913</SrcFile73>
+    <SrcFile74>Drivers\HCS08\Capture.drv=1095613925</SrcFile74>
+    <SrcFile75>Drivers\Capture.src=1099114021</SrcFile75>
+    <SrcFile76>Drivers\Common\TimerIntDisableEvent.inc=1091418906</SrcFile76>
+    <SrcFile77>Drivers\Common\TimerIntEnableEvent.inc=1091418913</SrcFile77>
+    <SrcFile78>Drivers\Common\TimerIntDisable.inc=1091418912</SrcFile78>
+    <SrcFile79>Drivers\Common\TimerIntEnable.inc=1091418913</SrcFile79>
     <SrcFile80>Drivers\Common\ADCOnEnd.inc=1091418908</SrcFile80>
     <SrcFile81>Drivers\Common\ADCGetChanValue.inc=1091418908</SrcFile81>
     <SrcFile82>Drivers\Common\ADCGetValue.inc=1091418908</SrcFile82>
