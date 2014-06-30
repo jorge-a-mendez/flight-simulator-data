@@ -106,14 +106,14 @@ bool Scube_data_lista() {
 
 
 /* ########################################################################################
- * 		Function: get_shot. Check the intensity of the shot.
+ * 		Function: read_SCube. Measure the RC values from the capacitive sensors
  * 		Parameters:
  * 			
  * 		Return:
  * 		
  * 		Description: 	Measures the charge time of each RC circuit formed by the plates.
- * 					 	This is done 17 times, in order to have an average of 2 cycles of
- * 					 	a 60Hz signal. Once the 17 times are done, datalistac is set to
+ * 					 	This is done 33 times, in order to have an average of 4 cycles of
+ * 					 	a 60Hz signal. Once the 33 times are done, datalistac is set to
  * 					 	true.
  * 						
  * ######################################################################################## */

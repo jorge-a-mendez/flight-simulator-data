@@ -1,8 +1,14 @@
-/*
+/* ###################################################################################
  * Piezo.c
- *
- *  Created on: Mar 3, 2014
- *      Author: Rafael Rodriguez
+ * 		
+ * 		This module contains the functions needed to measure the "shots fired"
+ * 		using a piezoelectric sensor. It includes some
+ * 		processing functions and transmission functions to simplify the
+ * 		communication with the computer.
+ * 		
+ *      Author: Rafael Rodriguez (rafaelrs307@gmail.com)
+ *      		Jorge Mendez (jorgeamendezm@gmail.com)
+ * ###################################################################################
  */
 
 #include "Piezo/Piezo.h"

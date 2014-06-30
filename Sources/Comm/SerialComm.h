@@ -2,8 +2,8 @@
  * 	SerialComm.h
  *	Modulo del protocolo de comunicacion con PC a traves de RS232
  *  Created on: Feb 28, 2014
- *      Author: Rafael Rodriguez
- *      		Jorge Mendez
+ *      Authors: Rafael Rodriguez (rafaelrs307@gmail.com)
+ *				 Jorge Mendez (jorgeamendezm@gmail.com)
  * #############################################################################
  */
 

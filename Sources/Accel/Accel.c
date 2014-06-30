@@ -6,8 +6,8 @@
  * 		processing functions and transmission functions to simplify the
  * 		communication with the computer.
  * 		
- *      Author: Rafael Rodriguez
- *      		Jorge Mendez
+ *      Author: Rafael Rodriguez (rafaelrs307@gmail.com)
+ *      		Jorge Mendez (jorgeamendezm@gmail.com)
  * ###################################################################################
  */
 
@@ -15,7 +15,7 @@
 #include "Comm/SerialComm.h"
 #include "Events.h"
 
-#define 	ACCEL_BUFSIZE	64
+#define 	ACCEL_BUFSIZE	64u
 #define 	ANGLE_XZ		0u		//< Data Identifiers needed for the communication.
 #define 	ANGLE_YZ		1u
 #define 	CH_X			0u
@@ -65,6 +65,15 @@ void __send_avgs();
 
 // #####################################################################################
 
+
+/* ########################################################################################
+ * 		Function: init_acel. Initialize accelerator values.
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			
+ * ######################################################################################## */
+
 void init_accel(){
 	buffer.last = 0;
 	buffer.datos = 0;
@@ -72,9 +81,34 @@ void init_accel(){
 	datalistaaccel = false;
 }
 
+
+/* ########################################################################################
+ * 		Function: accel_data_lista. Verify if the measurements are complete
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 			bool datalistac. 
+ * 				- true: measurements complete.
+ * 				- false: measurements incomplete.
+ * ######################################################################################## */
+
 bool accel_data_lista() {
 	return datalistaaccel;
 }
+
+
+/* ########################################################################################
+ * 		Function: read_accel. Measure the values obtained directly from the accelerator
+ * 		Parameters:
+ * 			
+ * 		Return:
+ * 		
+ * 		Description: 	Measures the value from the ADC to which each axis from the
+ * 						accelerator is conected. This is done 64 times, each of which
+ * 						the average is updated. Once the 64 readings are done, datalista
+ * 						datalistaaccel is set to true.
+ * 						
+ * ######################################################################################## */
 
 void read_accel(){
 	
@@ -105,6 +139,19 @@ void read_accel(){
 		buffer.datos = 0;
 	}
 }
+
+
+/* ########################################################################################
+ * 		Function: send_SCube. Queues the last values of the pitch and roll angles squared
+ * 				  arctangent function.
+ * 		Parameters: 
+ * 			
+ * 		Return:
+ * 		
+ * 		Description: 	Both squared arctangents are calculated, and then queued to 
+ * 						be sent via serial.
+ * 			
+ * ######################################################################################## */
 
 void send_angles(){
 	if (!datalistaaccel) return;
