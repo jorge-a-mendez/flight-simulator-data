@@ -85,13 +85,20 @@ void state_machine(){			//< State machine for the data acquisition and processin
 	}
 }
 
+
+// ##################################################################################
+
+//		Private functions implementation.
+
+// ##################################################################################
+
+
 void __acquire(){									//< Initialise the acquisition process of the ADC
 	int8u error;
 	if(estado == ADQUIRIR){
 		error = ADC_ANALOG_Measure(FALSE);			
 		estado = ESPERAR;							//< Change the state of the machine: WAIT
 	}
-	//read_SCube();
 }
 
 void __send_info(){									//< It sends any data that's ready to be sent to the PC.

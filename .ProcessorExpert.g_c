@@ -90,7 +90,7 @@
     </GenFiles>
     <SignalListFile>Documentation\ProcessorExpert_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>60</ProjectModificationStamp>
+    <ProjectModificationStamp>61</ProjectModificationStamp>
   </Options>
   <CpuID_4>
     <Generated>true</Generated>
